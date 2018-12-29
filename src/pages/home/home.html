@@ -1,17 +1,29 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding id="page2" style="background: rgb(229, 235, 235)">
+  <ion-list id="home-list1">
+    <ion-item-divider color="light" id="home-list-item-divider1" style="text-align: right" >
+      <ion-icon item-start>{{qtdAvOpned}}</ion-icon>
+      <h1>Avaliações Abertas</h1>
+    </ion-item-divider>
+    <ion-list id="listOpned">
+      <ion-item color="none" id="home-list-item9" *ngFor="let item of avaliacoesAbertas" >
+          <div>Id: {{item.codigo}}</div>
+          <div>Periodo: {{item.dataInicio}} a {{item.dataTermino}}</div>
+          <div></div>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+  <div class="spacer" style="height:70px;" id="home-spacer1"></div>
+  <ion-list id="home-list8" (click)="goTo('EvaluationPage')" style="padding-top: 40%">
+    <ion-item-divider color="light" id="home-list-item-divider3" style="text-align: right">
+      <ion-icon item-start>{{qtdAvSchedule}}</ion-icon>
+      <h1>Avaliações Agendadas</h1>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-</ion-content>
+    </ion-item-divider>
+    <ion-list id="home-list7" >
+      <ion-item color="none" id="home-list-item10" *ngFor="let item2 of avaliacoesAgendadas" >
+        <div>Id: {{item2.codigo}}</div>
+        <div>Periodo: {{item2.dataInicio}} a {{item2.dataTermino}}</div>
+        <div></div>
+      </ion-item>
+    </ion-list>
+  </ion-list>
