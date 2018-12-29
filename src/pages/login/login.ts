@@ -1,3 +1,4 @@
+import { TabsPage } from './../tabs/tabs';
 import { HomePage } from './../home/home';
 import { NavController, IonicPage } from 'ionic-angular';
 import { Component} from '@angular/core';
@@ -30,7 +31,7 @@ export class LoginPage {
 
     //this.pd.setUserLogged(this.user);
     console.log(`Usuario `+ this.user.name +`\nSenha ` +this.user.pass);
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(TabsPage);
   }
   ionViewDidLoad(){  
     /*if(this.isLogged()){

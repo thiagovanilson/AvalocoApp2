@@ -4,26 +4,23 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
   Informations used here https://ionicframework.com/docs/theming/css-utilities/
+  style="position: fixed; bottom: 0;   left:7px; width: 100% ; background-color: rgb(229, 235, 235)" 
 -->
-<ion-header>
 
- 
-</ion-header>
 
 <body>
-  <div style="display:block;width: 50px;margin-left:auto;margin-right:0px;">
-    <button ion-button style=" display:block; top: 200; right: 50;" (click)="logout()">
-      <ion-icon name="exit"></ion-icon>
-    </button>
-  </div>
   <ion-content padding>
+    <div style="position: fixed; right: 0px;top:5px; ">
+      <button ion-button (click)="logout()" style="right: 30px;">
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </div>
+    
     <img src="assets/imgs/persona.png" style="display:block;width:30%;margin-left:auto;margin-right:auto;">
     <br />
     <div text-center ><h2>{{getUser()}}</h2></div>
 
-    <hr style="border-width: 2px;">
-
-    
+    <hr style="border-width: 2px;">    
     
     <div style="padding-left: 15%; padding-right: 15%; ">
       <h3 text-center>Alterar senha</h3>

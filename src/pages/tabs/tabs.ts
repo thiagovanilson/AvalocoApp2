@@ -1,3 +1,4 @@
+import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 
 import { AboutPage } from '../about/about';
@@ -16,7 +17,10 @@ export class TabsPage {
   tab4Root = ContactPage;
   tab5Root = UserPage;
 
-  constructor() {
+  constructor( public navCtrl: NavController) {
 
+  }
+  goToUser(){
+    this.navCtrl.push(UserPage);
   }
 }

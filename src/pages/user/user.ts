@@ -1,6 +1,6 @@
+import { TabsPage } from './../tabs/tabs';
 import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
 import { Component   } from '@angular/core';
-import { HomePage    } from '../home/home';
 import { LoginPage   } from '../login/login';
 
 /**
@@ -38,7 +38,7 @@ export class UserPage {
       buttons: ['Ok']
     });
     alert.present();
-    this.navCtrl.push(HomePage)
+    this.navCtrl.push(TabsPage);
   }
   ionViewDidLoad() {
     //console.log('ionViewDidLoad UserPage');
