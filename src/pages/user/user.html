@@ -11,7 +11,7 @@
 <body>
   <ion-content padding>
     <div style="position: fixed; right: 0px;top:5px; ">
-      <button ion-button (click)="logout()" style="right: 30px;">
+      <button ion-button color="{{getColor()}}" (click)="logout()" style="right: 30px;">
         <ion-icon name="exit"></ion-icon>
       </button>
     </div>
@@ -53,7 +53,7 @@
         <ion-row >
           <ion-col ></ion-col>
           <ion-col >
-            <button  ion-button (click)="goToHome()" >Salvar</button>              
+            <button  ion-button color="{{getColor()}}" (click)="goToHome()" >Salvar</button>              
           </ion-col>
           <ion-col ></ion-col>
 

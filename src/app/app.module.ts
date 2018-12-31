@@ -1,23 +1,27 @@
-import { HomePage } from './../pages/home/home';
-import { LoginModule } from './../pages/login/login.module';
-import { UserPageModule } from './../pages/user/user.module';
-import { LoginPage } from './../pages/login/login';
-import { UserPage } from './../pages/user/user';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import { EvaluationMenuPageModule } from './../pages/evaluation-menu/evaluation-menu.module';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { HomePage               } from './../pages/home/home';
+import { LoginModule            } from './../pages/login/login.module';
+import { UserPageModule         } from './../pages/user/user.module';
+import { LoginPage              } from './../pages/login/login';
+import { UserPage               } from './../pages/user/user';
+import { BrowserModule          } from '@angular/platform-browser';
+import { MyApp                  } from './app.component';
+import { EvaluationMenuPage     } from '../pages/evaluation-menu/evaluation-menu';
+import { EvaluationPageModule   } from '../pages/evaluation/evaluation.module';
 
-import { AboutPage } from '../pages/about/about';
+import { AboutPage   } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage    } from '../pages/tabs/tabs';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { AvalicaoService } from '../domain/avaliacao.service';
-import { UserService } from '../domain/user.service';
+import { StatusBar        } from '@ionic-native/status-bar';
+import { SplashScreen     } from '@ionic-native/splash-screen';
+import { AvalicaoService  } from '../domain/avaliacao.service';
+import { UserService      } from '../domain/user.service';
 import { HttpClientModule } from '@angular/common/http';
-import { UserDTO } from '../model/user.dto';
+import { UserDTO          } from '../model/user.dto';
+import { EvaluationPage   } from '../pages/evaluation/evaluation';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { UserDTO } from '../model/user.dto';
     HttpClientModule,
     UserPageModule,
     LoginModule,
+    EvaluationPageModule,
+    EvaluationMenuPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,6 +51,8 @@ import { UserDTO } from '../model/user.dto';
     //Vanilson
     UserPage,
     LoginPage,
+    EvaluationPage,
+    EvaluationMenuPage
   ],
   providers: [
     StatusBar,

@@ -2,6 +2,7 @@ import { TabsPage } from './../tabs/tabs';
 import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
 import { Component   } from '@angular/core';
 import { LoginPage   } from '../login/login';
+import { API_CONFIG } from '../../config/api.config';
 
 /**
  * Generated class for the UserPage page.
@@ -27,7 +28,9 @@ export class UserPage {
     return "Vanilson";
   }
   
-
+  getColor(){
+    return API_CONFIG.buttonColor;
+  }
   public logout(){
     this.navCtrl.push(LoginPage);
   }

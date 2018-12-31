@@ -8,8 +8,7 @@ import { UserPage        } from './user';
     UserPage, 
   ],
   imports: [
-    IonicPageModule.forChild(UserPage),
-    
+    IonicPageModule.forChild(UserPage),    
   ],
 })
 
