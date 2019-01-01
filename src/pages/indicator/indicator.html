@@ -1,0 +1,35 @@
+<!--
+  Generated template for the IndicatorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+  <ion-navbar padding style="height: 40px">
+  </ion-navbar>
+-->
+<ion-header padding (click)="navCtrl.pop()" style="height: 40px">
+  <h5 >
+    <ion-icon name="arrow-dropleft"></ion-icon>
+    &nbsp; Tecnologo ADS 10/10/18
+  </h5>
+</ion-header>
+
+
+<ion-content padding>
+  <br />
+  <div >
+    <button no-padding text-capitalize ion-button clear style="border: 1px solid #000;" ><b>A visitar  </b></button>
+    <button no-padding text-capitalize ion-button clear style="border: 1px solid #000;" ><b>A verificar</b></button>
+    <button no-padding text-capitalize ion-button clear style="border: 1px solid #000;" ><b>Verificado </b></button>    
+  </div>
+
+  <ion-list id="listOpned">
+      <ion-item color="none" id="home-list-item9"  >
+          <div>1.1 Instalações administatrivas</div>
+          <div ><ion-icon name="camera" (click)="navCtrl.pop()">&nbsp;foto</ion-icon></div>
+      </ion-item>
+      <ion-item color="none" id="home-list-item9"  >
+          <div>1.2 salas de aula</div>
+          <div ><ion-icon name="camera" (click)="navCtrl.pop()">&nbsp;foto</ion-icon></div>
+      </ion-item>
+    </ion-list>
+</ion-content>

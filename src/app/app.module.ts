@@ -22,6 +22,8 @@ import { UserService      } from '../domain/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDTO          } from '../model/user.dto';
 import { EvaluationPage   } from '../pages/evaluation/evaluation';
+import { IndicatorPage } from '../pages/indicator/indicator';
+import { IndicatorPageModule } from '../pages/indicator/indicator.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { EvaluationPage   } from '../pages/evaluation/evaluation';
     UserPageModule,
     LoginModule,
     EvaluationPageModule,
-    EvaluationMenuPageModule
+    EvaluationMenuPageModule,
+    IndicatorPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,6 +55,7 @@ import { EvaluationPage   } from '../pages/evaluation/evaluation';
     UserPage,
     LoginPage,
     EvaluationPage,
+    IndicatorPage,
     EvaluationMenuPage
   ],
   providers: [

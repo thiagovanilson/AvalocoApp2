@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule, Menu } from 'ionic-angular';
-import { ChecklistPage } from './checklist';
+import { NgModule       } from '@angular/core';
+import { IonicPageModule} from 'ionic-angular';
+import { ChecklistPage  } from './checklist'  ;
 @NgModule({
   declarations: [
     ChecklistPage,    

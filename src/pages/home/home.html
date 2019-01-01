@@ -10,10 +10,16 @@
           <div>Periodo: {{item.dataInicio}} a {{item.dataTermino}}</div>
           <div></div>
       </ion-item>
+      <ion-item color="none" id="home-list-item9"  (click)="goTo('EvaluationMenuPage')">
+          <div>Tecnologo ADS</div>
+          <div>Id: 01</div>
+          <div>Periodo: 12/12/19 a 12/12/19</div>
+          <div></div>
+      </ion-item>
     </ion-list>
   </ion-list>
   <div class="spacer" style="height:70px;" id="home-spacer1"></div>
-  <ion-list id="home-list8" (click)="goTo('EvaluationPage')" style="padding-top: 40%">
+  <ion-list id="home-list8" style="padding-top: 40%">
     <ion-item-divider color="light" id="home-list-item-divider3" style="text-align: right">
       <ion-icon item-start>{{qtdAvSchedule}}</ion-icon>
       <h1>Avaliações Agendadas</h1>
