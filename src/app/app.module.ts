@@ -42,7 +42,7 @@ import { IndicatorPageModule } from '../pages/indicator/indicator.module';
     LoginModule,
     EvaluationPageModule,
     EvaluationMenuPageModule,
-    IndicatorPageModule
+    IndicatorPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

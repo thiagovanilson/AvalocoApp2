@@ -1,3 +1,6 @@
+import { HomePage } from './../home/home';
+import { MyApp } from './../../app/app.component';
+import { TabsPage } from './../tabs/tabs';
 import { ChecklistPage } from './../checklist/checklist';
 import { Component     } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -14,13 +17,12 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   selector: 'page-evaluation-menu',
   templateUrl: 'evaluation-menu.html',
 })
-export class EvaluationMenuPage {
-  
+export class EvaluationMenuPage {  
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl  : NavController, 
     public navParams: NavParams, 
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, ) {
   }
   ShowText (text: string){
     const alert = this.alertCtrl.create({
@@ -30,6 +32,13 @@ export class EvaluationMenuPage {
     });
     alert.present();
 
+  }
+  goback(){
+    if(this.navCtrl.length() > 1){
+      this.navCtrl.popTo(TabsPage);
+    }else{
+      this.navCtrl.push(TabsPage);
+    }
   }
   goToChecklist(){
     this.navCtrl.push('ChecklistPage');

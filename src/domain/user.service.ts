@@ -5,7 +5,7 @@ export class UserService{
   
     constructor(){
 
-}
+    }
     static getUserLogged() : string {
         return "Vanilson"
     }

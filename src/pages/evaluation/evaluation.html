@@ -7,8 +7,7 @@
 
 <ion-header padding style="height: 40px" >
   <h5 >
-    <ion-icon name="arrow-dropleft"></ion-icon>
-    &nbsp; Tecnologo ADS 10/10/18
+    &nbsp; {{title}}
   </h5>
 </ion-header>
 
@@ -42,7 +41,7 @@
       
     </ion-card>
 
-    <ion-card ion-button clear (click)="goToEvaluation()"
+    <ion-card ion-button clear [hidden]="isOpened()" (click)="goToEvaluation()"
     style="height: 90px;  width: 100%; margin-left: 0; ">
     
       <ion-card-content style="text-transform: capitalize 	" >

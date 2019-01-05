@@ -3,45 +3,59 @@
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
-  <ion-navbar padding style="height: 40px">
   </ion-navbar>
 -->
-<ion-header padding (click)="navCtrl.pop()" style="height: 40px">
-  <h5 >
-    <ion-icon name="arrow-dropleft"></ion-icon>
+<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
+  <h5 style="margin-top: 0px">
     &nbsp; Tecnologo ADS 10/10/18
+    <div style="font-size: 12pt">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+      Indicadores
+    </div>
   </h5>
 </ion-header>
 
-
-<ion-content padding >
+<ion-content padding>
   <br />
-  
-  <ion-list radio-group  style="height:22px;">
-    <button (click)="changeButton(0)" [style.backgroundColor]="btGetColor(0)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px" ><b>A visitar  </b></button>
-    <button (click)="changeButton(1)" [style.backgroundColor]="btGetColor(1)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px" ><b>A verificar</b></button>
-    <button (click)="changeButton(2)" [style.backgroundColor]="btGetColor(2)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px" ><b>Verificado </b></button>    
+
+  <ion-list radio-group style="height:22px;">
+    <button (click)="changeButton(0)" [style.backgroundColor]="btGetColor(0)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px"><b>A
+        visitar </b></button>
+    <button (click)="changeButton(1)" [style.backgroundColor]="btGetColor(1)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px"><b>A
+        verificar</b></button>
+    <button (click)="changeButton(2)" [style.backgroundColor]="btGetColor(2)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px"><b>Verificado
+      </b></button>
   </ion-list>
 
 
-  <ion-grid [style.backgroundColor]="gridColor" style="border:2px solid; padding-bottom: 50px; background-color: [gridColor]" >
-    <ion-grid no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
+  <ion-grid [style.backgroundColor]="gridColor" style="border:2px solid; padding-bottom: 50px; background-color: [gridColor]">
+    <!--
+      <ion-item text-wrap color="none" id="home-list-item9" *ngFor="let item of indicators" >
+        <div (click)="openTopic(0)"></div>
+        <div [hidden]="topicVisible[0]" >
+          <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
+          <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
+          <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
+        </div>
+      </ion-item>
+    -->
+    <ion-grid no-padding [hidden] ="isCat(0)" style="border:2px solid; padding-top:1px; background-color: white;  " >
       <ion-list id="listOpned">
         <ion-item text-wrap color="none" id="home-list-item9"  >
-            <div (click)="openTopic(0)">1.1 Instalações administatrivas</div>
-            <div [hidden]="topicVisible[0]" >
-              <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-              <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
-              <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
-            </div>
+          <div (click)="openTopic(0)">1.1 Instalações administatrivas</div>
+          <div [hidden]="topicVisible[0]" >
+            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
+            <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
+            <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
+          </div>
         </ion-item>
         <ion-item text-wrap color="none" id="home-list-item9"  >
-            <div (click)="openTopic(1)">1.2 salas de aula</div>
-            <div [hidden]="topicVisible[1]" >
-              <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-              <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
-              <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
-            </div>
+          <div (click)="openTopic(1)">1.2 salas de aula</div>
+          <div [hidden]="topicVisible[1]" >
+            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
+            <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
+            <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
+          </div>
         </ion-item>
         <ion-item text-wrap color="none" id="home-list-item9"  >
           <div (click)="openTopic(2)">1.3 salas dos profesores</div>
@@ -61,5 +75,5 @@
         </ion-item>
       </ion-list>
     </ion-grid>
-   </ion-grid> 
+  </ion-grid>
 </ion-content>

@@ -10,6 +10,7 @@ import { EvaluationMenuPage } from './evaluation-menu';
     IonicPageModule.forChild(EvaluationMenuPage),
   ],
   entryComponents: [
+    
   ],
 })
 export class EvaluationMenuPageModule {}

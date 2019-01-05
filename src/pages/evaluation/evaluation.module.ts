@@ -11,7 +11,9 @@ import { EvaluationPage  } from './evaluation';
   ],
   entryComponents: [
     EvaluationPage,
-  ], //schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  ], providers:[
+    EvaluationPage
+  ]
   
   
   
