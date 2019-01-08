@@ -1,5 +1,6 @@
+import { SeemPage } from './../seem/seem';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { API_CONFIG } from '../../config/api.config';
 import { TabsPage } from '../tabs/tabs';
 
@@ -28,7 +29,21 @@ export class IndicatorPage {
     this.topicVisible.fill(true);
     this.topicVisible[param] = false;
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public modalCtrl: ModalController) {
+  }
+  presentProfileModal(args: string) {
+    if(args.startsWith('SeemPage')){
+      let profileModal = this.modalCtrl.create(SeemPage);
+
+    }else
+    {
+
+    } 
+    let profileModal = this.modalCtrl.create(args);
+    profileModal.present();
   }
   public isCat(n:number) :boolean{
     try {

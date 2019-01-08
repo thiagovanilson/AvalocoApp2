@@ -10,11 +10,11 @@
 
 <body>
   <ion-content padding>
-    <div style="position: fixed; right: 0px;top:5px; ">
-      <button ion-button color="{{getColor()}}" (click)="logout()" style="right: 30px;">
-        <ion-icon name="exit"></ion-icon>
-      </button>
-    </div>
+    <ion-fab top right edge>
+        <button ion-button color="{{getColor()}}" (click)="logout()" style="top: 30px; right: 20px;">
+          <ion-icon name="exit"></ion-icon>
+        </button>
+    </ion-fab>
     
     <img src="assets/imgs/persona.png" style="display:block;width:30%;margin-left:auto;margin-right:auto;">
     <br />

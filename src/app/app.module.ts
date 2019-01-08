@@ -1,3 +1,4 @@
+import { SeemPageModule } from './../pages/seem/seem.module';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { EvaluationMenuPageModule } from './../pages/evaluation-menu/evaluation-menu.module';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -43,6 +44,7 @@ import { IndicatorPageModule } from '../pages/indicator/indicator.module';
     EvaluationPageModule,
     EvaluationMenuPageModule,
     IndicatorPageModule,
+    SeemPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

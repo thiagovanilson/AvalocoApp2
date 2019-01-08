@@ -1,5 +1,6 @@
+import { UserPage } from './../user/user';
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { AvalicaoService } from '../../domain/avaliacao.service';
 import { AvaliacaoDTO } from '../../model/avaliacao.dto';
 import { API_CONFIG } from '../../config/api.config';
@@ -13,13 +14,14 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
-    public avaliacaoService: AvalicaoService) {
+    public avaliacaoService: AvalicaoService,
+    public modalCtrl: ModalController) {
   }
   goToHome(params) {
     //this.navCtrl.push(LoginPage);
     //alert("This is my warning message " );
   }
-
+  
   private _avaliacoesAbertas: AvaliacaoDTO[];
   private _avaliacoesAgendadas: AvaliacaoDTO[];
 

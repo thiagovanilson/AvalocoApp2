@@ -28,7 +28,7 @@
   </ion-list>
 
 
-  <ion-grid [style.backgroundColor]="gridColor" style="border:2px solid; padding-bottom: 50px; background-color: [gridColor]">
+  <ion-grid [style.backgroundColor]="gridColor" style="min-height: 80%; border:2px solid; padding-bottom: 50px; background-color: [gridColor]">
     <!--
       <ion-item text-wrap color="none" id="home-list-item9" *ngFor="let item of indicators" >
         <div (click)="openTopic(0)"></div>
@@ -45,7 +45,7 @@
           <div (click)="openTopic(0)">1.1 Instalações administatrivas</div>
           <div [hidden]="topicVisible[0]" >
             <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
+            <ion-icon style="padding-left: 16px" name="list"   (click)="presentProfileModal('SeemPage')">&nbsp;Conceito</ion-icon><br />
             <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
           </div>
         </ion-item>

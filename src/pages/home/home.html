@@ -19,7 +19,7 @@
     </ion-list>
   </ion-list>
   <div class="spacer" style="height:70px;" id="home-spacer1"></div>
-  <ion-list id="home-list8" >
+  <ion-list id="home-list8" (click)="presentProfileModal()">
     <ion-item-divider color="light" id="home-list-item-divider3" style="text-align: right">
       <ion-icon item-start>{{qtdAvSchedule}}</ion-icon>
       <h1>Avaliações Agendadas</h1>
