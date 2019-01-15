@@ -7,12 +7,18 @@ import { API_CONFIG } from '../config/api.config';
 
 @Injectable()
 export class AvalicaoService {
+ 
     constructor(public http: HttpClient) {
     }
+    public opned : AvaliacaoDTO[];
+
     findOpened(): Observable<AvaliacaoDTO[]> {
         return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao`);
     }
     findscheduled(): Observable<AvaliacaoDTO[]> {
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao`);
+    }
+    findAll(): Observable<AvaliacaoDTO[]> {
         return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao`);
     }
 }

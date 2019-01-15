@@ -1,7 +1,8 @@
+import { AvalicaoService } from './../../domain/avaliacao.service';
+import { HomePage } from './../home/home';
 import { API_CONFIG } from './../../config/api.config';
 import { Component  } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the SchedulePage page.
@@ -18,14 +19,16 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class EvaluationPage {
   title: ""
-  
+  _avaliacoesAbertas =     this.avService.opned;
+
   
   constructor( 
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public avService: AvalicaoService
+    ) {
     this.title = this.navParams.data;
-
   }
   public goToEvaluation(){
     if(this.title.startsWith('Avaliações agendadas')){

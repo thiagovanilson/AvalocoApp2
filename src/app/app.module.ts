@@ -68,7 +68,7 @@ import { IndicatorPageModule } from '../pages/indicator/indicator.module';
     AvalicaoService,
     UserService, 
     UserDTO,
-    
+    HomePage,
     
   ]
 })
