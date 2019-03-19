@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the ChecklistPage page.
@@ -56,6 +57,13 @@ export class ChecklistPage {
       ]
     });
     actionSheet.present();
+  }
+  goback(){
+    if(this.navCtrl.length() > 1){
+      this.navCtrl.popTo(TabsPage);
+    }else{
+      this.navCtrl.push(TabsPage);
+    }
   }
 }
 

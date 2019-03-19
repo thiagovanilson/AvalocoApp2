@@ -4,13 +4,12 @@ import { EvaluationMenuPage } from './evaluation-menu';
 
 @NgModule({
   declarations: [
-    EvaluationMenuPage    
+    EvaluationMenuPage ,
   ],
   imports: [
     IonicPageModule.forChild(EvaluationMenuPage),
   ],
   entryComponents: [
-    
   ],
 })
 export class EvaluationMenuPageModule {}

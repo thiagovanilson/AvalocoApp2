@@ -1,20 +1,20 @@
-import { Component, Injectable } from '@angular/core';
 import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { Component       } from '@angular/core';
 import { AvalicaoService } from '../../domain/avaliacao.service';
-import { AvaliacaoDTO } from '../../model/avaliacao.dto';
-import { API_CONFIG } from '../../config/api.config';
+import { AvaliacaoDTO    } from '../../model/avaliacao.dto';
+import { API_CONFIG      } from '../../config/api.config';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-@Injectable()
+
 export class HomePage {
 
   constructor(
-    public navCtrl: NavController,
-    public alertCtrl: AlertController,
     public avaliacaoService: AvalicaoService,
+    public navCtrl  : NavController,
+    public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
       
   }

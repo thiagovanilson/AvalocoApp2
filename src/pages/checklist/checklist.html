@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header  (click)="navCtrl.pop()" style="height: 45px; padding: 0px 0px; ">
+<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
   <h5 style="margin-top: 0px">
     &nbsp; Tecnologo ADS 10/10/18
     <div style="font-size: 12pt">
@@ -20,7 +20,8 @@
     {{categorySelected}} &nbsp; 
     <ion-icon name="arrow-dropdown-circle"></ion-icon>
   </button>
-  <ion-list no-padding style=" background-color:  rgb(229, 235, 235)">
+  
+  <ion-list no-padding style=" background-color:  rgb(229, 235, 235); " >
     
     <ion-grid no-padding style="width:100%; border:2px solid; padding-top:5%; padding-bottom: 20%; " text-center>
     <h5 padding-left text-wrap style="text-align: left; ">
@@ -34,8 +35,8 @@
       </ion-item>
       </ion-col>        
       <ion-col>
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-              <ion-radio  value=""></ion-radio>        
+        <ion-item style="background-color:  rgb(0, 0, 0,0)">
+          <ion-radio  value=""></ion-radio>        
           <ion-label>Não</ion-label>
         </ion-item>
       </ion-col>
@@ -50,8 +51,7 @@
       </ion-col>
       <ion-col>
         <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <ion-icon name="ios-chatbubbles-outline" ></ion-icon>
-        </ion-item>
+          <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>        </ion-item>
       </ion-col>
     </ion-row>
     <h5 padding-left text-wrap style="text-align: left; ">
@@ -82,7 +82,7 @@
       </ion-col>
       <ion-col>
         <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <ion-icon name="ios-chatbubbles-outline" ></ion-icon>
+          <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>       
         </ion-item>
       </ion-col>
     </ion-row>

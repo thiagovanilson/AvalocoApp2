@@ -23,23 +23,23 @@ export class EvaluationPage {
 
   
   constructor( 
-    public navCtrl: NavController, 
+    public navCtrl  : NavController, 
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public avService: AvalicaoService
-    ) {
+  ) {
     this.title = this.navParams.data;
   }
   public goToEvaluation(){
-    if(this.title.startsWith('Avaliações agendadas')){
+    if(this.title.startsWith('Avaliações Agendadas')){
       this.ShowText("Avaliaçoes agendadas não podem ser abertas.");
     }else{
       this.navCtrl.push('EvaluationMenuPage');
     }
   }
   public isOpened() :boolean{
-    try {
-      
+
+    try {      
       return this.title.startsWith('Avaliações Abertas');
     } catch (error) {
       

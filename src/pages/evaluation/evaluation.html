@@ -15,8 +15,21 @@
     
   <br />
   <br />
+
   <ion-list id="list-tests" >
-    <!--Change to use *ngfor-->
+
+    <!-- Versão de testes apenas-->
+    <ion-card ion-button clear (click)="goToEvaluation()" style="height: 90px;  width: 100%; margin-left: 0; " >
+    
+    <ion-card-content style="text-transform: capitalize 	" >
+        <div>Codigo Exemplo </div>
+        <div>Periodo </div> 
+        
+      </ion-card-content>
+      
+    </ion-card>    
+    <!--
+    -->
     <ion-card ion-button clear (click)="goToEvaluation()" [hidden]="!isOpened()"
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
     
@@ -26,11 +39,9 @@
        
       </ion-card-content>
       
-    </ion-card>
+    </ion-card>    
 
-    
-
-    <ion-card ion-button clear [hidden]="isOpened()" (click)="goToEvaluation()"
+    <ion-card ion-button clear (click)="goToEvaluation()" [hidden]="isOpened()" 
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
     
       <ion-card-content style="text-transform: capitalize 	" >

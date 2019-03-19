@@ -1,8 +1,8 @@
-import { TabsPage } from './../tabs/tabs';
-import { HomePage } from './../home/home';
+
 import { NavController, IonicPage } from 'ionic-angular';
 import { Component} from '@angular/core';
 import { UserDTO  } from '../../model/user.dto';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -23,15 +23,25 @@ export class LoginPage {
   
 
   goToHome(params){
-    //alert("This is my warning message" + params);
-
-    if (!params) params = {};
-    this.user.name = this.userName;
-    this.user.pass = this.pass;
+    
+    if(this.userName == ""){
+      alert("Login é obrigatorio");
+      return;
+    }
+    if(this.pass == ""){
+      alert("Senha é obrigatoria");
+      return;
+    }
+    if (this.pass == "vanilson" || this.pass == "123") {
+      this.navCtrl.setRoot(TabsPage);
+    }else{
+      alert("Usuario ou senha incorretos!");      
+    }
+    //this.user.name = this.userName;
+    //this.user.pass = this.pass;
 
     //this.pd.setUserLogged(this.user);
-    console.log(`Usuario `+ this.user.name +`\nSenha ` +this.user.pass);
-    this.navCtrl.setRoot(TabsPage);
+    //console.log(`Usuario `+ this.userName +`\nSenha ` +this.pass);
   }
   ionViewDidLoad(){  
     /*if(this.isLogged()){

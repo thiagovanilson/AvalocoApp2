@@ -11,6 +11,7 @@ import { BrowserModule          } from '@angular/platform-browser';
 import { MyApp                  } from './app.component';
 import { EvaluationMenuPage     } from '../pages/evaluation-menu/evaluation-menu';
 import { EvaluationPageModule   } from '../pages/evaluation/evaluation.module';
+import { IndicatorPageModule    } from '../pages/indicator/indicator.module';
 
 import { AboutPage   } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -23,8 +24,10 @@ import { UserService      } from '../domain/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDTO          } from '../model/user.dto';
 import { EvaluationPage   } from '../pages/evaluation/evaluation';
-import { IndicatorPage } from '../pages/indicator/indicator';
-import { IndicatorPageModule } from '../pages/indicator/indicator.module';
+import { Camera           } from '@ionic-native/camera'
+import { IndicatorPage    } from '../pages/indicator/indicator';
+import { ClosedEvaluationsPage } from '../pages/closed-evaluations/closed-evaluations';
+import { ClosedEvaluationsPageModule } from '../pages/closed-evaluations/closed-evaluations.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { IndicatorPageModule } from '../pages/indicator/indicator.module';
     EvaluationPageModule,
     EvaluationMenuPageModule,
     IndicatorPageModule,
-    SeemPageModule
+    SeemPageModule,
+    ClosedEvaluationsPageModule,    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +62,8 @@ import { IndicatorPageModule } from '../pages/indicator/indicator.module';
     LoginPage,
     EvaluationPage,
     IndicatorPage,
-    EvaluationMenuPage
+    EvaluationMenuPage,
+    ClosedEvaluationsPage
   ],
   providers: [
     StatusBar,
@@ -69,7 +74,7 @@ import { IndicatorPageModule } from '../pages/indicator/indicator.module';
     UserService, 
     UserDTO,
     HomePage,
-    
+    Camera    
   ]
 })
 export class AppModule {}

@@ -13,37 +13,57 @@
     </div>
   </h5>
 </ion-header>
-<body >
-  <ion-content style="text-align: center;  top:70px; ">    
-    <div style="padding: 0px 10%">
-      <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)" (click)="goToChecklist()">
-        Checklist das ações do curso
-        <h1>
-          <ion-icon name="md-checkmark"></ion-icon>
-        </h1>
-      </ion-card>
-    
-      <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)" (click)="navCtrl.push('IndicatorPage')">
-        Indicadores            
-        <h1>
-          <ion-icon name="ios-paper"></ion-icon>
-        </h1>
-      </ion-card>
-    
+
+<ion-content  text-center >    
   
-      <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)">
-        Requisitos legais e normativos
-        <h1>
-          <ion-icon name="ios-paper"></ion-icon>
-        </h1>
-      </ion-card>
-    
-      <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)">
-        Registrar considerações finais
-        <h1>
-          <ion-icon name="ios-book"></ion-icon>
-        </h1>
-      </ion-card>        
-    </div>
-  </ion-content>
-</body>
+  <ion-grid style="padding: 20% 0px">
+    <ion-row>
+      <ion-col>
+        <div style="padding: 5% 5%">
+          <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)" (click)="goToChecklist()">
+            Checklist das ações do curso
+            <br />&nbsp;
+            <h1>
+              <ion-icon name="md-checkmark"></ion-icon>
+            </h1>
+          </ion-card>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div style="padding: 5% 5%">            
+          <ion-card style="padding: 10%;  background-color: rgb(222, 222, 231)" (click)="navCtrl.push('IndicatorPage')">
+            <br />&nbsp;
+            Indicadores   
+            <br />&nbsp;         
+            <h1>
+              <ion-icon name="ios-paper"></ion-icon>
+            </h1>
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div style="padding: 5% 5%">
+          <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)" >
+            Requisitos legais e normativos
+
+            <h1>
+              <ion-icon name="ios-paper"></ion-icon>
+            </h1>
+          </ion-card>          
+        </div>
+        </ion-col>
+        <ion-col>
+          <div style="padding: 5% 5%">
+            <ion-card style="padding: 10%; height: 15%; background-color: rgb(222, 222, 231)" (click)="navCtrl.push('FinalConsiderationsPage')">
+              Registrar considerações finais
+              <h1>
+                <ion-icon name="ios-book"></ion-icon>
+              </h1>
+            </ion-card>        
+          </div>
+        </ion-col>
+    </ion-row>   
+  </ion-grid> 
+</ion-content>

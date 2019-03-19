@@ -8,6 +8,8 @@ import { HomePage } from '../home/home';
 import { UserPage } from '../user/user';
 import { AvaliacaoDTO } from '../../model/avaliacao.dto';
 import { AvalicaoService } from '../../domain/avaliacao.service';
+import { ClosedEvaluationsPage } from '../closed-evaluations/closed-evaluations';
+import { API_CONFIG } from '../../config/api.config';
 
 //https://javiergarciaescobedo.es/ionic/479-navegacion-entre-paginas-en-ionic
 
@@ -19,7 +21,7 @@ export class TabsPage {
   tab1Root = HomePage;
   tab2Root = EvaluationPage;
   tab3Root = EvaluationPage;
-  tab4Root = EvaluationPage;
+  tab4Root = ClosedEvaluationsPage;
   tab5Root = UserPage;
 
  
@@ -28,6 +30,9 @@ export class TabsPage {
   };
   paramsOpned = {
     title: "Avaliações Abertas"
+  };
+  paramsDone = {
+    title: "Avaliações finalizadas"
   };
 
   qtdOpned      = "";
@@ -52,6 +57,9 @@ export class TabsPage {
     );//*/
     
     
+  }
+  getColor(){
+    return API_CONFIG.buttonColor;
   }
   private updateData(){
     
@@ -95,5 +103,8 @@ export class TabsPage {
   }
   goToSchudule(){
     this.navCtrl.setRoot(EvaluationPage, this.paramsSchedule );
+  }
+  goToFinished(){
+    this.navCtrl.setRoot(EvaluationPage, this.paramsDone );
   }
 }

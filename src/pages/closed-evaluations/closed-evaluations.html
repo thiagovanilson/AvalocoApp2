@@ -1,0 +1,57 @@
+<!--
+  Generated template for the ClosedEvaluationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header padding style="height: 40px" >
+    <h5 style="margin-top: 0px">
+    &nbsp;Buscas por avaliações realizadas
+    
+  </h5>
+</ion-header>
+
+
+<ion-content padding >
+
+  <h3>Filtros</h3>
+
+  <ion-grid  >
+    <ion-row radio-group style="width:100%;">  
+      <ion-col  >
+        Campus/unidade
+        <ion-item lines="full">
+          <ion-select >
+            <ion-option value="Todos "   >Todos   </ion-option>
+            <ion-option value="Monteiro ">Monteiro</ion-option>
+            <ion-option value="Patos "   >Patos   </ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col >
+        Curso
+        <ion-item lines="none">
+          <ion-select  placeholder="Selecione" >
+            <ion-option value="ADS"                    >ADS                   </ion-option>
+            <ion-option value="Contrucao de edificios ">Contrucao de edificios</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-item lines="none">
+            <ion-label>Inicio</ion-label>
+            <ion-datetime display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+          </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Data final</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
