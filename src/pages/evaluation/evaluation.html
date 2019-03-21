@@ -18,7 +18,7 @@
 
   <ion-list id="list-tests" >
 
-    <!-- Versão de testes apenas-->
+    <!-- Versão de testes apenas
     <ion-card ion-button clear (click)="goToEvaluation()" style="height: 90px;  width: 100%; margin-left: 0; " >
     
     <ion-card-content style="text-transform: capitalize 	" >
@@ -28,7 +28,7 @@
       </ion-card-content>
       
     </ion-card>    
-    <!--
+   
     -->
     <ion-card ion-button clear (click)="goToEvaluation()" [hidden]="!isOpened()"
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
@@ -42,13 +42,11 @@
     </ion-card>    
 
     <ion-card ion-button clear (click)="goToEvaluation()" [hidden]="isOpened()" 
-    style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
+    style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAgendadas">
     
       <ion-card-content style="text-transform: capitalize 	" >
-        <div >Tecnologo ADS </div>
-        <div>10/10/18 a 10/10/18</div> 
-        <div>Vanilson </div>
-        <div>20%</div> 
+        <div>Codigo {{item.codigo}} </div>
+        <div>Periodo {{item.dataInicio}} a {{item.dataTermino}}</div> 
       </ion-card-content>
       
     </ion-card>    

@@ -19,8 +19,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class EvaluationPage {
   title: ""
-  _avaliacoesAbertas =     this.avService.opned;
-
+  _avaliacoesAbertas  = this.avService.opned;
+  _avaliacoesAgendadas= this.avService.schudule;
   
   constructor( 
     public navCtrl  : NavController, 

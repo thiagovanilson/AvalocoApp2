@@ -70,6 +70,7 @@ export class HomePage {
      
       var avAbertas  =  new Array();
       var avAgendadas=  new Array();
+
       for (  var i=0; i < this._TodasAsAvaliacoes.length; i++) // for acts as a foreach  
       {  
         if(this._TodasAsAvaliacoes[i].aberta){
@@ -78,8 +79,11 @@ export class HomePage {
           avAgendadas.push(this._TodasAsAvaliacoes[i]);
         }
       } 
-      this.avaliacaoService.opned = avAbertas;
-      this._avaliacoesAbertas = avAbertas;
+      //To make visible in all code
+      this.avaliacaoService.opned    = avAbertas;
+      this.avaliacaoService.schudule = avAgendadas;
+
+      this._avaliacoesAbertas  = avAbertas;
       this._avaliacoesAgendadas= avAgendadas;
     }
   }

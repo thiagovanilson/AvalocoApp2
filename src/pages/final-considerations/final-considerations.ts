@@ -24,8 +24,10 @@ export class FinalConsiderationsPage {
   }
   goback(){
     if(this.navCtrl.length() > 1){
+      //Previus page
       this.navCtrl.popTo(TabsPage);
     }else{
+      //Home page
       this.navCtrl.push(TabsPage);
     }
   }

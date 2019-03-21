@@ -10,8 +10,9 @@ export class AvalicaoService {
  
     constructor(public http: HttpClient) {
     }
-    public opned : AvaliacaoDTO[];
-
+    public opned    : AvaliacaoDTO[];
+    public schudule : AvaliacaoDTO[];
+    
     findOpened(): Observable<AvaliacaoDTO[]> {
         return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao`);
     }
