@@ -23,9 +23,9 @@
   
   <ion-list no-padding style=" background-color:  rgb(229, 235, 235); " >
     
-    <ion-grid no-padding style="width:100%; border:2px solid; padding-top:5%; padding-bottom: 20%; " text-center>
+    <ion-grid *ngFor="let item of itens" no-padding style="width:100%; border:2px solid; padding-top:5%; padding-bottom: 20%; " text-center>
     <h5 padding-left text-wrap style="text-align: left; ">
-      1.1 Regimento da IEs.
+      {{item.ordem}}  {{item.nome}}
     </h5>
     <ion-row radio-group style="width:100%;">  <ion-col >
       <ion-item style=" background-color:  rgb(0, 0, 0,0)">
@@ -54,6 +54,7 @@
           <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>        </ion-item>
       </ion-col>
     </ion-row>
+    <!--
     <h5 padding-left text-wrap style="text-align: left; ">
       1.2 Estatuto do IFPE.
     </h5>
@@ -118,6 +119,7 @@
           </ion-item>
         </ion-col>
       </ion-row> 
+      <!--
       <h5 padding-left text-wrap style="text-align: left; ">
         1.4 Projeto politico pedagogico institucional PPI (copia).
       </h5>
@@ -149,7 +151,8 @@
             <ion-icon name="ios-chatbubbles-outline" ></ion-icon>
           </ion-item>
         </ion-col>
-      </ion-row>   
+      </ion-row>  
+      --> 
     </ion-grid>        
   </ion-list>  
 </ion-content>

@@ -1,10 +1,3 @@
-<!--
-  Generated template for the SchedulePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
 <ion-header padding style="height: 40px" >
   <h5 >
     &nbsp; {{title}}
@@ -18,35 +11,38 @@
 
   <ion-list id="list-tests" >
 
-    <!-- Versão de testes apenas
-    <ion-card ion-button clear (click)="goToEvaluation()" style="height: 90px;  width: 100%; margin-left: 0; " >
-    
-    <ion-card-content style="text-transform: capitalize 	" >
-        <div>Codigo Exemplo </div>
-        <div>Periodo </div> 
+    <!-- Versão de testes apenas 
+      <ion-card [hidden]="hasItens()" ion-button clear (click)="goToEvaluation()" style="height: 90px;  width: 100%; margin-left: 0; " >
         
-      </ion-card-content>
-      
-    </ion-card>    
-   
+        <ion-card-content style="text-transform: capitalize 	" >
+          <div>Codigo Exemplo </div>
+          <div>Periodo </div>       
+        </ion-card-content>
+        
+      </ion-card>    
     -->
-    <ion-card ion-button clear (click)="goToEvaluation()" [hidden]="!isOpened()"
+   
+    
+    <!--Used when the avaliations stay in progress -->
+    <ion-card ion-button clear  [hidden]="!isOpened()"
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
     
-      <ion-card-content style="text-transform: capitalize 	" >
+      <ion-card-content (click)="goToEvaluation(item)" style="text-transform: capitalize 	" >
         <div>Codigo {{item.codigo}} </div>
         <div>Periodo {{item.dataInicio}} a {{item.dataTermino}}</div> 
-       
+               
       </ion-card-content>
       
     </ion-card>    
-
-    <ion-card ion-button clear (click)="goToEvaluation()" [hidden]="isOpened()" 
+    
+    <!--Used when the avaliations don't stay in progress yet-->
+    <ion-card ion-button clear  [hidden]="isOpened()" 
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAgendadas">
     
-      <ion-card-content style="text-transform: capitalize 	" >
-        <div>Codigo {{item.codigo}} </div>
+      <ion-card-content  style="text-transform: capitalize 	" (click)="goToEvaluation()" >
+        <div >Codigo {{item.codigo}} </div>
         <div>Periodo {{item.dataInicio}} a {{item.dataTermino}}</div> 
+        <div></div>
       </ion-card-content>
       
     </ion-card>    

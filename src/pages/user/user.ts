@@ -2,7 +2,9 @@ import { TabsPage } from './../tabs/tabs';
 import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
 import { Component   } from '@angular/core';
 import { LoginPage   } from '../login/login';
-import { API_CONFIG } from '../../config/api.config';
+import { API_CONFIG  } from '../../config/api.config';
+import { UserService } from '../../domain/user.service';
+import { AboutPage } from '../about/about';
 
 /**
  * Generated class for the UserPage page.
@@ -17,15 +19,17 @@ import { API_CONFIG } from '../../config/api.config';
   templateUrl: 'user.html',
 })
 export class UserPage {
+  about : any;
 
   constructor(public alertCtrl: AlertController, 
     public navCtrl: NavController, 
     public navParams: NavParams,
     ) {
+      this.about = AboutPage;
   }
   getUser(){
     
-    return "Vanilson";
+    return UserService.getUserLogged();
   }
   
   getColor(){

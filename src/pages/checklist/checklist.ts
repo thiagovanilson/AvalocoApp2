@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
+import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
+import { ChecklistItemDTO} from './../../model/checklistItem.dto';
+import { AvalicaoService } from './../../domain/avaliacao.service';
+import { Component       } from '@angular/core';
+import { HomePage        } from '../home/home';
+import { TabsPage        } from '../tabs/tabs';
+import { ItemCategoryDTO } from '../../model/itemCategory.dto';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { TabsPage } from '../tabs/tabs';
 
-/**
- * Generated class for the ChecklistPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -17,38 +15,41 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class ChecklistPage {
 
-  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public navParams: NavParams) {
+  public categories : ItemCategoryDTO[];
+  public itens      : ChecklistItemDTO[];
+  public evaluation : AvaliacaoDTO = this.navParams.get('avaliacao');
+
+  constructor(public actionSheetCtrl: ActionSheetController, 
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public avService: AvalicaoService) {
   }
   title: string = "Vanilson";
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChecklistPage');
+    this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
+      response => { this.categories = response;  } 
+    );  
+    this.avService.getItensByCategory(1).subscribe(
+      response => { this.itens = response;  } 
+    );  
   }
   goToHome(){
     this.navCtrl.push(HomePage);
   }
-  categorySelected:string = "Documentos no âmbito da instituicão"
+  categorySelected:string = "Documentos no âmbito da instituicão";
+
   presentActionSheet() {
+    
     
     const actionSheet = this.actionSheetCtrl.create({
       //title: 'Categoria',
       buttons: [
         {
-          text: 'Documentos no âmbito da instituicão',
+          text: this.categories[0].nome +'',
           role: 'ambientes',
           handler: () => {
-            this.categorySelected= "Documentos no âmbito da instituicão";
-          }
-        },{
-          text: 'Exemplo2',
-          role: 'ambientes',
-          handler: () => {
-            this.categorySelected= "Exemplo2";
-          }
-        },{
-          text: 'Exemplo3',
-          role: 'ambientes',
-          handler: () => {
-            this.categorySelected= "Exemplo3";
+            this.categorySelected= this.categories[0].nome +'';
           }
         },{
           text: 'Cancelar',
@@ -56,6 +57,21 @@ export class ChecklistPage {
         }
       ]
     });
+   /* const actionSheet2 = this.actionSheetCtrl.create({
+      //title: 'Categoria',
+      buttons: [
+        {
+          text: this.itens[1].nome +'',
+          role: 'ambientes',
+          handler: () => {
+            this.categorySelected= "Exemplo2";
+          }
+        },{
+          text: 'Cancelar',
+          
+        }
+      ]
+    });//*/
     actionSheet.present();
   }
   goback(){

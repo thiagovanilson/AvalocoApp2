@@ -1,15 +1,10 @@
+import { AvalicaoService } from './../../domain/avaliacao.service';
 import { SeemPage } from './../seem/seem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { API_CONFIG } from '../../config/api.config';
 import { TabsPage } from '../tabs/tabs';
+import { IndicatorDTO } from '../../model/indicator.dto';
 
-/**
- * Generated class for the IndicatorPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -21,6 +16,8 @@ export class IndicatorPage {
   private btCheck:   number = 1;
   private btChecked: number = 2;
   
+  public itens : IndicatorDTO[];
+
   gridColor: string = "#cececf";
   private btSelected: number = 0; 
 
@@ -32,7 +29,8 @@ export class IndicatorPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    public avService: AvalicaoService) {
   }
   presentProfileModal(args: string) {
     if(args.startsWith('SeemPage')){
@@ -78,7 +76,9 @@ export class IndicatorPage {
     }
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IndicatorPage');
+    this.avService.getIndicatorByCod(7).subscribe(
+      response => { this.itens = response; console.log(this.itens[0].nome) } 
+    ); 
   }
 
 }

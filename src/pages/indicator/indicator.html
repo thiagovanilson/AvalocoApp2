@@ -41,14 +41,15 @@
     -->
     <ion-grid no-padding [hidden] ="isCat(0)" style="border:2px solid; padding-top:1px; background-color: white;  " >
       <ion-list id="listOpned">
-        <ion-item text-wrap color="none" id="home-list-item9"  >
-          <div (click)="openTopic(0)">1.1 Instalações administatrivas</div>
-          <div [hidden]="topicVisible[0]" >
+        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9"  >
+          <div (click)="openTopic(0)">{{item.codigo}} {{item.nome}}</div>
+          <div  >
             <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br />
             <ion-icon style="padding-left: 16px" name="list"   (click)="presentProfileModal('SeemPage')">&nbsp;Conceito</ion-icon><br />
             <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">                  &nbsp;Parecer </ion-icon>
           </div>
         </ion-item>
+        <!--
         <ion-item text-wrap color="none" id="home-list-item9"  >
           <div (click)="openTopic(1)">1.2 salas de aula</div>
           <div [hidden]="topicVisible[1]" >
@@ -73,6 +74,7 @@
             <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
           </div>
         </ion-item>
+      -->
       </ion-list>
     </ion-grid>
   </ion-grid>

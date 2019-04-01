@@ -1,6 +1,6 @@
 import { NgModule           } from '@angular/core';
-import { IonicPageModule    } from 'ionic-angular';
 import { EvaluationMenuPage } from './evaluation-menu';
+import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
   declarations: [

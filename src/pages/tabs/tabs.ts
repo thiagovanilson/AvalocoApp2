@@ -10,6 +10,7 @@ import { AvaliacaoDTO } from '../../model/avaliacao.dto';
 import { AvalicaoService } from '../../domain/avaliacao.service';
 import { ClosedEvaluationsPage } from '../closed-evaluations/closed-evaluations';
 import { API_CONFIG } from '../../config/api.config';
+import { LoginPage } from '../login/login';
 
 //https://javiergarciaescobedo.es/ionic/479-navegacion-entre-paginas-en-ionic
 
@@ -26,13 +27,13 @@ export class TabsPage {
 
  
   paramsSchedule = {
-    title: "Avaliações agendadas"
+    title: "Avaliações Agendadas"
   };
   paramsOpned = {
     title: "Avaliações Abertas"
   };
   paramsDone = {
-    title: "Avaliações finalizadas"
+    title: "Avaliações Finalizadas"
   };
 
   qtdOpned      = "";
@@ -52,6 +53,8 @@ export class TabsPage {
 
   ionViewDidLoad() {
    
+    //this.isLogged();
+
     this.avaliacaoService.findAll().subscribe(
       response => { this._TodasAsAvaliacoes = response; this.updateData(); }
     );//*/
@@ -97,10 +100,14 @@ export class TabsPage {
     public params: NavParams) {
 
   }
+  isLogged(){
+    this.navCtrl.push(LoginPage );
+  }
   //Best way to not use the menu bar
   goToUser(){
     this.navCtrl.push(UserPage, );
   }
+  //Pages with menu this bar
   goToSchudule(){
     this.navCtrl.setRoot(EvaluationPage, this.paramsSchedule );
   }

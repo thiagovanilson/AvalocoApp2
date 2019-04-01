@@ -1,17 +1,18 @@
+import { ChecklistItemDTO } from '../model/checklistItem.dto';
 import { SeemPageModule } from './../pages/seem/seem.module';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { EvaluationMenuPageModule } from './../pages/evaluation-menu/evaluation-menu.module';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { HomePage               } from './../pages/home/home';
-import { LoginModule            } from './../pages/login/login.module';
-import { UserPageModule         } from './../pages/user/user.module';
-import { LoginPage              } from './../pages/login/login';
-import { UserPage               } from './../pages/user/user';
-import { BrowserModule          } from '@angular/platform-browser';
-import { MyApp                  } from './app.component';
-import { EvaluationMenuPage     } from '../pages/evaluation-menu/evaluation-menu';
-import { EvaluationPageModule   } from '../pages/evaluation/evaluation.module';
-import { IndicatorPageModule    } from '../pages/indicator/indicator.module';
+import { NgModule, ErrorHandler   } from '@angular/core';
+import { HomePage                 } from './../pages/home/home';
+import { LoginModule              } from './../pages/login/login.module';
+import { UserPageModule           } from './../pages/user/user.module';
+import { LoginPage                } from './../pages/login/login';
+import { UserPage                 } from './../pages/user/user';
+import { BrowserModule            } from '@angular/platform-browser';
+import { MyApp                    } from './app.component';
+import { EvaluationMenuPage       } from '../pages/evaluation-menu/evaluation-menu';
+import { EvaluationPageModule     } from '../pages/evaluation/evaluation.module';
+import { IndicatorPageModule      } from '../pages/indicator/indicator.module';
 
 import { AboutPage   } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -26,8 +27,9 @@ import { UserDTO          } from '../model/user.dto';
 import { EvaluationPage   } from '../pages/evaluation/evaluation';
 import { Camera           } from '@ionic-native/camera'
 import { IndicatorPage    } from '../pages/indicator/indicator';
-import { ClosedEvaluationsPage } from '../pages/closed-evaluations/closed-evaluations';
+import { ClosedEvaluationsPage       } from '../pages/closed-evaluations/closed-evaluations';
 import { ClosedEvaluationsPageModule } from '../pages/closed-evaluations/closed-evaluations.module';
+import { NavigationsService } from '../domain/navigations.service';
 
 @NgModule({
   declarations: [
@@ -48,9 +50,11 @@ import { ClosedEvaluationsPageModule } from '../pages/closed-evaluations/closed-
     EvaluationMenuPageModule,
     IndicatorPageModule,
     SeemPageModule,
-    ClosedEvaluationsPageModule,    
+    ClosedEvaluationsPageModule, 
+
   ],
   bootstrap: [IonicApp],
+  //All pages needs stay here.
   entryComponents: [
     MyApp,
     AboutPage,
@@ -63,7 +67,7 @@ import { ClosedEvaluationsPageModule } from '../pages/closed-evaluations/closed-
     EvaluationPage,
     IndicatorPage,
     EvaluationMenuPage,
-    ClosedEvaluationsPage
+    ClosedEvaluationsPage,
   ],
   providers: [
     StatusBar,
@@ -72,9 +76,10 @@ import { ClosedEvaluationsPageModule } from '../pages/closed-evaluations/closed-
     //Vanilson
     AvalicaoService,
     UserService, 
+    NavigationsService,
     UserDTO,
     HomePage,
-    Camera    
+    Camera,
   ]
 })
 export class AppModule {}

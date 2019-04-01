@@ -3,6 +3,7 @@ import { NavController, IonicPage } from 'ionic-angular';
 import { Component} from '@angular/core';
 import { UserDTO  } from '../../model/user.dto';
 import { TabsPage } from '../tabs/tabs';
+import { UserService } from '../../domain/user.service';
 
 @IonicPage()
 @Component({
@@ -12,10 +13,7 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class LoginPage {
 
-  constructor(
-    public navCtrl: NavController,
-    //public pd: PageData,
-    public user: UserDTO) {
+  constructor( public navCtrl: NavController, public user: UserDTO) {
 
   }
   pass    : string = "";
@@ -32,16 +30,14 @@ export class LoginPage {
       alert("Senha é obrigatoria");
       return;
     }
-    if (this.pass == "vanilson" || this.pass == "123") {
+    //UserName ignored just for test page user.
+    if ( this.pass == "123") {
+      UserService.setUserName(this.userName);
       this.navCtrl.setRoot(TabsPage);
+      
     }else{
       alert("Usuario ou senha incorretos!");      
-    }
-    //this.user.name = this.userName;
-    //this.user.pass = this.pass;
-
-    //this.pd.setUserLogged(this.user);
-    //console.log(`Usuario `+ this.userName +`\nSenha ` +this.pass);
+    }    
   }
   ionViewDidLoad(){  
     /*if(this.isLogged()){

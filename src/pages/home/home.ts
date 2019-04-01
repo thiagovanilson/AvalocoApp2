@@ -1,4 +1,4 @@
-import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, AlertController, ModalController, Platform } from 'ionic-angular';
 import { Component       } from '@angular/core';
 import { AvalicaoService } from '../../domain/avaliacao.service';
 import { AvaliacaoDTO    } from '../../model/avaliacao.dto';
@@ -10,22 +10,27 @@ import { API_CONFIG      } from '../../config/api.config';
 })
 
 export class HomePage {
-
+  private cont :number = 1;
   constructor(
+    public platform: Platform,
     public avaliacaoService: AvalicaoService,
     public navCtrl  : NavController,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController) {
-      
+
+      platform.ready().then(() => {      
+
+        setInterval(() => {
+        console.log("Espera " + this.cont++ )
+          this.updateData(); //sua função
+        },900000);  //15 minutes to update data
+      }) //*/
   }
-  goToHome(params) {
-    //this.navCtrl.push(LoginPage);
-    //alert("This is my warning message " );
-  }
-  
+    
   public _avaliacoesAbertas  : AvaliacaoDTO[];
   public _avaliacoesAgendadas: AvaliacaoDTO[];
   private _TodasAsAvaliacoes : AvaliacaoDTO[]; 
+  protected hasConnection    : boolean;
 
   public get avaliacoesAbertas(): AvaliacaoDTO[] {
     return this._avaliacoesAbertas;
@@ -58,14 +63,23 @@ export class HomePage {
       response => { this._avaliacoesAgendadas = response }
     );//*/
     
+    //For load on the startup the screen. First time only.
     this.avaliacaoService.findAll().subscribe(
-      response => { this._TodasAsAvaliacoes = response; this.updateData(); }
-    );//*/
-    
+      response => { this._TodasAsAvaliacoes = response; this.updateData(); 
+      this.hasConnection = (this._TodasAsAvaliacoes != null);}
+    );//*/ 
+      
     
   }
-  private updateData(){
-    
+  public updateData(){
+
+    //To refressh data.    
+   
+    this.avaliacaoService.findAll().subscribe(
+      response => { 
+        this._TodasAsAvaliacoes = response;  
+      this.hasConnection = (this._TodasAsAvaliacoes != null);}
+    );
     if(this._TodasAsAvaliacoes != null){
      
       var avAbertas  =  new Array();
@@ -86,11 +100,16 @@ export class HomePage {
       this._avaliacoesAbertas  = avAbertas;
       this._avaliacoesAgendadas= avAgendadas;
     }
+    
   }
+  
   public goTo(addres) {
     this.navCtrl.push(addres)
   }//*/
-
+  public goToEvaluation(item: AvaliacaoDTO){
+    
+    this.navCtrl.push('EvaluationMenuPage',{avaliacao : item});       
+  }
   public buttonColor() {
     return API_CONFIG.buttonColor;
   }

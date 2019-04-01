@@ -1,17 +1,17 @@
-<ion-content padding id="page2" style="background: rgb(229, 235, 235)">
+<ion-content padding id="home"  style="background: rgb(229, 235, 235); ">
+  
+  <ion-list id="home-list1" style="height: 45%;">
 
-  <ion-list id="home-list1">
-
-    <ion-item-divider color="light" id="home-list-item-divider1" style="text-align: right" >
+    <ion-item-divider  color="light" id="home-list-item-divider1" style="text-align: right" >
       <ion-icon item-start>{{qtdAvOpned}}</ion-icon>
       <h1>Avaliações Abertas</h1>
     </ion-item-divider>
 
-    <ion-list id="OpnedList">
-      <ion-item color="light" id="home-list-item9" *ngFor="let item of _avaliacoesAbertas"  >
-          <div>Id: {{item.codigo}}</div>
-          <div>Periodo: {{item.dataInicio}} a {{item.dataTermino}}</div>
-          <div></div>
+    <ion-list id="OpnedList">      
+      <ion-item  *ngFor="let item of _avaliacoesAbertas" style="font-size: 12px" id="home-list-item9" (click)="goToEvaluation(item)"   >
+        <div>Id: {{item.codigo}}</div>
+        <div>Periodo: {{item.dataInicio}} a {{item.dataTermino}}</div>
+        <div></div>
       </ion-item>      
     </ion-list>
 
@@ -21,7 +21,7 @@
     <div class="spacer" style="height:70px;" id="home-spacer1"></div>
   -->
 
-  <ion-list id="ScheduleList" style="Padding-top: 30%; padding-bottom: 50%">
+  <ion-list id="ScheduleList"  >
 
     <ion-item-divider  color="light" id="home-list-item-divider3" style="text-align: right">
       <ion-icon item-start>{{qtdAvSchedule}}</ion-icon>
@@ -29,13 +29,17 @@
     </ion-item-divider>
 
     <ion-list id="home-list7" >
-      <ion-item color="light" id="home-list-item10" *ngFor="let item2 of _avaliacoesAgendadas" >
-        <div>Id: {{item2.codigo}}</div>
+      <ion-item style="font-size: 12px"  id="home-list-item10" *ngFor="let item2 of _avaliacoesAgendadas" >
+        <div >Id: {{item2.codigo}} </div>
         <div>Periodo: {{item2.dataInicio}} a {{item2.dataTermino}}</div>
         <div></div>
       </ion-item>
     </ion-list>
 
   </ion-list>
-
+  
+  <ion-footer [hidden]="hasConnection" style="text-align: center; background-color: red;">
+    <ion-icon name="warning"></ion-icon>
+    <strong>Sem Conexão de Rede</strong>
+  </ion-footer>
 </ion-content>

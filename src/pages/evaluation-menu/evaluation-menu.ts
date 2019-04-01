@@ -1,8 +1,8 @@
-import { HomePage } from './../home/home';
-import { MyApp } from './../../app/app.component';
-import { TabsPage } from './../tabs/tabs';
-import { ChecklistPage } from './../checklist/checklist';
-import { Component     } from '@angular/core';
+import { AvaliacaoDTO     } from './../../model/avaliacao.dto';
+import { AvalicaoService  } from './../../domain/avaliacao.service';
+import { ChecklistItemDTO } from '../../model/checklistItem.dto';
+import { TabsPage         } from './../tabs/tabs';
+import { Component        } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
@@ -18,17 +18,21 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
   templateUrl: 'evaluation-menu.html',
 })
 export class EvaluationMenuPage {  
+  public evaluation : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public itens      : ChecklistItemDTO[];
+  public title      : string = "";
 
   constructor(
     public navCtrl  : NavController, 
     public navParams: NavParams, 
-    public alertCtrl: AlertController, ) {
+    public alertCtrl: AlertController, 
+    public avService: AvalicaoService) {
   }
   ShowText (text: string){
     const alert = this.alertCtrl.create({
-      title: 'Fase de produção',
+      title: 'Aviso',
       subTitle: text,
-      buttons: ['Entendi :)']
+      buttons: ['Ok']
     });
     alert.present();
 
@@ -41,10 +45,15 @@ export class EvaluationMenuPage {
     }
   }
   goToChecklist(){
-    this.navCtrl.push('ChecklistPage');
+    this.navCtrl.push('ChecklistPage',{avaliacao : this.evaluation});
   }
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad EvaluationMenuPage');
+    //proctect explosion.
+    if(this.evaluation == null)
+      return null;
+      
+    this.title = this.evaluation.dataInicio;
+    //console.log('ionViewDidLoad EvaluationMenuPage');     
+    
   }
-
 }

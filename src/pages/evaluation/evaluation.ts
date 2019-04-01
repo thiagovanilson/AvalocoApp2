@@ -1,3 +1,4 @@
+import { AvaliacaoDTO } from './../../model/avaliacao.dto';
 import { AvalicaoService } from './../../domain/avaliacao.service';
 import { HomePage } from './../home/home';
 import { API_CONFIG } from './../../config/api.config';
@@ -21,7 +22,7 @@ export class EvaluationPage {
   title: ""
   _avaliacoesAbertas  = this.avService.opned;
   _avaliacoesAgendadas= this.avService.schudule;
-  
+
   constructor( 
     public navCtrl  : NavController, 
     public navParams: NavParams,
@@ -30,11 +31,11 @@ export class EvaluationPage {
   ) {
     this.title = this.navParams.data;
   }
-  public goToEvaluation(){
+  public goToEvaluation(item : AvaliacaoDTO){
     if(this.title.startsWith('Avaliações Agendadas')){
       this.ShowText("Avaliaçoes agendadas não podem ser abertas.");
     }else{
-      this.navCtrl.push('EvaluationMenuPage');
+      this.navCtrl.push('EvaluationMenuPage',{avaliacao : item});      
     }
   }
   public isOpened() :boolean{
@@ -54,10 +55,13 @@ export class EvaluationPage {
     alert.present();
 
   }
+  public hasItens(): boolean{
+    return ! (this._avaliacoesAbertas == null && this._avaliacoesAgendadas == null);
+  }
   buttonColor(){
     return API_CONFIG.buttonColor;
   }
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad SchedulePage');
+    if()
   }
 }
