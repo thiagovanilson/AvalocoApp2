@@ -6,7 +6,7 @@
 -->
 <ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
   <h5 style="margin-top: 0px">
-    &nbsp; Tecnologo ADS 10/10/18
+    &nbsp; {{title}}
     <div style="font-size: 12pt">
       <ion-icon name="arrow-dropleft"></ion-icon>
       Checklist
@@ -14,46 +14,54 @@
   </h5>
 </ion-header>
 
-<ion-content padding >
-  
-  <button ion-button text-capitalize text-wrap color="light" (click)="presentActionSheet()" >
-    {{categorySelected}} &nbsp; 
-    <ion-icon name="arrow-dropdown-circle"></ion-icon>
-  </button>
+<ion-content padding >  
   
   <ion-list no-padding style=" background-color:  rgb(229, 235, 235); " >
     
-    <ion-grid *ngFor="let item of itens" no-padding style="width:100%; border:2px solid; padding-top:5%; padding-bottom: 20%; " text-center>
-    <h5 padding-left text-wrap style="text-align: left; ">
-      {{item.ordem}}  {{item.nome}}
-    </h5>
-    <ion-row radio-group style="width:100%;">  <ion-col >
-      <ion-item style=" background-color:  rgb(0, 0, 0,0)">
-        <ion-label>Sim</ion-label>
-        <ion-radio value="go">
-        </ion-radio>      
-      </ion-item>
-      </ion-col>        
-      <ion-col>
-        <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <ion-radio  value=""></ion-radio>        
-          <ion-label>Não</ion-label>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-          <ion-item style="width:25px;background-color:  rgb(0, 0, 0,0)">                  
+    <ion-item style="size: 50px; background-color: blueviolet">        
+      <ion-select placeholder="{{firstCategory}}"  multiple="false" cancelText="Cancelar" okText="Salvar" >
+          <ion-option  *ngFor="let item of categories" value=item.nome >{{item.nome}}</ion-option>         
+      </ion-select>
+    </ion-item>
+   
+    <br />
+
+    <ion-grid no-padding  *ngFor="let item of itens"  text-center>
+      
+      <ion-row>
+        <h6 padding-left text-wrap style="text-align: left; ">
+          {{item.ordem}} - {{item.nome}}
+        </h6>
+      </ion-row>
+
+      <ion-row radio-group style="width:100%;" (click)="saveItemCheckllist(item)">  
+        <ion-col >            
+          <ion-item style=" background-color: unset">
+            <ion-label>Sim</ion-label>
+            <ion-radio value='{{item.atendido}}' (click)="alterStatus(item, true)" >
+            </ion-radio>      
           </ion-item>
-      </ion-col>  
-      <ion-col>
-        <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <ion-icon name="ios-create-outline" ></ion-icon>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>        </ion-item>
-      </ion-col>
-    </ion-row>
+          </ion-col>        
+          <ion-col>
+            <ion-item style="background-color:  unset">
+              <ion-radio value="{{!item.atendido}}" (click)="alterStatus(item, false)"></ion-radio>        
+              <ion-label>Não</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+              <ion-item style="width:50px; background-color:  rgb(0, 0, 0,0)">                  
+              </ion-item>
+          </ion-col>  
+          <ion-col>
+            <ion-item style="background-color: unset">
+              <ion-icon name="ios-create-outline" ></ion-icon>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item style="background-color: unset">
+              <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>        </ion-item>
+          </ion-col>
+        </ion-row>
     <!--
     <h5 padding-left text-wrap style="text-align: left; ">
       1.2 Estatuto do IFPE.
@@ -155,4 +163,5 @@
       --> 
     </ion-grid>        
   </ion-list>  
+  <button ion-button (click)="teste()">Teste</button>
 </ion-content>

@@ -1,3 +1,4 @@
+import { GeneralService } from './../../domain/general.service';
 import { AvaliacaoDTO     } from './../../model/avaliacao.dto';
 import { AvalicaoService  } from './../../domain/avaliacao.service';
 import { ChecklistItemDTO } from '../../model/checklistItem.dto';
@@ -23,10 +24,11 @@ export class EvaluationMenuPage {
   public title      : string = "";
 
   constructor(
-    public navCtrl  : NavController, 
-    public navParams: NavParams, 
-    public alertCtrl: AlertController, 
-    public avService: AvalicaoService) {
+    public navCtrl   : NavController, 
+    public navParams : NavParams, 
+    public alertCtrl : AlertController, 
+    public avService : AvalicaoService,
+    public genService: GeneralService) {
   }
   ShowText (text: string){
     const alert = this.alertCtrl.create({
@@ -52,7 +54,8 @@ export class EvaluationMenuPage {
     if(this.evaluation == null)
       return null;
       
-    this.title = this.evaluation.dataInicio;
+    this.title = this.genService.nameAndDateToTitle(this.evaluation);
+   
     //console.log('ionViewDidLoad EvaluationMenuPage');     
     
   }

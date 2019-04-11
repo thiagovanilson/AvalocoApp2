@@ -1,3 +1,5 @@
+import { AvaliacaoChecklisDTO } from './../../model/avaliacaoChecklist.dto';
+import { GeneralService  } from './../../domain/general.service';
 import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
 import { ChecklistItemDTO} from './../../model/checklistItem.dto';
 import { AvalicaoService } from './../../domain/avaliacao.service';
@@ -5,7 +7,7 @@ import { Component       } from '@angular/core';
 import { HomePage        } from '../home/home';
 import { TabsPage        } from '../tabs/tabs';
 import { ItemCategoryDTO } from '../../model/itemCategory.dto';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ActionSheet } from 'ionic-angular';
 
 
 @IonicPage()
@@ -15,34 +17,48 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 })
 export class ChecklistPage {
 
-  public categories : ItemCategoryDTO[];
-  public itens      : ChecklistItemDTO[];
-  public evaluation : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public categories    : ItemCategoryDTO[];
+  public itens         : ChecklistItemDTO[];
+  public itensResponse : AvaliacaoChecklisDTO[];
+  public evaluation    : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public firstCategory : string;
+  public title         : string;
 
   constructor(public actionSheetCtrl: ActionSheetController, 
-    public navCtrl: NavController, 
+    public navCtrl  : NavController, 
     public navParams: NavParams,
-    public avService: AvalicaoService) {
+    public avService: AvalicaoService,
+    public gservice : GeneralService) {
   }
-  title: string = "Vanilson";
 
   ionViewDidLoad() {
+    if(this.evaluation == null){
+      return;
+    }
+    
     this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
-      response => { this.categories = response;  } 
+      response => { this.categories = response; this.firstCategory = this.categories[0].nome; } 
     );  
-    this.avService.getItensByCategory(1).subscribe(
+    this.avService.getItensByCategory(this.evaluation.codigo).subscribe(
       response => { this.itens = response;  } 
-    );  
+    ); 
+    this.title = this.gservice.nameAndDateToTitle(this.evaluation);
+    /*
+    this.avService.saveItemCheckList().subscribe(
+      response => {  } 
+    ); */
+ 
   }
   goToHome(){
     this.navCtrl.push(HomePage);
   }
   categorySelected:string = "Documentos no âmbito da instituicão";
-
+  public  actionSheet : ActionSheet;
+  
   presentActionSheet() {
     
     
-    const actionSheet = this.actionSheetCtrl.create({
+    this.actionSheet = this.actionSheetCtrl.create({
       //title: 'Categoria',
       buttons: [
         {
@@ -72,7 +88,20 @@ export class ChecklistPage {
         }
       ]
     });//*/
-    actionSheet.present();
+    this.actionSheet.showBackButton;
+    this.actionSheet.present();
+  }
+  alterStatus(check : ChecklistItemDTO, status: boolean){
+    check.atendido = status ;
+  }
+  saveItemCheckllist(check : AvaliacaoChecklisDTO){
+
+    this.avService.saveItemCheckList(check).subscribe(
+      response => {  } 
+    );  
+
+    //this.gservice.showMessage( "atendido: " + this.itens[0].atendido );
+    //this.itens[0].atendido = false;
   }
   goback(){
     if(this.navCtrl.length() > 1){

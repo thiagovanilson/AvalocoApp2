@@ -27,9 +27,9 @@
     <ion-card ion-button clear  [hidden]="!isOpened()"
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
     
-      <ion-card-content (click)="goToEvaluation(item)" style="text-transform: capitalize 	" >
-        <div>Codigo {{item.codigo}} </div>
-        <div>Periodo {{item.dataInicio}} a {{item.dataTermino}}</div> 
+      <ion-card-content (click)="goToEvaluation(item)"  >
+        <div>Codigo: {{item.codigo}} | Curso: {{item.curso.nome}} </div>
+        <div>Periodo: {{ gservice.formatDate( item.dataInicio)}} a {{gservice.formatDate(item.dataTermino)}}</div> 
                
       </ion-card-content>
       
@@ -39,9 +39,9 @@
     <ion-card ion-button clear  [hidden]="isOpened()" 
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAgendadas">
     
-      <ion-card-content  style="text-transform: capitalize 	" (click)="goToEvaluation()" >
-        <div >Codigo {{item.codigo}} </div>
-        <div>Periodo {{item.dataInicio}} a {{item.dataTermino}}</div> 
+      <ion-card-content (click)="goToEvaluation()" >
+        <div>Codigo {{item.codigo}} </div>
+        <div>Periodo {{ gservice.formatDate( item.dataInicio)}} a {{gservice.formatDate(item.dataTermino)}}</div> 
         <div></div>
       </ion-card-content>
       

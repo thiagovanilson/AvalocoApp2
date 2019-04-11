@@ -1,8 +1,8 @@
-import { AvaliacaoDTO } from './../../model/avaliacao.dto';
+import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
 import { AvalicaoService } from './../../domain/avaliacao.service';
-import { HomePage } from './../home/home';
-import { API_CONFIG } from './../../config/api.config';
-import { Component  } from '@angular/core';
+import { API_CONFIG      } from './../../config/api.config';
+import { Component       } from '@angular/core';
+import { GeneralService  } from '../../domain/general.service';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
@@ -27,7 +27,9 @@ export class EvaluationPage {
     public navCtrl  : NavController, 
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    public avService: AvalicaoService
+    public avService: AvalicaoService,
+    public gservice : GeneralService
+    
   ) {
     this.title = this.navParams.data;
   }
@@ -55,6 +57,7 @@ export class EvaluationPage {
     alert.present();
 
   }
+
   public hasItens(): boolean{
     return ! (this._avaliacoesAbertas == null && this._avaliacoesAgendadas == null);
   }
@@ -62,6 +65,6 @@ export class EvaluationPage {
     return API_CONFIG.buttonColor;
   }
   ionViewDidLoad() {
-    if()
+    //console.log('ionViewDidLoad SchedulePage');
   }
 }

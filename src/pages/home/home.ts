@@ -1,3 +1,4 @@
+import { GeneralService } from './../../domain/general.service';
 import { NavController, AlertController, ModalController, Platform } from 'ionic-angular';
 import { Component       } from '@angular/core';
 import { AvalicaoService } from '../../domain/avaliacao.service';
@@ -11,12 +12,14 @@ import { API_CONFIG      } from '../../config/api.config';
 
 export class HomePage {
   private cont :number = 1;
+
   constructor(
-    public platform: Platform,
     public avaliacaoService: AvalicaoService,
-    public navCtrl  : NavController,
-    public alertCtrl: AlertController,
-    public modalCtrl: ModalController) {
+    public alertCtrl       : AlertController,
+    public platform        : Platform,
+    public modalCtrl       : ModalController,
+    public navCtrl         : NavController,
+    public genService      : GeneralService){
 
       platform.ready().then(() => {      
 
@@ -73,7 +76,7 @@ export class HomePage {
   }
   public updateData(){
 
-    //To refressh data.    
+    //To refresh data.    
    
     this.avaliacaoService.findAll().subscribe(
       response => { 
@@ -109,6 +112,11 @@ export class HomePage {
   public goToEvaluation(item: AvaliacaoDTO){
     
     this.navCtrl.push('EvaluationMenuPage',{avaliacao : item});       
+  }
+  newDate: string[];
+
+  public formatDate(oldDate: string): string  {
+    return this.genService.formatDate(oldDate);
   }
   public buttonColor() {
     return API_CONFIG.buttonColor;

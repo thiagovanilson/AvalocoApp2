@@ -1,6 +1,6 @@
 import { ChecklistItemDTO } from '../model/checklistItem.dto';
-import { SeemPageModule } from './../pages/seem/seem.module';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { SeemPageModule           } from './../pages/seem/seem.module';
 import { EvaluationMenuPageModule } from './../pages/evaluation-menu/evaluation-menu.module';
 import { NgModule, ErrorHandler   } from '@angular/core';
 import { HomePage                 } from './../pages/home/home';
@@ -27,9 +27,10 @@ import { UserDTO          } from '../model/user.dto';
 import { EvaluationPage   } from '../pages/evaluation/evaluation';
 import { Camera           } from '@ionic-native/camera'
 import { IndicatorPage    } from '../pages/indicator/indicator';
+import { GeneralService   } from '../domain/general.service';
 import { ClosedEvaluationsPage       } from '../pages/closed-evaluations/closed-evaluations';
 import { ClosedEvaluationsPageModule } from '../pages/closed-evaluations/closed-evaluations.module';
-import { NavigationsService } from '../domain/navigations.service';
+import { NavigationsService          } from '../domain/navigations.service';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { NavigationsService } from '../domain/navigations.service';
     AvalicaoService,
     UserService, 
     NavigationsService,
+    GeneralService,
     UserDTO,
     HomePage,
     Camera,
