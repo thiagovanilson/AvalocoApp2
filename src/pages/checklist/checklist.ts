@@ -17,12 +17,13 @@ import { IonicPage, NavController, NavParams, ActionSheetController, ActionSheet
 })
 export class ChecklistPage {
 
-  public categories    : ItemCategoryDTO[];
-  public itens         : ChecklistItemDTO[];
-  public itensResponse : AvaliacaoChecklisDTO[];
-  public evaluation    : AvaliacaoDTO = this.navParams.get('avaliacao');
-  public firstCategory : string;
-  public title         : string;
+  public categories      : ItemCategoryDTO[];
+  public selectedCategory: ItemCategoryDTO;
+  public itens           : ChecklistItemDTO[];
+  public itensResponse   : AvaliacaoChecklisDTO[];
+  public evaluation      : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public firstCategory   : string;
+  public title           : string;
 
   constructor(public actionSheetCtrl: ActionSheetController, 
     public navCtrl  : NavController, 
@@ -43,11 +44,7 @@ export class ChecklistPage {
       response => { this.itens = response;  } 
     ); 
     this.title = this.gservice.nameAndDateToTitle(this.evaluation);
-    /*
-    this.avService.saveItemCheckList().subscribe(
-      response => {  } 
-    ); */
- 
+    
   }
   goToHome(){
     this.navCtrl.push(HomePage);

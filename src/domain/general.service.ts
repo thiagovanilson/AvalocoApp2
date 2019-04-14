@@ -10,25 +10,28 @@ export class GeneralService{
 
   }
 
-  public showMessage(msg){
-  
+  public showMessage(msg){  
     const alert = this.alertCtrl.create({
       title: 'Titulo',
       subTitle: msg,
       buttons: ['OK']
     });
     alert.present();
-  }
-   
-  //newDate: string[];
-
+  }   
+  
+  //Used when is needed to show the date with a brazilian model.
   public formatDate(oldDate: string): string  {
     let newDate = oldDate.split("-");   
     return newDate[2]+ "/" + newDate[1] + "/" + newDate[0];
   }
+  //Used to help to the build the title in some pages.
   public nameAndDateToTitle( evaluation: AvaliacaoDTO): string{
     let title  = evaluation.curso.nome + "\n";
     title += this.formatDate( evaluation.dataInicio) ;
     return title;
+  }
+  //
+  couseName(evaluation: AvaliacaoDTO): string{
+    return (evaluation.curso == null) ? "Nao atribuido.": evaluation.curso.nome;
   }
 }

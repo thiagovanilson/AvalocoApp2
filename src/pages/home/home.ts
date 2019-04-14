@@ -9,16 +9,17 @@ import { API_CONFIG      } from '../../config/api.config';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-
+//TO DO 
+//eliminate  explosion on to the evaluations without corse
 export class HomePage {
   private cont :number = 1;
 
   constructor(
     public avaliacaoService: AvalicaoService,
     public alertCtrl       : AlertController,
-    public platform        : Platform,
+    public platform        : Platform       ,
     public modalCtrl       : ModalController,
-    public navCtrl         : NavController,
+    public navCtrl         : NavController  ,
     public genService      : GeneralService){
 
       platform.ready().then(() => {      

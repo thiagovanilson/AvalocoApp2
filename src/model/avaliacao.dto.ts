@@ -1,14 +1,19 @@
 export interface AvaliacaoDTO{
-    codigo: number,
-    dataInicio: string, 
+    codigo     : number,
+    dataInicio : string, 
     dataTermino: string,
     dataEntrega: string,
-    aberta: boolean,
-    conceito: Int16Array,
-    parecer: string,
+    aberta     : boolean,
+    conceito   : Int16Array,
+    parecer    : string,
 
     curso:{
         codigo: number,
-        nome: string
-    }	
+        nome  : string
+    },	
+    modelo: {
+        codigo   : number,
+        nome     : string,
+        descricao: string
+    }
 }

@@ -3,6 +3,6 @@ export const API_CONFIG = {
     //baseUrl    : "http://avaloco.sytes.net:8080", //NOT WORKING
     baseUrl    : "http://avaloco.ddns.net:8080",
     themeColor : "black",
-    buttonColor: "google", //secondary, dark, default, light
+    buttonColor: "whatsapp", //secondary, dark, default, light
     bgColor    : "bgColor",
 }

@@ -4,44 +4,32 @@
   </h5>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding style=" position:block; background-image: url('assets/imgs/Conceito04.MarcaDagua.png'); background-size: 196px; background-repeat: no-repeat; background-position-x: 95%; background-position-y: 90%">
     
   <br />
   <br />
 
-  <ion-list id="list-tests" >
-
-    <!-- Versão de testes apenas 
-      <ion-card [hidden]="hasItens()" ion-button clear (click)="goToEvaluation()" style="height: 90px;  width: 100%; margin-left: 0; " >
-        
-        <ion-card-content style="text-transform: capitalize 	" >
-          <div>Codigo Exemplo </div>
-          <div>Periodo </div>       
-        </ion-card-content>
-        
-      </ion-card>    
-    -->
-   
+  <ion-list id="list-tests"  >
     
     <!--Used when the avaliations stay in progress -->
-    <ion-card ion-button clear  [hidden]="!isOpened()"
+    <ion-card text-wrap ion-button clear  [hidden]="!isOpened()"
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAbertas">
     
       <ion-card-content (click)="goToEvaluation(item)"  >
-        <div>Codigo: {{item.codigo}} | Curso: {{item.curso.nome}} </div>
-        <div>Periodo: {{ gservice.formatDate( item.dataInicio)}} a {{gservice.formatDate(item.dataTermino)}}</div> 
+        <div>Curso: {{item.curso.nome}} </div>
+        <div>Codigo: {{item.codigo}} | Periodo: {{ gservice.formatDate( item.dataInicio)}} a {{gservice.formatDate(item.dataTermino)}}</div> 
                
       </ion-card-content>
       
     </ion-card>    
     
     <!--Used when the avaliations don't stay in progress yet-->
-    <ion-card ion-button clear  [hidden]="isOpened()" 
+    <ion-card text-wrap ion-button clear  [hidden]="isOpened()" 
     style="height: 90px;  width: 100%; margin-left: 0; " *ngFor="let item of _avaliacoesAgendadas">
     
       <ion-card-content (click)="goToEvaluation()" >
-        <div>Codigo {{item.codigo}} </div>
-        <div>Periodo {{ gservice.formatDate( item.dataInicio)}} a {{gservice.formatDate(item.dataTermino)}}</div> 
+        <div>Curso: {{item.curso.nome}}  </div>
+        <div>Codigo {{item.codigo}} | Periodo {{ gservice.formatDate( item.dataInicio)}} a {{gservice.formatDate(item.dataTermino)}}</div> 
         <div></div>
       </ion-card-content>
       
