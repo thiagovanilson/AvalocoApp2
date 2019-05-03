@@ -1,29 +1,32 @@
+import { Component, ErrorHandler } from '@angular/core';
 import { AvaliacaoChecklisDTO } from './../../model/avaliacaoChecklist.dto';
+import { ItemCategoryDTO } from './../../model/itemCategory.dto';
 import { GeneralService  } from './../../domain/general.service';
 import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
 import { ChecklistItemDTO} from './../../model/checklistItem.dto';
 import { AvalicaoService } from './../../domain/avaliacao.service';
-import { Component       } from '@angular/core';
 import { HomePage        } from '../home/home';
 import { TabsPage        } from '../tabs/tabs';
-import { ItemCategoryDTO } from '../../model/itemCategory.dto';
-import { IonicPage, NavController, NavParams, ActionSheetController, ActionSheet } from 'ionic-angular';
 
+import { IonicPage, NavController, NavParams, ActionSheetController, ActionSheet } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-checklist',
+  selector   : 'page-checklist',
   templateUrl: 'checklist.html',
 })
 export class ChecklistPage {
 
   public categories      : ItemCategoryDTO[];
-  public selectedCategory: ItemCategoryDTO;
+  public selectedCategory: ItemCategoryDTO;  
   public itens           : ChecklistItemDTO[];
   public itensResponse   : AvaliacaoChecklisDTO[];
   public evaluation      : AvaliacaoDTO = this.navParams.get('avaliacao');
   public firstCategory   : string;
   public title           : string;
+
+  public categorySelectedName: string = "Documentos no âmbito da instituicão";
+  public categorySelectedCod : number;
 
   constructor(public actionSheetCtrl: ActionSheetController, 
     public navCtrl  : NavController, 
@@ -31,70 +34,87 @@ export class ChecklistPage {
     public avService: AvalicaoService,
     public gservice : GeneralService) {
   }
-
+ 
   ionViewDidLoad() {
-    if(this.evaluation == null){
-      return;
+
+    if(this.evaluation != null){
+      
+      this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
+        response => { 
+          this.categories = response; 
+          this.firstCategory = this.categories[0].nome; 
+        } 
+      );  
+      this.title = this.gservice.nameAndDateToTitle(this.evaluation);
     }
-    
-    this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
-      response => { this.categories = response; this.firstCategory = this.categories[0].nome; } 
-    );  
-    this.avService.getItensByCategory(this.evaluation.codigo).subscribe(
+    this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
       response => { this.itens = response;  } 
     ); 
-    this.title = this.gservice.nameAndDateToTitle(this.evaluation);
-    
+    this.loadItens();
   }
+  loadItens(){
+    //this.gservice.showMessage(this.categorySelectedCod);
+
+    this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
+      response => {
+        this.itens = response;         
+      } 
+    );
+
+    this.updateItensValues();
+  }
+  public out : string = "" ;
+  updateItensValues(){
+    if(this.itens != null && this.itens != []){
+      
+      for(let cont = 0; cont < this.itens.length; cont++){
+        try{
+
+          this.avService.getItemCheckList(this.itens[cont].codigo,this.evaluation.codigo).subscribe(
+          response => {
+            
+            if(response != null /*&& this.itens[cont].codigo == response.itemCheck.codigo*/){
+              //let a : ChecklistItemDTO;
+              //this.gservice.showMessage(response.atendido);
+              this.itens[cont].atendido = response.atendido;
+              this.out +=  this.itens[cont].atendido + "\n";
+            }
+          }
+          );
+        }catch(ErrorHandler){
+          
+        }      
+      }
+      //this.gservice.showMessage(this.out);
+    }
+  } 
+  
   goToHome(){
     this.navCtrl.push(HomePage);
   }
-  categorySelected:string = "Documentos no âmbito da instituicão";
-  public  actionSheet : ActionSheet;
+  public  actionSheet : ActionSheet;  
   
-  presentActionSheet() {
-    
-    
-    this.actionSheet = this.actionSheetCtrl.create({
-      //title: 'Categoria',
-      buttons: [
-        {
-          text: this.categories[0].nome +'',
-          role: 'ambientes',
-          handler: () => {
-            this.categorySelected= this.categories[0].nome +'';
-          }
-        },{
-          text: 'Cancelar',
-          
-        }
-      ]
-    });
-   /* const actionSheet2 = this.actionSheetCtrl.create({
-      //title: 'Categoria',
-      buttons: [
-        {
-          text: this.itens[1].nome +'',
-          role: 'ambientes',
-          handler: () => {
-            this.categorySelected= "Exemplo2";
-          }
-        },{
-          text: 'Cancelar',
-          
-        }
-      ]
-    });//*/
-    this.actionSheet.showBackButton;
-    this.actionSheet.present();
-  }
   alterStatus(check : ChecklistItemDTO, status: boolean){
-    check.atendido = status ;
+    check.atendido = <boolean>status ;
+    this.saveItemCheckllist(check);
   }
-  saveItemCheckllist(check : AvaliacaoChecklisDTO){
-
-    this.avService.saveItemCheckList(check).subscribe(
-      response => {  } 
+  saveItemCheckllist(check : ChecklistItemDTO){
+    var data = <AvaliacaoChecklisDTO> 
+    { 
+        atendido : <boolean>check.atendido,
+        observacao: '',
+        avaliacao :
+        {
+          codigo : this.evaluation.codigo
+        },
+        itemCheck:{
+          codigo : check.codigo
+        }
+      }
+      ;
+      //this.gservice.showMessage(data.atendido);
+    this.avService.saveItemCheckList(data).subscribe(
+      response => { console.log(response) } 
     );  
 
     //this.gservice.showMessage( "atendido: " + this.itens[0].atendido );

@@ -1,4 +1,4 @@
-<ion-content padding id="home"  style="background: rgb(229, 235, 235); background-image: url('assets/imgs/Conceito04.MarcaDagua.png'); background-size: 96px;">
+<ion-content  id="home"  style="background: rgb(229, 235, 235); background-image: url('assets/imgs/Conceito04.MarcaDagua.png'); background-size: 96px; overflow-y: hidden;">
   <!-- <img  src="assets/imgs/39nUlEqUQiWFfHzasCpQ_Conceito04.png" style="background-image: assets/imgs/39nUlEqUQiWFfHzasCpQ_Conceito04.png" /> -->
 
   <ion-list id="home-list1" style="height: 45%;">
@@ -11,7 +11,7 @@
     <ion-list id="OpnedList">      
       <ion-item  *ngFor="let item of _avaliacoesAbertas" style="font-size: 12px" id="home-list-item9" (click)="goToEvaluation(item)"   >
         <div><b>Curso: </b>{{genService.couseName(item)}}</div>
-        <div><b>Id: </b>{{item.codigo}}<b> Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}</div>
+        <div><b>Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}  (<b>Id: </b>{{item.codigo}})</div>
         <div></div>
       </ion-item>      
     </ion-list>
@@ -30,7 +30,7 @@
     <ion-list id="home-list7" >
       <ion-item style="font-size: 12px"  id="home-list-item10" *ngFor="let item of _avaliacoesAgendadas" >
         <div><b>Curso: </b>{{genService.couseName(item)}}</div>
-        <div><b>Id: </b>{{item.codigo}}<b> Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}</div>
+        <div><b> Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}} (<b>Id: </b>{{item.codigo}})</div>
         <div></div>
       </ion-item>
     </ion-list>

@@ -1,9 +1,11 @@
+import { GeneralService } from './../../domain/general.service';
 import { AvalicaoService } from './../../domain/avaliacao.service';
 import { SeemPage } from './../seem/seem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { IndicatorDTO } from '../../model/indicator.dto';
+import { AvaliacaoDTO } from '../../model/avaliacao.dto';
 
 
 @IonicPage()
@@ -12,10 +14,12 @@ import { IndicatorDTO } from '../../model/indicator.dto';
   templateUrl: 'indicator.html',
 })
 export class IndicatorPage {
-  private btVisit:   number = 0;
-  private btCheck:   number = 1;
-  private btChecked: number = 2;
-  
+  private btVisit   : number = 0;
+  private btCheck   : number = 1;
+  private btChecked : number = 2;
+  public evaluation : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public title      : string = "";
+
   public itens : IndicatorDTO[];
 
   gridColor: string = "#cececf";
@@ -27,17 +31,17 @@ export class IndicatorPage {
     this.topicVisible[param] = false;
   }
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,
-    public modalCtrl: ModalController,
-    public avService: AvalicaoService) {
+    public navCtrl   : NavController, 
+    public navParams : NavParams,
+    public modalCtrl : ModalController,
+    public avService : AvalicaoService,
+    public genService: GeneralService) {
   }
   presentProfileModal(args: string) {
     if(args.startsWith('SeemPage')){
       let profileModal = this.modalCtrl.create(SeemPage);
 
-    }else
-    {
+    }else{
 
     } 
     let profileModal = this.modalCtrl.create(args);
@@ -76,9 +80,13 @@ export class IndicatorPage {
     }
   }
   ionViewDidLoad() {
-    this.avService.getIndicatorByCod(7).subscribe(
-      response => { this.itens = response; console.log(this.itens[0].nome) } 
+    //Get of the evaluation
+    this.avService.getIndicatorByCod(1).subscribe(
+      response => { /*this.itens = response; console.log(this.itens[0].nome)*/ } 
     ); 
+    if(this.evaluation != null){
+      this.title = this.genService.nameAndDateToTitle(this.evaluation);
+    }      
+   
   }
-
 }

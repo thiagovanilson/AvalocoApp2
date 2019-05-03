@@ -1,9 +1,4 @@
-<!--
-  Generated template for the EvaluationMenuPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
   <h5 style="margin-top: 0px">
     &nbsp; {{title}}
@@ -14,12 +9,12 @@
   </h5>
 </ion-header>
 
-<ion-content text-center >    
-  
-  <ion-grid style="padding-top: 30% ;height: 85%;  align-items: center; ">
+<ion-content text-center  >    
+
+  <ion-grid style="position: absolute; top: 20%;   align-items: center; ">
     <ion-row>
       <ion-col>
-        <div style="padding: 5px 5%">
+        <div >
           <ion-card style="padding: 10%; height: 140px; width: 140px; background-color: rgb(222, 222, 231)" (click)="goToChecklist()">
             Checklist das ações do curso
             <br />&nbsp;
@@ -30,8 +25,8 @@
         </div>
       </ion-col>
       <ion-col>
-        <div style="padding: 5px 5%">            
-          <ion-card style="padding: 10%;  height: 140px; width: 140px; background-color: rgb(222, 222, 231)" (click)="navCtrl.push('IndicatorPage')">
+        <div >            
+          <ion-card style="padding: 10%;  height: 140px; width: 140px; background-color: rgb(222, 222, 231)" (click)="goToIndicator()">
             <br />&nbsp;
             Indicadores   
             <br />&nbsp;         
@@ -44,10 +39,10 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <div style="padding: 5% 5%">
+        <div >
           <ion-card style="padding: 10%; height: 140px; width: 140px; background-color: rgb(222, 222, 231)" >
             Requisitos legais e normativos
-
+            <br />
             <h1>
               <ion-icon name="ios-paper"></ion-icon>
             </h1>
@@ -55,7 +50,7 @@
         </div>
         </ion-col>
         <ion-col>
-          <div style="padding: 5% 5%">
+          <div >
             <ion-card style="padding: 10%; height: 140px; width: 140px; background-color: rgb(222, 222, 231)" (click)="navCtrl.push('FinalConsiderationsPage')">
               Registrar considerações finais
               <h1>

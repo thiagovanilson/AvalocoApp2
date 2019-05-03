@@ -12,7 +12,7 @@ export class GeneralService{
 
   public showMessage(msg){  
     const alert = this.alertCtrl.create({
-      title: 'Titulo',
+      title: 'Aviso',
       subTitle: msg,
       buttons: ['OK']
     });
@@ -24,14 +24,20 @@ export class GeneralService{
     let newDate = oldDate.split("-");   
     return newDate[2]+ "/" + newDate[1] + "/" + newDate[0];
   }
+
   //Used to help to the build the title in some pages.
   public nameAndDateToTitle( evaluation: AvaliacaoDTO): string{
-    let title  = evaluation.curso.nome + "\n";
+    let title = "Curso não atribuido - ";
+
+    if(evaluation.curso != null){
+      title = evaluation.curso.nome + "\n";
+    }
     title += this.formatDate( evaluation.dataInicio) ;
+    
     return title;
   }
   //
   couseName(evaluation: AvaliacaoDTO): string{
-    return (evaluation.curso == null) ? "Nao atribuido.": evaluation.curso.nome;
+    return (evaluation.curso == null) ? "Nao atribuido." : evaluation.curso.nome;
   }
 }

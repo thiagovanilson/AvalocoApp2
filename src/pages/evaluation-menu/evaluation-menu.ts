@@ -49,11 +49,14 @@ export class EvaluationMenuPage {
   goToChecklist(){
     this.navCtrl.push('ChecklistPage',{avaliacao : this.evaluation});
   }
+  goToIndicator(){
+    this.navCtrl.push('IndicatorPage',{avaliacao : this.evaluation});
+  }
   ionViewDidLoad() {
     //proctect explosion.
-    if(this.evaluation == null)
-      return null;
-      
+    if(this.evaluation == null){
+      return ;
+    }      
     this.title = this.genService.nameAndDateToTitle(this.evaluation);
    
     //console.log('ionViewDidLoad EvaluationMenuPage');     

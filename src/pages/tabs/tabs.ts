@@ -4,13 +4,13 @@ import { Component } from '@angular/core';
 
 //import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
-import { UserPage } from '../user/user';
-import { AvaliacaoDTO } from '../../model/avaliacao.dto';
-import { AvalicaoService } from '../../domain/avaliacao.service';
+import { HomePage    } from '../home/home';
+import { UserPage    } from '../user/user';
+import { AvaliacaoDTO} from '../../model/avaliacao.dto';
+import { API_CONFIG  } from '../../config/api.config';
+import { LoginPage   } from '../login/login';
+import { AvalicaoService       } from '../../domain/avaliacao.service';
 import { ClosedEvaluationsPage } from '../closed-evaluations/closed-evaluations';
-import { API_CONFIG } from '../../config/api.config';
-import { LoginPage } from '../login/login';
 
 //https://javiergarciaescobedo.es/ionic/479-navegacion-entre-paginas-en-ionic
 

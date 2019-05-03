@@ -8,7 +8,7 @@ export interface AvaliacaoChecklisDTO{
    },
    curso:{
       codigo: number,
-      nome: string,
+      nome  : string,
 
    },itemCheck:{
       codigo : number

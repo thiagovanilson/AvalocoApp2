@@ -9,8 +9,7 @@ import { API_CONFIG      } from '../../config/api.config';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-//TO DO 
-//eliminate  explosion on to the evaluations without corse
+
 export class HomePage {
   private cont :number = 1;
 
@@ -26,8 +25,8 @@ export class HomePage {
 
         setInterval(() => {
         console.log("Espera " + this.cont++ )
-          this.updateData(); //sua função
-        },900000);  //15 minutes to update data
+          this.updateData();
+        },50000);  //minutes to update data
       }) //*/
   }
     
@@ -82,7 +81,8 @@ export class HomePage {
     this.avaliacaoService.findAll().subscribe(
       response => { 
         this._TodasAsAvaliacoes = response;  
-      this.hasConnection = (this._TodasAsAvaliacoes != null);}
+        this.hasConnection = (this._TodasAsAvaliacoes != null);
+      }
     );
     if(this._TodasAsAvaliacoes != null){
      

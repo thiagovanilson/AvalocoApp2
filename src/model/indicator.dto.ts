@@ -1,4 +1,7 @@
 export interface IndicatorDTO{
-    codigo: Int32Array;
-    nome: string;
+    nome  : string;
+    codigo: number;
+    modelo : {
+        codigo : number;
+    }
  }
