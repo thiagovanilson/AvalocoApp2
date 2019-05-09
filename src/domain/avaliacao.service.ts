@@ -1,3 +1,4 @@
+import { GeneralService } from './general.service';
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { AvaliacaoChecklisDTO   } from '../model/avaliacaoChecklist.dto';
 import { ChecklistItemDTO} from './../model/checklistItem.dto';
@@ -11,7 +12,7 @@ import { ItemCategoryDTO } from '../model/itemCategory.dto';
 @Injectable()
 export class AvalicaoService {
  
-    constructor(public http: HttpClient) {
+    constructor(public http: HttpClient, public gservice :GeneralService) {
     }
     public opned    : AvaliacaoDTO[];
     public schudule : AvaliacaoDTO[];
@@ -49,17 +50,35 @@ export class AvalicaoService {
                 //'Authorization': 'lucianocomputador@gmail.com'
             })
         };
-     
+        this.getItemCheckList(data.itemCheck.codigo, data.avaliacao.codigo).subscribe(
+            response => {
+              
+              if(response != null && response.codigo+"" != "" ){
+                //response.atendido = data.atendido;
+                console.log("tentando gravar:\n\ncod item: " + data.itemCheck.codigo+
+                "\nAtendido: " + data.atendido +"\nObservação: " + data.observacao);
+                return  this.http.put <AvaliacaoChecklisDTO[]>(`${API_CONFIG.baseUrl}/avachecklist/${response.codigo}/avaliacao/${data.avaliacao.codigo}`, data, httpOptions);
+
+              }
+            }
+        );
         //If does exist on database he create. Else he edit.
-        if(data.codigo == null)
-            return  this.http.post <AvaliacaoChecklisDTO[]>(`${API_CONFIG.baseUrl}/avachecklist`, data, httpOptions);
+        // if(data.codigo == null)
+        return  this.http.post <AvaliacaoChecklisDTO[]>(`${API_CONFIG.baseUrl}/avachecklist`, data, httpOptions);
         
     }
     
     getItemCheckList(codItem : number, codEvaluation: number) : Observable <AvaliacaoChecklisDTO>{
         return this.http.get<AvaliacaoChecklisDTO>(`${API_CONFIG.baseUrl}/avachecklist/${codItem}/avaliacao/${codEvaluation}`);
     } 
-    getItemCheckList2(codItem : number, codEvaluation: number){
-        return this.http.get<AvaliacaoChecklisDTO>(`${API_CONFIG.baseUrl}/avachecklist/${codItem}/avaliacao/${codEvaluation}`);
-    }                                                                   
+
+    updateObservations(item : AvaliacaoChecklisDTO){
+        this.http.put(`${API_CONFIG.baseUrl}/avachecklist/${item.codigo}`, item)
+        .subscribe((result: any) => {
+          
+        },
+        (error) => {
+          
+        });
+    }                                                                 
 }
