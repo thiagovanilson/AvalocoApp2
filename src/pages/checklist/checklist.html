@@ -1,9 +1,4 @@
-<!--
-  Generated template for the ChecklistPage page.
-  
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+
 <ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
   <h5 style="margin-top: 0px">
     &nbsp; {{title}}
@@ -18,19 +13,16 @@
   
   <ion-list no-padding style=" background-color:  rgb(229, 235, 235); " [hidden]="!showIndicators" >
     
-    <!-- <ion-select [(ngModel)]="categoria" id ="cat" (ionChange)="loadItens()" style=" background-color: #8a2be2" placeholder="Selecione um" interface="popover" multiple="false" cancelText="Cancelar" okText="Salvar" >
-      <ion-option  *ngFor="let item of categories"    >{{item.nome}}</ion-option>                
-    </ion-select> -->
     <ion-list>
       <ion-item >
         <ion-label>Categoria</ion-label>
-        <ion-select (ionChange)="loadItens()" [(ngModel)]="categorySelectedCod" >
+        <ion-select (ionChange)="loadItens()" [(ngModel)]="categorySelectedCod"  >
           <ion-option  *ngFor="let item of categories" value="{{item.codigo}}">{{item.nome}}</ion-option>          
         </ion-select>
        </ion-item>
      </ion-list>
     <br />
-    <!-- <button ion-button (click)="presentPrompt(item)">Teste de popup</button> -->
+
     <ion-grid no-padding  *ngFor="let item of itens"  text-center>
       
       <ion-row>
@@ -43,7 +35,7 @@
         <ion-col >            
           <ion-item style=" background-color: unset">
             <ion-label>Sim</ion-label>
-            <ion-radio checked={{validadeItem(item,true)}}  (click)="alterStatus(item, true)" ></ion-radio>      
+            <ion-radio checked="{{validadeItem(item,true)}}" (click)="alterStatus(item, true)" ></ion-radio>      
           </ion-item>
         </ion-col>        
         <ion-col>
@@ -53,7 +45,7 @@
           </ion-item>
           </ion-col>
           <ion-col>
-              <ion-item style="width:50px; background-color:  rgb(0, 0, 0,0)">                  
+              <ion-item style="background-color:  unset">                  
               </ion-item>
           </ion-col>  
           <ion-col>
@@ -61,10 +53,7 @@
               <ion-icon name="ios-create-outline" ></ion-icon>
             </ion-item>
           </ion-col>
-          <!-- <ion-col>
-            <ion-item style="background-color: unset">
-              <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>        </ion-item>
-          </ion-col> -->
+         
         </ion-row>
     <!--
     <h5 padding-left text-wrap style="text-align: left; ">
@@ -178,6 +167,9 @@
     </ion-item>
     <button ion-button (click)="saveObservation()">
       Salvar
+    </button>
+    <button ion-button (click)="hideTextfield()">
+      Voltar
     </button>
   </div>
 </ion-content>

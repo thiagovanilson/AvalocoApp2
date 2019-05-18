@@ -26,6 +26,7 @@ export class HomePage {
         setInterval(() => {
         console.log("Espera " + this.cont++ )
           this.updateData();
+          
         },50000);  //minutes to update data
       }) //*/
   }

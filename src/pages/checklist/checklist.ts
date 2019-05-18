@@ -26,7 +26,7 @@ export class ChecklistPage {
   public title           : string;
 
   public categorySelectedName: string = "Documentos no âmbito da instituicão";
-  public categorySelectedCod : number;
+  public categorySelectedCod : number = 1;
   public itemSelected        : ChecklistItemDTO;
 
   constructor(public actionSheetCtrl: ActionSheetController, 
@@ -35,6 +35,7 @@ export class ChecklistPage {
     public platform : Platform ,
     public avService: AvalicaoService,
     public gservice : GeneralService,
+    
     public alertCtrl: AlertController) {
 
       platform.ready().then(() => {      
@@ -67,7 +68,7 @@ export class ChecklistPage {
 
     this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
       response => {
-        this.itens = response;         
+        this.itens = response; 
       } 
     );
 
@@ -97,9 +98,10 @@ export class ChecklistPage {
         }catch(ErrorHandler){
           
         }//End Try.      
-      }  //End for.
-    }    //end IF.
-  }      //End function. 
+      }//End for.
+    }//End IF.
+  }//End function. 
+
   validadeItem(item: ChecklistItemDTO, wanted: boolean): boolean{
     if(item.atendido == 0 || item.atendido == 1){
       if(wanted && item.atendido == 1){
@@ -111,7 +113,7 @@ export class ChecklistPage {
     return false;
   }
 
-  private showIndicators : boolean = true;
+  public  showIndicators : boolean = true;
   private label          : string;
   public  observations   : string = "";
   public itemEvaluated   : AvaliacaoChecklisDTO = null;
@@ -122,25 +124,46 @@ export class ChecklistPage {
 
     this.avService.getItemCheckList(this.itemSelected.codigo, this.evaluation.codigo).subscribe(
       response => { 
-        this.itemEvaluated  = response;
+        this.itemEvaluated = response;
+        this.observations  = "";
 
-        this.observations   = this.itemEvaluated.observacao;
+        if(this.itemEvaluated != null)
+          this.observations   = this.itemEvaluated.observacao;
+
         this.label          = item.nome;
         this.itemSelected   = item;
       } 
     );        
   }
-  private hideTextfield(){
+  public hideTextfield(){
     this.showIndicators = true;
-    this.gservice.showMessage(this.observations);
   }
   private saveObservation(){
-    //Need find the object first.
-    //After send the object.
-    this.itemEvaluated.observacao = this.observations;
-    this.avService.updateObservations(this.itemEvaluated);
-   
     this.showIndicators = true;
+    // var atendido : Boolean = false;
+
+    if(this.itemEvaluated != null){
+      this.itemEvaluated.observacao = this.observations;
+      this.avService.updateObservations(this.itemEvaluated);
+    }else{
+      var data = <AvaliacaoChecklisDTO> 
+      { 
+        // atendido  : false,
+        observacao: this.observations,
+        avaliacao :
+        {
+          codigo : this.evaluation.codigo
+        },
+        itemCheck:{
+          codigo : this.itemSelected.codigo
+        }
+      };
+      //this.avService.saveObservatios(data);
+      this.avService.saveItemCheckList(data).subscribe(
+        response => { console.log(response) } 
+      ); 
+    }
+   
   }
  
   goToHome(){
@@ -151,7 +174,6 @@ export class ChecklistPage {
   alterStatus(check : ChecklistItemDTO, status: boolean){
 
     if(status == true){
-
       check.atendido = 1 ;
     }else{
       check.atendido = 0;
@@ -161,12 +183,15 @@ export class ChecklistPage {
         if(response != null){
           response.atendido = status;
           this.avService.updateObservations(response);
+          // this.saveItemCheckllist(check)
+
         }else{
           this.saveItemCheckllist(check)
         }
       } 
     ); 
     this.updateItensValues();
+    //this.validadeItem(check, status);
   }
   saveItemCheckllist(check : ChecklistItemDTO){
     //First step just to converter the atribute and preparete the object to send.

@@ -9,12 +9,15 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-fab top right edge>
+    <button ion-button color="white"   style="top: 40px; right: 20px;" (click)="navCtrl.push('GlossaryPage')">
+      <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>
+    </button>
+  </ion-fab>
   <br />
 
-  <ion-list radio-group style="height:22px;">
-    <!--button (click)="changeButton(0)" [style.backgroundColor]="btGetColor(0)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px"><b>A
-        visitar </b></button-->
-    <button (click)="changeButton(0)" [style.backgroundColor]="btGetColor(0)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px">
+  <ion-list radio-group style="height:22px;">   
+    <button (click)="changeButton(1)" [style.backgroundColor]="btGetColor(1)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px">
       <b>A verificar</b>
     </button>
     <button (click)="changeButton(2)" [style.backgroundColor]="btGetColor(2)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px">
@@ -22,31 +25,30 @@
     </button>
   </ion-list>
 
-
   <ion-grid [style.backgroundColor]="gridColor" style="min-height: 80%; border:2px solid; padding-bottom: 0px; background-color: [gridColor]">
-    <!--
-      <ion-item text-wrap color="none" id="home-list-item9" *ngFor="let item of indicators" >
-        <div (click)="openTopic(0)"></div>
-        <div [hidden]="topicVisible[0]" >
-          <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-          <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
-          <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
-        </div>
-      </ion-item>
-    -->
-    <ion-grid no-padding [hidden] ="isCat(0)" style="border:2px solid; padding-top:1px; background-color: white;  " >
-      <ion-list id="listOpned">
+  
+    <!-- <ion-item text-wrap color="none" id="home-list-item9" *ngFor="let item of indicators" >
+      <div (click)="openTopic(0)"></div>
+      <div [hidden]="topicVisible[0]" >
+        <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
+        <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
+        <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
+      </div>
+    </ion-item> -->
+  
+    <ion-grid no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
         
-        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9"  >
-          <div (click)="openTopic(0)">{{item.codigo}} {{item.nome}}</div>
-          <div  >
-            <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
+      <ion-list id="listOpned"  [hidden]="btSelected != 1">
+        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
+          <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
+          <div [hidden]="item.codigo != selectedIdicator" >
+            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br />
             <ion-icon style="padding-left: 16px" name="list"   (click)="presentProfileModal('SeemPage')">&nbsp;Conceito</ion-icon><br />
             <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">                  &nbsp;Parecer </ion-icon>
           </div>
         </ion-item>
         
-        <ion-item text-wrap color="none" id="home-list-item9"  >
+        <!-- <ion-item text-wrap color="none" id="home-list-item9"  >
           <div (click)="openTopic(1)" ><h2>1.2 salas de aula</h2></div>
           <div [hidden]="topicVisible[1]" >
             <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
@@ -69,10 +71,13 @@
             <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
             <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
           </div>
-        </ion-item>
-                                                        <!--
-      -->
+        </ion-item>  -->
       </ion-list>
     </ion-grid>
+     
   </ion-grid>
+  <!-- <ion-footer [hidden]="hasConnection" style="text-align: center; background-color: red;">
+    <ion-icon name="warning"></ion-icon>
+    <strong>Sem Conexão de Rede</strong>
+  </ion-footer> -->
 </ion-content>

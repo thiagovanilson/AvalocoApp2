@@ -36,7 +36,7 @@ export class AvalicaoService {
     }
 
     //change the path
-    getIndicatorByCod(cod: number): Observable<IndicatorDTO[]>{
+    getIndicatorByEvaluation(cod: number): Observable<IndicatorDTO[]>{
         return this.http.get<IndicatorDTO[]>(`${API_CONFIG.baseUrl}/indicador/avaliacao/${cod}`);
     }
     
@@ -72,6 +72,15 @@ export class AvalicaoService {
         return this.http.get<AvaliacaoChecklisDTO>(`${API_CONFIG.baseUrl}/avachecklist/${codItem}/avaliacao/${codEvaluation}`);
     } 
 
+    saveObservatios(item : AvaliacaoChecklisDTO){
+        this.http.post(`${API_CONFIG.baseUrl}/avachecklist/`, item)
+        .subscribe((result: any) => {
+          
+        },
+        (error) => {
+          
+        });
+    }
     updateObservations(item : AvaliacaoChecklisDTO){
         this.http.put(`${API_CONFIG.baseUrl}/avachecklist/${item.codigo}`, item)
         .subscribe((result: any) => {
