@@ -44,7 +44,7 @@ export class AvalicaoService {
     }
     
     getGlossaryByEvaluation(cod: number): Observable<GlossaryItemrDTO[]>{
-        return this.http.get<IndicatorDTO[]>(`${API_CONFIG.baseUrl}/glossario/avaliacao/${cod}`);
+        return this.http.get<GlossaryItemrDTO[]>(`${API_CONFIG.baseUrl}/glossario/avaliacao/${cod}`);
     }
      
     //Used to save the value and observation
