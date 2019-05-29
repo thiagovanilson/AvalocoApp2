@@ -20,8 +20,14 @@
   <br />
 
   <p style="word-wrap: normal">
-    <h3><b style="background-color: lightsteelblue">IE</b> - Instituiçao de ensino</h3>
-    <h3><b style="background-color: lightsteelblue">Docentes</b> - É um termo relativo ao ensino, é o indivíduo que ensina outros, independente do tema.</h3>
+      
+    <h3 *ngFor="let item of itens">
+      <b style="background-color: lightsteelblue">{{item.nome}}</b> - {{item.descricao}}
+    
+    </h3>
+
+    <!-- <h3><b style="background-color: lightsteelblue">IE</b> - Instituiçao de ensino</h3>
+    <h3><b style="background-color: lightsteelblue">Docentes</b> - É um termo relativo ao ensino, é o indivíduo que ensina outros, independente do tema.</h3> -->
     <!-- <ion-item><b>Discentes</b> - Alunos</ion-item> -->
   
 </ion-content>

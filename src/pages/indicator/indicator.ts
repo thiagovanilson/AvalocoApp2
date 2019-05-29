@@ -1,3 +1,4 @@
+import { AvaliacaoIndicatorDTO } from './../../model/avaliacaoIndicator';
 import { GeneralService  } from './../../domain/general.service';
 import { AvalicaoService } from './../../domain/avaliacao.service';
 import { SeemPage        } from './../seem/seem';
@@ -14,24 +15,24 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
   templateUrl: 'indicator.html',
 })
 export class IndicatorPage {
-  
-  private btCheck   : number = 1;
-  private btChecked : number = 2;
-  public evaluation : AvaliacaoDTO = this.navParams.get('avaliacao');
-  public title      : string = "";
 
-  public itens : IndicatorDTO[];
-  gridColor: string = "#cececf";
+  private btCheck    : number = 1;
+  private btChecked  : number = 2;
+  public evaluation  : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public title       : string = "";
+  public label       : string = "";
+  public observations: string = "a";
+
+  public itens    : IndicatorDTO[];
+  private answers : AvaliacaoIndicatorDTO[];
+  public gridColor: string = "#cececf";
 
   public btSelected       : number = 1; 
   public selectedIdicator : number = 1;
+  public selectedItem     : IndicatorDTO;
 
-  public topicVisible = [true, true, true, true];
+  public showObs : boolean = false;
 
-  openTopic( param:number){
-    this.topicVisible.fill(true);
-    this.topicVisible[param] = false;
-  }
   constructor(
     public navCtrl   : NavController, 
     public navParams : NavParams,
@@ -39,10 +40,12 @@ export class IndicatorPage {
     public avService : AvalicaoService,
     public genService: GeneralService) {
   }
+
+  public showIndicator: boolean = false;
+
   presentProfileModal(args: string) {
     if(args.startsWith('SeemPage')){
       let profileModal = this.modalCtrl.create(SeemPage);
-
     }else{
 
     } 
@@ -86,10 +89,47 @@ export class IndicatorPage {
   changeSelection(num : number){
     this.selectedIdicator = num;
   }
+  public hideTextfield(){
+    this.showIndicator = true;
+  }
+
+  saveObservations(){
+    var data = <AvaliacaoIndicatorDTO> 
+      { 
+        conceito: 1,
+        parecer : this.observations,
+    
+        indicador : this.selectedItem,
+        avaliacao : this.evaluation,
+      };
+    //this.avService.saveItemIndicator(data);
+    this.avService.saveItemIndicator(data).subscribe(
+      response => {  } 
+    ); 
+    this.hideObservation();
+  }
+  showObservation(i : IndicatorDTO){
+   
+
+    this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
+      response => { 
+        if(response != null){
+          this.observations = response.parecer;
+        }
+        //this.genService.showMessage(response.parecer);
+      } 
+    );        
+    this.showObs = true;
+    this.selectedItem = i;
+    this.label = i.nome;
+  }
+  hideObservation(){
+    this.showObs = false;
+  }
   ionViewDidLoad() {
     
     this.updateIdicators();
-
+    
     if(this.evaluation != null){
       this.title = this.genService.nameAndDateToTitle(this.evaluation);
     }      

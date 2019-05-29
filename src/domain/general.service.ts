@@ -34,7 +34,7 @@ export class GeneralService{
     }
     title += this.formatDate( evaluation.dataInicio) ;
     
-    return title;
+    return (title.charAt(0).toUpperCase()) + title.toLowerCase().substr(1);
   }
   //
   couseName(evaluation: AvaliacaoDTO): string{

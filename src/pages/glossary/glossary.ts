@@ -1,6 +1,9 @@
+import { AvalicaoService } from './../../domain/avaliacao.service';
+import { GlossaryItemDTO } from './../../model/glossaryItem';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { AvaliacaoDTO } from '../../model/avaliacao.dto';
 
 /**
  * Generated class for the GlossaryPage page.
@@ -16,11 +19,20 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class GlossaryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  itens : GlossaryItemDTO[];
+  public evaluation  : AvaliacaoDTO = this.navParams.get('avaliacao');
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public avService: AvalicaoService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GlossaryPage');
+    //console.log('ionViewDidLoad GlossaryPage');
+
+    this.avService.getGlossaryByEvaluation(this.evaluation.codigo).subscribe(
+      response => { 
+        this.itens = response;
+      }
+    );
   }
   goback(){
     if(this.navCtrl.length() > 1){

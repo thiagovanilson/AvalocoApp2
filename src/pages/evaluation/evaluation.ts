@@ -4,6 +4,7 @@ import { API_CONFIG      } from './../../config/api.config';
 import { Component       } from '@angular/core';
 import { GeneralService  } from '../../domain/general.service';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IndicatorDTO } from '../../model/indicator.dto';
 
 /**
  * Generated class for the SchedulePage page.
@@ -20,9 +21,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class EvaluationPage {
   title: ""
-  _avaliacoesAbertas  = this.avService.opned;
-  _avaliacoesAgendadas= this.avService.schudule;
-
+  
   constructor( 
     public navCtrl  : NavController, 
     public navParams: NavParams,
@@ -33,6 +32,10 @@ export class EvaluationPage {
   ) {
     this.title = this.navParams.data;
   }
+
+  public _avaliacoesAbertas;
+  public _avaliacoesAgendadas;
+
   public goToEvaluation(item : AvaliacaoDTO){
     if(this.title.startsWith('Avaliações Agendadas')){
       this.ShowText("Avaliaçoes agendadas não podem ser abertas.");
@@ -57,7 +60,7 @@ export class EvaluationPage {
     alert.present();
 
   }
-
+ 
   public hasItens(): boolean{
     return ! (this._avaliacoesAbertas == null && this._avaliacoesAgendadas == null);
   }
@@ -65,6 +68,15 @@ export class EvaluationPage {
     return API_CONFIG.buttonColor;
   }
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad SchedulePage');
+    this.avService.findscheduled().subscribe(
+      response => { 
+        this._avaliacoesAgendadas = response;
+      }
+    );
+    this.avService.findOpened().subscribe(
+      response => { 
+        this._avaliacoesAbertas = response;
+      }
+    );
   }
 }

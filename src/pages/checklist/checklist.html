@@ -156,11 +156,11 @@
       --> 
     </ion-grid>        
   </ion-list>  
-  <div style="margin-top: 40%" [hidden]="showIndicators">
+  <div  [hidden]="showIndicators">
+    <br />
     <h2>{{label}} - Observações</h2>
     <ion-item>
-      <ion-textarea no-paddin style="background-color: rgba(179, 171, 171, 0.376)"
-       rows="10"
+      <ion-textarea style="border: 2px solid;" rows="17"
         
        [(ngModel)]="observations">
       </ion-textarea>

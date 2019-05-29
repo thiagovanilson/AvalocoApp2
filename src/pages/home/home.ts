@@ -33,7 +33,7 @@ export class HomePage {
     
   public _avaliacoesAbertas  : AvaliacaoDTO[];
   public _avaliacoesAgendadas: AvaliacaoDTO[];
-  private _TodasAsAvaliacoes : AvaliacaoDTO[]; 
+ // private _TodasAsAvaliacoes : AvaliacaoDTO[]; 
   protected hasConnection    : boolean;
 
   public get avaliacoesAbertas(): AvaliacaoDTO[] {
@@ -66,11 +66,13 @@ export class HomePage {
     this.avaliacaoService.findscheduled().subscribe(
       response => { this._avaliacoesAgendadas = response }
     );//*/
-    
+
     //For load on the startup the screen. First time only.
+    this.updateData(); 
     this.avaliacaoService.findAll().subscribe(
-      response => { this._TodasAsAvaliacoes = response; this.updateData(); 
-      this.hasConnection = (this._TodasAsAvaliacoes != null);}
+      response => { 
+        this.hasConnection = (response != null);
+      }
     );//*/ 
       
     
@@ -78,33 +80,38 @@ export class HomePage {
   public updateData(){
 
     //To refresh data.    
+    this.hasConnection = (this._avaliacoesAbertas != null || this._avaliacoesAgendadas != null);
    
-    this.avaliacaoService.findAll().subscribe(
+    this.avaliacaoService.findOpened().subscribe(
       response => { 
-        this._TodasAsAvaliacoes = response;  
-        this.hasConnection = (this._TodasAsAvaliacoes != null);
+        this._avaliacoesAbertas = response;
       }
     );
-    if(this._TodasAsAvaliacoes != null){
+    this.avaliacaoService.findscheduled().subscribe(
+      response => { 
+        this._avaliacoesAgendadas = response;
+      }
+    );
+    // if(this._TodasAsAvaliacoes != null){
      
-      var avAbertas  =  new Array();
-      var avAgendadas=  new Array();
+    //   var avAbertas  =  new Array();
+    //   var avAgendadas=  new Array();
 
-      for (  var i=0; i < this._TodasAsAvaliacoes.length; i++) // for acts as a foreach  
-      {  
-        if(this._TodasAsAvaliacoes[i].aberta){
-          avAbertas.push(this._TodasAsAvaliacoes[i]);
-        }else{
-          avAgendadas.push(this._TodasAsAvaliacoes[i]);
-        }
-      } 
-      //To make visible in all code
-      this.avaliacaoService.opned    = avAbertas;
-      this.avaliacaoService.schudule = avAgendadas;
+    //   for (  var i=0; i < this._TodasAsAvaliacoes.length; i++) // for acts like a foreach  
+    //   {  
+    //     if(this._TodasAsAvaliacoes[i].aberta){
+    //       avAbertas.push(this._TodasAsAvaliacoes[i]);
+    //     }else{
+    //       avAgendadas.push(this._TodasAsAvaliacoes[i]);
+    //     }
+    //   } 
+    //   //To make visible in all code
+    //   // this.avaliacaoService.opned    = avAbertas;
+    //   // this.avaliacaoService.schudule = avAgendadas;
 
-      this._avaliacoesAbertas  = avAbertas;
-      this._avaliacoesAgendadas= avAgendadas;
-    }
+    //   this._avaliacoesAbertas  = avAbertas;
+    //   this._avaliacoesAgendadas= avAgendadas;
+    // }
     
   }
   

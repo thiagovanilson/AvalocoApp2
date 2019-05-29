@@ -41,7 +41,13 @@ export class TabsPage {
 
   public _avaliacoesAbertas  : AvaliacaoDTO[];
   public _avaliacoesAgendadas: AvaliacaoDTO[];
-  private _TodasAsAvaliacoes : AvaliacaoDTO[]; 
+
+  constructor(     
+    public avaliacaoService: AvalicaoService,
+    public navCtrl: NavController, 
+    public params: NavParams) {
+
+  }
 
   public get avaliacoesAbertas(): AvaliacaoDTO[] {
     return this._avaliacoesAbertas;
@@ -51,55 +57,36 @@ export class TabsPage {
     return this._avaliacoesAgendadas;
   }
 
-  ionViewDidLoad() {
-   
-    //this.isLogged();
-
-    this.avaliacaoService.findAll().subscribe(
-      response => { this._TodasAsAvaliacoes = response; this.updateData(); }
-    );//*/
-    
-    
+  ionViewDidLoad() {   
+    this.updateData();          
   }
   getColor(){
     return API_CONFIG.buttonColor;
   }
   private updateData(){
-    
-    if(this._TodasAsAvaliacoes != null){
      
-      var avAbertas  =  new Array();
-      var avAgendadas=  new Array();
-      for (  var i=0; i < this._TodasAsAvaliacoes.length; i++) // for acts as a foreach  
-      {  
-        if(this._TodasAsAvaliacoes[i].aberta){
-          avAbertas.push(this._TodasAsAvaliacoes[i]);
-        }else{
-          avAgendadas.push(this._TodasAsAvaliacoes[i]);
+      this.avaliacaoService.findscheduled().subscribe(
+        response => { 
+          this._avaliacoesAgendadas = response;
 
+          if(this._avaliacoesAgendadas.length > 0)
+            this.qtdScreduled =this._avaliacoesAgendadas.length + "";
+          else
+            this.qtdScreduled = "";
         }
-      } 
-      this._avaliacoesAbertas  = avAbertas;
-      this._avaliacoesAgendadas= avAgendadas;
+      );
+      this.avaliacaoService.findOpened().subscribe(
+        response => { 
+          this._avaliacoesAbertas = response;
 
-      if(avAbertas.length > 0)
-        this.qtdOpned = avAbertas.length + "";
-      else
-        this.qtdOpned = "";
-      
-      if(avAgendadas.length > 0)
-        this.qtdScreduled = avAgendadas.length + "";
-      else
-        this.qtdScreduled = "";
-
-    }
+          if(this._avaliacoesAbertas.length > 0)
+            this.qtdOpned = this._avaliacoesAbertas.length + "";
+          else
+            this.qtdOpned = "";
+        }
+      );
   }
-  constructor(     
-    public avaliacaoService: AvalicaoService,
-    public navCtrl: NavController, 
-    public params: NavParams) {
-
-  }
+  
   isLogged(){
     this.navCtrl.push(LoginPage );
   }

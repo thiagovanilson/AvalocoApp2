@@ -28,7 +28,8 @@ export class ChecklistPage {
   public categorySelectedName: string = "Documentos no âmbito da instituicão";
   public categorySelectedCod : number = 1;
   public itemSelected        : ChecklistItemDTO;
-
+  public showObs :boolean;
+  
   constructor(public actionSheetCtrl: ActionSheetController, 
     public navCtrl  : NavController, 
     public navParams: NavParams,
@@ -192,6 +193,12 @@ export class ChecklistPage {
     ); 
     this.updateItensValues();
     //this.validadeItem(check, status);
+  }
+  showObservation(){
+    this.showObs = true;
+  }
+  hideObservation(){
+    this.showObs = false;
   }
   saveItemCheckllist(check : ChecklistItemDTO){
     //First step just to converter the atribute and preparete the object to send.
