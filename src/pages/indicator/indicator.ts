@@ -6,7 +6,7 @@ import { Component       } from '@angular/core';
 import { TabsPage        } from '../tabs/tabs';
 import { IndicatorDTO    } from '../../model/indicator.dto';
 import { AvaliacaoDTO    } from '../../model/avaliacao.dto';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -21,7 +21,7 @@ export class IndicatorPage {
   public evaluation  : AvaliacaoDTO = this.navParams.get('avaliacao');
   public title       : string = "";
   public label       : string = "";
-  public observations: string = "a";
+  public observations: string = "";
 
   public itens    : IndicatorDTO[];
   private answers : AvaliacaoIndicatorDTO[];
@@ -38,6 +38,7 @@ export class IndicatorPage {
     public navParams : NavParams,
     public modalCtrl : ModalController,
     public avService : AvalicaoService,
+    public alertCtrl : AlertController,
     public genService: GeneralService) {
   }
 
@@ -108,13 +109,44 @@ export class IndicatorPage {
     ); 
     this.hideObservation();
   }
-  showObservation(i : IndicatorDTO){
+  showRadio() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Selecione');
+
+    //for(){
+      alert.addInput({
+        type: 'radio',
+        label: 'Blue',
+        value: 'blue'
+      });
+
+    //}
+    // alert.addInput({
+    //   type: 'radio',
+    //   label: 'Black',
+    //   value: 'black'
+    // });
    
+    alert.addButton('Voltar');
+
+    alert.addButton({
+      text: 'Salvar',
+      handler: data => {
+       this.genService.showMessage(data);
+      }
+    });
+    alert.present();
+  }
+
+  showObservation(i : IndicatorDTO){   
 
     this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
       response => { 
         if(response != null){
           this.observations = response.parecer;
+        }else{
+          this.observations = "";
+ 
         }
         //this.genService.showMessage(response.parecer);
       } 

@@ -1,5 +1,5 @@
 
-<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
+<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; " [hidden]="!showIndicators">
   <h5 style="margin-top: 0px">
     &nbsp; {{title}}
     <div style="font-size: 12pt">
@@ -120,7 +120,7 @@
           </ion-item>
         </ion-col>
       </ion-row> 
-      <!--
+      
       <h5 padding-left text-wrap style="text-align: left; ">
         1.4 Projeto politico pedagogico institucional PPI (copia).
       </h5>

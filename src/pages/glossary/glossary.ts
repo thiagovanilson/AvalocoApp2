@@ -22,17 +22,24 @@ export class GlossaryPage {
   itens : GlossaryItemDTO[];
   public evaluation  : AvaliacaoDTO = this.navParams.get('avaliacao');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public avService: AvalicaoService) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public avService: AvalicaoService) {
+      
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad GlossaryPage');
-
-    this.avService.getGlossaryByEvaluation(this.evaluation.codigo).subscribe(
-      response => { 
-        this.itens = response;
-      }
-    );
+    if(this.evaluation == null){
+      this.navCtrl.setRoot(TabsPage);      
+    } else {
+      this.avService.getGlossaryByEvaluation(this.evaluation.codigo).subscribe(
+        response => { 
+          this.itens = response;
+        }
+      );
+    }
   }
   goback(){
     if(this.navCtrl.length() > 1){

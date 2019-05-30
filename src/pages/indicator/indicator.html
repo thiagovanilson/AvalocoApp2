@@ -33,9 +33,9 @@
         <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
           <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
           <div [hidden]="item.codigo != selectedIdicator" >
-            <ion-icon style="padding-left: 16px" name="hammer" >              &nbsp;Conceito </ion-icon>
+            <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio()" >              &nbsp;Conceito </ion-icon>
             <ion-icon style="padding-left: 16px" name="list"   (click)="showObservation(item)">              &nbsp;Parecer</ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br />
+            <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
           </div>
         </ion-item>
         

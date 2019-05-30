@@ -1,4 +1,4 @@
-export interface AvaliacaoChecklisDTO{
+export interface AvaliacaoChecklistDTO{
    codigo    : number;
    atendido  : boolean;
    observacao: string;

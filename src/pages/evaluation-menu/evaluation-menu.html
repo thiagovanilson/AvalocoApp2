@@ -40,7 +40,8 @@
     <ion-row>
       <ion-col>
         <div >
-          <ion-card style="padding: 10%; height: 140px; width: 140px; background-color: rgb(222, 222, 231)" >
+          <ion-card style="padding: 10%; height: 140px; width: 140px; background-color: rgb(222, 222, 231)" 
+          (click)="navCtrl.push('GlossaryPage',{avaliacao : evaluation})">
             Glossário
             <br />
             <h1>

@@ -1,5 +1,5 @@
 import { Component, ErrorHandler } from '@angular/core';
-import { AvaliacaoChecklisDTO } from './../../model/avaliacaoChecklist.dto';
+import { AvaliacaoChecklistDTO } from './../../model/avaliacaoChecklist.dto';
 import { ItemCategoryDTO } from './../../model/itemCategory.dto';
 import { GeneralService  } from './../../domain/general.service';
 import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
@@ -20,7 +20,7 @@ export class ChecklistPage {
   public categories      : ItemCategoryDTO[];
   public selectedCategory: ItemCategoryDTO;  
   public itens           : ChecklistItemDTO[];
-  public itensResponse   : AvaliacaoChecklisDTO[];
+  public itensResponse   : AvaliacaoChecklistDTO[];
   public evaluation      : AvaliacaoDTO = this.navParams.get('avaliacao');
   public firstCategory   : string;
   public title           : string;
@@ -50,8 +50,10 @@ export class ChecklistPage {
  
   ionViewDidLoad() {
 
-    if(this.evaluation != null){
-      
+    //Used to protect the system of values nullables.
+    if(this.evaluation == null){
+      this.navCtrl.setRoot(TabsPage);      
+    }else{
       this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
         response => { 
           this.categories = response; 
@@ -59,11 +61,11 @@ export class ChecklistPage {
         } 
       );  
       this.title = this.gservice.nameAndDateToTitle(this.evaluation);
+      this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
+        response => { this.itens = response;  } 
+      ); 
+      this.loadItens();
     }
-    this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
-      response => { this.itens = response;  } 
-    ); 
-    this.loadItens();
   }
   loadItens(){
 
@@ -77,11 +79,12 @@ export class ChecklistPage {
   }
   
   updateItensValues(){
+   
     if(this.itens != null){
       
       for(let cont = 0; cont < this.itens.length; cont++){
-       
         try{
+       
           this.avService.getItemCheckList(this.itens[cont].codigo,this.evaluation.codigo).subscribe(
             response => {
               this.itens[cont].atendido = -1;
@@ -117,7 +120,7 @@ export class ChecklistPage {
   public  showIndicators : boolean = true;
   private label          : string;
   public  observations   : string = "";
-  public itemEvaluated   : AvaliacaoChecklisDTO = null;
+  public itemEvaluated   : AvaliacaoChecklistDTO = null;
 
   private showTextfield(item : ChecklistItemDTO){
     this.itemSelected = item; 
@@ -147,7 +150,7 @@ export class ChecklistPage {
       this.itemEvaluated.observacao = this.observations;
       this.avService.updateObservations(this.itemEvaluated);
     }else{
-      var data = <AvaliacaoChecklisDTO> 
+      var data = <AvaliacaoChecklistDTO> 
       { 
         // atendido  : false,
         observacao: this.observations,
@@ -208,7 +211,7 @@ export class ChecklistPage {
       atendido = true;
     }
 
-    var data = <AvaliacaoChecklisDTO> 
+    var data = <AvaliacaoChecklistDTO> 
     { 
       atendido  : atendido,
       observacao: '',

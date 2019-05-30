@@ -55,11 +55,9 @@ export class EvaluationMenuPage {
   ionViewDidLoad() {
     //proctect explosion.
     if(this.evaluation == null){
-      return ;
-    }      
-    this.title = this.genService.nameAndDateToTitle(this.evaluation);
-   
-    //console.log('ionViewDidLoad EvaluationMenuPage');     
-    
+      this.navCtrl.setRoot(TabsPage);      
+    } else {
+      this.title = this.genService.nameAndDateToTitle(this.evaluation);
+    }    
   }
 }
