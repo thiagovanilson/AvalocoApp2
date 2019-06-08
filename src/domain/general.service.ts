@@ -1,6 +1,7 @@
-import { AvaliacaoDTO } from './../model/avaliacao.dto';
-import { AlertController } from 'ionic-angular';
-import { Injectable   } from "@angular/core";
+import { AvaliacaoDTO   } from './../model/avaliacao.dto';
+import { AlertController} from 'ionic-angular';
+import { Injectable     } from "@angular/core";
+import { UserDTO        } from '../model/user.dto';
 
 @Injectable()
 export class GeneralService{

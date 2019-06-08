@@ -1,3 +1,5 @@
+import { AvalicaoService } from './../../domain/avaliacao.service';
+import { GeneralService } from './../../domain/general.service';
 
 import { NavController, IonicPage } from 'ionic-angular';
 import { Component} from '@angular/core';
@@ -13,7 +15,11 @@ import { UserService } from '../../domain/user.service';
 })
 export class LoginPage {
 
-  constructor( public navCtrl: NavController, public user: UserDTO) {
+  constructor( 
+    public navCtrl   : NavController, 
+    public user      : UserDTO,
+    public genService: GeneralService,
+    public uService  : UserService) {
 
   }
   pass    : string = "";
@@ -32,8 +38,17 @@ export class LoginPage {
     }
     //UserName ignored just for test page user.
     if ( this.pass == "123") {
+
       UserService.setUserName(this.userName);
-      this.navCtrl.setRoot(TabsPage);
+      this.uService.getUserByLogin(this.userName).subscribe(
+        response => { 
+         if(response != null){
+           this.uService.setUserLogged(response);
+           UserService.setUserName(this.userName);
+           this.navCtrl.setRoot(TabsPage);
+          }
+        } 
+      ); 
       
     }else{
       alert("Usuario ou senha incorretos!");      

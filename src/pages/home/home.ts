@@ -1,3 +1,4 @@
+import { UserService } from './../../domain/user.service';
 import { GeneralService } from './../../domain/general.service';
 import { NavController, AlertController, ModalController, Platform } from 'ionic-angular';
 import { Component       } from '@angular/core';
@@ -19,7 +20,8 @@ export class HomePage {
     public platform        : Platform       ,
     public modalCtrl       : ModalController,
     public navCtrl         : NavController  ,
-    public genService      : GeneralService){
+    public genService      : GeneralService,
+    public uservice        : UserService){
 
       platform.ready().then(() => {      
 
@@ -67,6 +69,9 @@ export class HomePage {
       response => { this._avaliacoesAgendadas = response }
     );//*/
 
+    if(this.uservice.getUserLogged() == null){
+      this.navCtrl.setRoot('LoginPage');
+    }
     //For load on the startup the screen. First time only.
     this.updateData(); 
     this.avaliacaoService.findAll().subscribe(

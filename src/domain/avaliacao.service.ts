@@ -48,7 +48,7 @@ export class AvalicaoService {
     }
 
     //Get indicators values by element
-    getIndicatorosBy
+    //getIndicatorosBy
      
     //Used to save the value and observation
     saveItemCheckList(data : AvaliacaoChecklistDTO): Observable<AvaliacaoChecklistDTO[]>{
@@ -75,6 +75,7 @@ export class AvalicaoService {
     //BUILDING
     saveItemIndicator(data : AvaliacaoIndicatorDTO){
       
+        //this.gservice.showMessage(data.user.nome);
         const httpOptions = {
             headers: new HttpHeaders({
                 'contentType': 'application/json',
@@ -101,7 +102,8 @@ export class AvalicaoService {
     //Used to get the current value of indicator
     getAvaIndicator(codItem : number, codEvaluation: number) : Observable <AvaliacaoIndicatorDTO>{
         return this.http.get<AvaliacaoIndicatorDTO>(`${API_CONFIG.baseUrl}/avaindicador/${codItem}/avaliacao/${codEvaluation}`);
-    }                                                                     
+    }  
+                                                                       
 
     updateObservations(item : AvaliacaoChecklistDTO){
         this.http.put(`${API_CONFIG.baseUrl}/avachecklist/${item.codigo}`, item)

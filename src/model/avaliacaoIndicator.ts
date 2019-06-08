@@ -1,3 +1,4 @@
+import { UserDTO } from './user.dto';
 import { AvaliacaoDTO } from './avaliacao.dto';
 import { IndicatorDTO } from "./indicator.dto";
 
@@ -9,5 +10,9 @@ export interface AvaliacaoIndicatorDTO{
 
     indicador : IndicatorDTO;
     avaliacao : AvaliacaoDTO;
+    user      : UserDTO;
     
+    ie        : {
+        codigo : number;
+    }
 }

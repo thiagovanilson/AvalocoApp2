@@ -1,3 +1,4 @@
+import { UserService } from './../../domain/user.service';
 import { Component, ErrorHandler } from '@angular/core';
 import { AvaliacaoChecklistDTO } from './../../model/avaliacaoChecklist.dto';
 import { ItemCategoryDTO } from './../../model/itemCategory.dto';
@@ -8,7 +9,7 @@ import { AvalicaoService } from './../../domain/avaliacao.service';
 import { HomePage        } from '../home/home';
 import { TabsPage        } from '../tabs/tabs';
 
-import { IonicPage, NavController, NavParams, ActionSheetController, ActionSheet, AlertController, Label, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ActionSheet, AlertController,  Platform } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -36,7 +37,7 @@ export class ChecklistPage {
     public platform : Platform ,
     public avService: AvalicaoService,
     public gservice : GeneralService,
-    
+    public uService : UserService,
     public alertCtrl: AlertController) {
 
       platform.ready().then(() => {      
@@ -118,7 +119,7 @@ export class ChecklistPage {
   }
 
   public  showIndicators : boolean = true;
-  private label          : string;
+  public label          : string;
   public  observations   : string = "";
   public itemEvaluated   : AvaliacaoChecklistDTO = null;
 
@@ -151,23 +152,59 @@ export class ChecklistPage {
       this.avService.updateObservations(this.itemEvaluated);
     }else{
       var data = <AvaliacaoChecklistDTO> 
-      { 
-        // atendido  : false,
+      <unknown>{
+        //atendido  : undefined,
         observacao: this.observations,
-        avaliacao :
-        {
-          codigo : this.evaluation.codigo
+        avaliacao: {
+          codigo: this.evaluation.codigo
         },
-        itemCheck:{
-          codigo : this.itemSelected.codigo
-        }
+        itemCheck: {
+          codigo: this.itemSelected.codigo
+        },
+        avaliador: this.uService.getUserLogged()
       };
+      
       //this.avService.saveObservatios(data);
       this.avService.saveItemCheckList(data).subscribe(
-        response => { console.log(response) } 
+        response => { 
+          console.log(response) 
+        },
+        (error) => {
+          this.gservice.showMessage('Erro ao salvar ' + error[0]);
+        } 
       ); 
+    }   
+  }
+  saveItemCheckllist(check : ChecklistItemDTO){
+    //First step just to converter the atribute and preparete the object to send.
+    var atendido : Boolean = false;
+
+    if(check.atendido == 1){
+      atendido = true;
     }
-   
+
+
+    var data = <AvaliacaoChecklistDTO> 
+    <unknown>{
+      atendido: atendido,
+      observacao: '',
+      avaliacao: {
+        codigo: this.evaluation.codigo
+      },
+      itemCheck: {
+        codigo: check.codigo
+      },
+      avaliador: this.uService.getUserLogged()
+    };
+      //this.gservice.showMessage(data.atendido);
+    this.avService.saveItemCheckList(data).subscribe(
+      response => { console.log(response) } ,
+      (error) => {
+        this.gservice.showMessage('Erro ao salvar');
+      } 
+    );  
+    //this.gservice.showMessage( "atendido: " + this.itens[0].atendido );
+    //this.itens[0].atendido = false;
   }
  
   goToHome(){
@@ -192,6 +229,9 @@ export class ChecklistPage {
         }else{
           this.saveItemCheckllist(check)
         }
+      } ,
+      (error) => {
+        this.gservice.showMessage('Erro ao salvar');
       } 
     ); 
     this.updateItensValues();
@@ -203,33 +243,7 @@ export class ChecklistPage {
   hideObservation(){
     this.showObs = false;
   }
-  saveItemCheckllist(check : ChecklistItemDTO){
-    //First step just to converter the atribute and preparete the object to send.
-    var atendido : Boolean = false;
-
-    if(check.atendido == 1){
-      atendido = true;
-    }
-
-    var data = <AvaliacaoChecklistDTO> 
-    { 
-      atendido  : atendido,
-      observacao: '',
-      avaliacao :
-      {
-        codigo : this.evaluation.codigo
-      },
-      itemCheck:{
-        codigo : check.codigo
-      }
-    };
-      //this.gservice.showMessage(data.atendido);
-    this.avService.saveItemCheckList(data).subscribe(
-      response => { console.log(response) } 
-    );  
-    //this.gservice.showMessage( "atendido: " + this.itens[0].atendido );
-    //this.itens[0].atendido = false;
-  }
+  
   goback(){
     if(this.navCtrl.length() > 1){
       this.navCtrl.popTo(TabsPage);

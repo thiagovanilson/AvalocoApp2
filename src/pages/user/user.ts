@@ -4,7 +4,7 @@ import { Component   } from '@angular/core';
 import { LoginPage   } from '../login/login';
 import { API_CONFIG  } from '../../config/api.config';
 import { UserService } from '../../domain/user.service';
-import { AboutPage } from '../about/about';
+import { AboutPage   } from '../about/about';
 
 /**
  * Generated class for the UserPage page.
@@ -21,15 +21,21 @@ import { AboutPage } from '../about/about';
 export class UserPage {
   about : any;
 
-  constructor(public alertCtrl: AlertController, 
-    public navCtrl: NavController, 
+  constructor(
+    public alertCtrl: AlertController, 
+    public navCtrl  : NavController, 
     public navParams: NavParams,
+    public uService : UserService
     ) {
       this.about = AboutPage;
   }
-  getUser(){
+  getUserName(){
     
-    return UserService.getUserLogged();
+    var user = this.uService.getUserLogged();
+    if(user != null){
+      return user.nome;
+    }
+    return "";
   }
   
   getColor(){

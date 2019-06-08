@@ -11,12 +11,12 @@ export interface AvaliacaoChecklistDTO{
       aberta     : boolean,
       conceito   : number,
       parecer    : string,
+
       modelo     : {
          codigo   : number,
          nome     : string,
          descricao: string,
-         congelado: boolean,
-         
+         congelado: boolean,         
       }
    },
    curso:{

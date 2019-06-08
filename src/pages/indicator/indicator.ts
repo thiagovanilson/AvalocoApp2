@@ -1,3 +1,4 @@
+import { UserService } from './../../domain/user.service';
 import { AvaliacaoIndicatorDTO } from './../../model/avaliacaoIndicator';
 import { GeneralService  } from './../../domain/general.service';
 import { AvalicaoService } from './../../domain/avaliacao.service';
@@ -24,7 +25,6 @@ export class IndicatorPage {
   public observations: string = "";
 
   public itens    : IndicatorDTO[];
-  private answers : AvaliacaoIndicatorDTO[];
   public gridColor: string = "#cececf";
 
   public btSelected       : number = 1; 
@@ -39,7 +39,8 @@ export class IndicatorPage {
     public modalCtrl : ModalController,
     public avService : AvalicaoService,
     public alertCtrl : AlertController,
-    public genService: GeneralService) {
+    public genService: GeneralService,
+    public uService  : UserService) {
   }
 
   public showIndicator: boolean = false;
@@ -96,31 +97,36 @@ export class IndicatorPage {
 
   saveObservations(){
     var data = <AvaliacaoIndicatorDTO> 
-      { 
-        conceito: 1,
-        parecer : this.observations,
-    
-        indicador : this.selectedItem,
-        avaliacao : this.evaluation,
-      };
+      <unknown>{
+      'conceito': 1,
+      'parecer': this.observations,
+      'indicador': this.selectedItem,
+      'avaliacao': this.evaluation,
+      'avaliador': this.uService.getUserLogged()
+    };
     //this.avService.saveItemIndicator(data);
     this.avService.saveItemIndicator(data).subscribe(
-      response => {  } 
+      response => {  
+
+      } ,
+      (error) => {
+        this.genService.showMessage('Erro ao salvar');
+      }
     ); 
     this.hideObservation();
   }
-  showRadio() {
+  showRadio(i : IndicatorDTO) {
     let alert = this.alertCtrl.create();
     alert.setTitle('Selecione');
 
-    //for(){
-      alert.addInput({
-        type: 'radio',
-        label: 'Blue',
-        value: 'blue'
-      });
+    // for(i.){
+    //   alert.addInput({
+    //     type: 'radio',
+    //     label: 'Blue',
+    //     value: 'blue'
+    //   });
 
-    //}
+    // }
     // alert.addInput({
     //   type: 'radio',
     //   label: 'Black',
@@ -139,14 +145,12 @@ export class IndicatorPage {
   }
 
   showObservation(i : IndicatorDTO){   
+    this.observations = "";
 
     this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
       response => { 
         if(response != null){
           this.observations = response.parecer;
-        }else{
-          this.observations = "";
- 
         }
         //this.genService.showMessage(response.parecer);
       } 

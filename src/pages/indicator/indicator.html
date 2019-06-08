@@ -1,4 +1,4 @@
-<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; ">
+<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; "  [hidden]="showObs">
   <h5 style="margin-top: 0px">
     &nbsp; {{title}}
     <div style="font-size: 12pt">
@@ -31,11 +31,13 @@
         
       <ion-list id="listOpned"  [hidden]="btSelected != 1">
         <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
-          <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
-          <div [hidden]="item.codigo != selectedIdicator" >
-            <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio()" >              &nbsp;Conceito </ion-icon>
-            <ion-icon style="padding-left: 16px" name="list"   (click)="showObservation(item)">              &nbsp;Parecer</ion-icon><br />
-            <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
+          <div >
+            <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
+            <div [hidden]="item.codigo != selectedIdicator" >
+              <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
+              <ion-icon style="padding-left: 16px" name="list"   (click)="showObservation(item)">              &nbsp;Parecer</ion-icon><br />
+              <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
+            </div>
           </div>
         </ion-item>
         
