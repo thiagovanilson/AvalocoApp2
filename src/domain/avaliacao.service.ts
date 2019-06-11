@@ -1,6 +1,7 @@
+import { UserService } from './user.service';
+import { AvaliacaoIndicatorDTO } from './../model/avaliacaoIndicator.dto';
 import { AvaliacaoChecklistDTO  } from './../model/avaliacaoChecklist.dto';
 import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { AvaliacaoIndicatorDTO  } from '../model/avaliacaoIndicator';
 import { GeneralService  } from './general.service';
 import { ChecklistItemDTO} from './../model/checklistItem.dto';
 import { AvaliacaoDTO    } from './../model/avaliacao.dto';
@@ -16,17 +17,18 @@ export class AvalicaoService {
  
     constructor(
         public http: HttpClient, 
-        public gservice :GeneralService) {
+        public gservice : GeneralService,
+        public uService : UserService) {
     }
 
     findOpened(): Observable<AvaliacaoDTO[]> {
-        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/emandamento/1`);
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/emandamento/${this.uService.getUserLogged().codigo}`);
     }
     findscheduled(): Observable<AvaliacaoDTO[]> {
-        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/agendadas/1`);
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/agendadas/${this.uService.getUserLogged().codigo}`);
     }
     findAll(): Observable<AvaliacaoDTO[]> {
-        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/ie/1`);
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/ie/${this.uService.getUserLogged().codigo}`);
     }
 
     //Get checklist categories
@@ -49,7 +51,13 @@ export class AvalicaoService {
 
     //Get indicators values by element
     //getIndicatorosBy
-     
+    getIndicatorsOptions(cod: number): Observable<GlossaryItemDTO[]>{
+        return this.http.get<GlossaryItemDTO[]>(`${API_CONFIG.baseUrl}/conceito/indicador/${cod}`);
+    }
+    //conceito/indicador/CODINDICADOR
+    getConceitosByIndicatorCod(cod: number): Observable<IndicatorDTO[]>{
+        return this.http.get<IndicatorDTO[]>(`${API_CONFIG.baseUrl}/indicador/avaliacao/${cod}`);
+    } 
     //Used to save the value and observation
     saveItemCheckList(data : AvaliacaoChecklistDTO): Observable<AvaliacaoChecklistDTO[]>{
       
@@ -83,18 +91,19 @@ export class AvalicaoService {
                 'crossDomain': 'true',
             })
         };
-        this.getAvaIndicator(data.indicador.codigo, data.avaliacao.codigo).subscribe(
-            response => {
-              
-              if(response != null && response.codigo+"" != "" ){              
-                return  this.http.put (`${API_CONFIG.baseUrl}/avaindicador/${response.codigo}/avaliacao/${data.avaliacao.codigo}`, data, httpOptions);
-              }
-            }
-        );
+        // this.getAvaIndicator(data.indicador.codigo, data.avaliacao.codigo).subscribe(
+        //     response => {
+        //         if(response != null ){              
+        //             this.gservice.showMessage(response.indicador.codigo);
+        //             return  this.http.put <AvaliacaoIndicatorDTO>(`${API_CONFIG.baseUrl}/avaindicador/${response.codigo}`, data, httpOptions);
+        //         }
+        //     }
+        // );
         //If does exist on database he create. Else he edit.
         return  this.http.post (`${API_CONFIG.baseUrl}/avaindicador`, data, httpOptions);
         
     }
+
     //Used to select the right value on the screen.
     getItemCheckList(codItem : number, codEvaluation: number) : Observable <AvaliacaoChecklistDTO>{
         return this.http.get<AvaliacaoChecklistDTO>(`${API_CONFIG.baseUrl}/avachecklist/${codItem}/avaliacao/${codEvaluation}`);
@@ -104,6 +113,8 @@ export class AvalicaoService {
         return this.http.get<AvaliacaoIndicatorDTO>(`${API_CONFIG.baseUrl}/avaindicador/${codItem}/avaliacao/${codEvaluation}`);
     }  
                                                                        
+    //avaindicado/avaliacao/CODAVALIACAO
+
 
     updateObservations(item : AvaliacaoChecklistDTO){
         this.http.put(`${API_CONFIG.baseUrl}/avachecklist/${item.codigo}`, item)
@@ -113,5 +124,14 @@ export class AvalicaoService {
         (error) => {
           
         });
-    }                                                                 
+    }  
+    updateObservationsIndicator(item : AvaliacaoIndicatorDTO){
+        this.http.put(`${API_CONFIG.baseUrl}/avaindicador/${item.codigo}`, item)
+        .subscribe((result: any) => {
+          
+        },
+        (error) => {
+          
+        });
+    }                                                                   
 }

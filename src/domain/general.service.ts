@@ -1,13 +1,15 @@
+import { AlertController, Platform } from 'ionic-angular';
 import { AvaliacaoDTO   } from './../model/avaliacao.dto';
-import { AlertController} from 'ionic-angular';
 import { Injectable     } from "@angular/core";
-import { UserDTO        } from '../model/user.dto';
 
 @Injectable()
 export class GeneralService{
   static userName: string = "";
 
-  constructor(public alertCtrl: AlertController){
+  constructor(
+    public alertCtrl: AlertController,
+    public platform        : Platform       
+    ){
 
   }
 
@@ -40,5 +42,15 @@ export class GeneralService{
   //
   couseName(evaluation: AvaliacaoDTO): string{
     return (evaluation.curso == null) ? "Nao atribuido." : evaluation.curso.nome;
+  }
+
+  pause(time : number){
+
+    this.platform.ready().then(() => {      
+
+      setInterval(() => {
+        
+      },time); 
+    })
   }
 }

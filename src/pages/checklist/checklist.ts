@@ -57,8 +57,10 @@ export class ChecklistPage {
     }else{
       this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
         response => { 
-          this.categories = response; 
-          this.firstCategory = this.categories[0].nome; 
+          if(response != null){
+            this.categories = response; 
+            this.firstCategory = this.categories[0].nome; 
+          }
         } 
       );  
       this.title = this.gservice.nameAndDateToTitle(this.evaluation);
@@ -83,14 +85,14 @@ export class ChecklistPage {
    
     if(this.itens != null){
       
-      for(let cont = 0; cont < this.itens.length; cont++){
-        try{
+      try{
+        for(let cont = 0; cont < this.itens.length; cont++){
        
           this.avService.getItemCheckList(this.itens[cont].codigo,this.evaluation.codigo).subscribe(
             response => {
-              this.itens[cont].atendido = -1;
               
               if(response != null /*&& this.itens[cont].codigo == response.itemCheck.codigo*/){
+                this.itens[cont].atendido = -1;
                 
                 if(response.atendido == true){
                   this.itens[cont].atendido = 1;
@@ -100,10 +102,10 @@ export class ChecklistPage {
               }              
             }
           );
-        }catch(ErrorHandler){
-          
-        }//End Try.      
-      }//End for.
+        }//End for.
+      }catch(ErrorHandler){
+        
+      }//End Try.      
     }//End IF.
   }//End function. 
 
@@ -152,7 +154,7 @@ export class ChecklistPage {
       this.avService.updateObservations(this.itemEvaluated);
     }else{
       var data = <AvaliacaoChecklistDTO> 
-      <unknown>{
+      {
         //atendido  : undefined,
         observacao: this.observations,
         avaliacao: {
@@ -185,7 +187,7 @@ export class ChecklistPage {
 
 
     var data = <AvaliacaoChecklistDTO> 
-    <unknown>{
+    {
       atendido: atendido,
       observacao: '',
       avaliacao: {
@@ -234,7 +236,7 @@ export class ChecklistPage {
         this.gservice.showMessage('Erro ao salvar');
       } 
     ); 
-    this.updateItensValues();
+    //this.updateItensValues();
     //this.validadeItem(check, status);
   }
   showObservation(){

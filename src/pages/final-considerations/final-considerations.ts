@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import { GeneralService } from './../../domain/general.service';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
-
-/**
- * Generated class for the FinalConsiderationsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component    } from '@angular/core';
+import { TabsPage     } from '../tabs/tabs';
+import { AvaliacaoDTO } from '../../model/avaliacao.dto';
 
 @IonicPage()
 @Component({
@@ -15,12 +10,22 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'final-considerations.html',
 })
 export class FinalConsiderationsPage {
+  public evaluation      : AvaliacaoDTO = this.navParams.get('avaliacao');
+  public title : string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public gservice : GeneralService ) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FinalConsiderationsPage');
+    if(this.evaluation == null){
+      this.goback();
+    }
+    this.title = this.gservice.nameAndDateToTitle(this.evaluation);
+
   }
   goback(){
     if(this.navCtrl.length() > 1){

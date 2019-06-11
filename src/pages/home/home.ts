@@ -61,16 +61,10 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    /*
-    this.avaliacaoService.findOpened().subscribe(
-      response => { this._avaliacoesAbertas = response; }
-    );
-    this.avaliacaoService.findscheduled().subscribe(
-      response => { this._avaliacoesAgendadas = response }
-    );//*/
-
-    if(this.uservice.getUserLogged() == null){
-      this.navCtrl.setRoot('LoginPage');
+   
+    if(this.uservice.getUserLogged() == null){     
+      this.navCtrl.push('LoginPage');
+      return;
     }
     //For load on the startup the screen. First time only.
     this.updateData(); 
@@ -78,9 +72,7 @@ export class HomePage {
       response => { 
         this.hasConnection = (response != null);
       }
-    );//*/ 
-      
-    
+    );//*/     
   }
   public updateData(){
 

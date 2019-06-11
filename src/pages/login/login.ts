@@ -37,22 +37,27 @@ export class LoginPage {
       return;
     }
     //UserName ignored just for test page user.
-    if ( this.pass == "123") {
+    
+    
+    this.uService.getUserByLogin(this.userName).subscribe(
+      response => { 
+        if(response != null && this.pass == response.senha){
+          
+          if(response.tipo != "AVALIADOR"){
+            this.genService.showMessage("Este usuario não tem permição de acesso!");      
 
-      UserService.setUserName(this.userName);
-      this.uService.getUserByLogin(this.userName).subscribe(
-        response => { 
-         if(response != null){
-           this.uService.setUserLogged(response);
-           UserService.setUserName(this.userName);
-           this.navCtrl.setRoot(TabsPage);
+          }else{
+
+            this.uService.setUserLogged(response);
+            UserService.setUserName(response.nome);
+            this.navCtrl.setRoot(TabsPage);
           }
-        } 
-      ); 
-      
-    }else{
-      alert("Usuario ou senha incorretos!");      
-    }    
+          
+        }else{
+          this.genService.showMessage("Usuario ou senha incorretos!");      
+        }    
+      } 
+    );       
   }
   ionViewDidLoad(){  
     /*if(this.isLogged()){

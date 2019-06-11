@@ -31,9 +31,14 @@ export class UserPage {
   }
   getUserName(){
     
-    var user = this.uService.getUserLogged();
-    if(user != null){
-      return user.nome;
+    if(this.uService.getUserLogged() != null){
+      return this.uService.getUserLogged().nome;
+    }
+    return "";
+  }
+  getEmail(){
+    if(this.uService.getUserLogged() != null){
+      return this.uService.getUserLogged().email;
     }
     return "";
   }

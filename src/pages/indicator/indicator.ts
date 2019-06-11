@@ -1,5 +1,5 @@
-import { UserService } from './../../domain/user.service';
-import { AvaliacaoIndicatorDTO } from './../../model/avaliacaoIndicator';
+import { AvaliacaoIndicatorDTO } from './../../model/avaliacaoIndicator.dto';
+import { UserService     } from './../../domain/user.service';
 import { GeneralService  } from './../../domain/general.service';
 import { AvalicaoService } from './../../domain/avaliacao.service';
 import { SeemPage        } from './../seem/seem';
@@ -96,23 +96,29 @@ export class IndicatorPage {
   }
 
   saveObservations(){
-    var data = <AvaliacaoIndicatorDTO> 
-      <unknown>{
-      'conceito': 1,
-      'parecer': this.observations,
-      'indicador': this.selectedItem,
-      'avaliacao': this.evaluation,
-      'avaliador': this.uService.getUserLogged()
-    };
-    //this.avService.saveItemIndicator(data);
-    this.avService.saveItemIndicator(data).subscribe(
-      response => {  
+    if(this.avaIndicator != null){
+      this.avaIndicator.parecer = this.observations;
+      this.avService.updateObservationsIndicator(this.avaIndicator);
+    }else{
+      var data = <AvaliacaoIndicatorDTO> 
+        {
+        conceito: 1,
+        parecer: this.observations,
+        indicador: this.selectedItem,
+        avaliacao: this.evaluation,
+        usuario: this.uService.getUserLogged()
+      };
+      this.avService.saveItemIndicator(data).subscribe(
+        response => { 
+          console.log(response) 
+        },
+        (error) => {
+          this.genService.showMessage('Erro ao salvar ' + error[0]);
+          console.log(error); 
 
-      } ,
-      (error) => {
-        this.genService.showMessage('Erro ao salvar');
-      }
-    ); 
+        } 
+      ); 
+    }
     this.hideObservation();
   }
   showRadio(i : IndicatorDTO) {
@@ -127,11 +133,17 @@ export class IndicatorPage {
     //   });
 
     // }
-    // alert.addInput({
-    //   type: 'radio',
-    //   label: 'Black',
-    //   value: 'black'
-    // });
+    alert.addInput({
+      type: 'radio',
+      label: 'Black',
+      value: 'black'
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Blue',
+      value: 'black'
+    });
    
     alert.addButton('Voltar');
 
@@ -144,6 +156,8 @@ export class IndicatorPage {
     alert.present();
   }
 
+  public avaIndicator : AvaliacaoIndicatorDTO;
+
   showObservation(i : IndicatorDTO){   
     this.observations = "";
 
@@ -151,6 +165,7 @@ export class IndicatorPage {
       response => { 
         if(response != null){
           this.observations = response.parecer;
+          this.avaIndicator = response;
         }
         //this.genService.showMessage(response.parecer);
       } 

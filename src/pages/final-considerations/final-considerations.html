@@ -1,12 +1,7 @@
-<!--
-  Generated template for the FinalConsiderationsPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header   style="height: 45px; padding: 0px 0px; " (click)="goback()">
   <h5 style="margin-top: 0px">
-    &nbsp; Tecnologo ADS 10/10/18
+    &nbsp;  {{title}}
     <div style="font-size: 12pt">
       <ion-icon name="arrow-dropleft"></ion-icon>
       Considerações Finais
@@ -15,9 +10,19 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding style="size: 100%; position: relative; top: 30%; align-items: center; ">
+  <h1 align="center" style="font-size: 32px">
+    Codigo da avaliação
+    <br />
+    <h1 align="center" style="font-size: 48px">
+      {{evaluation.codigo}}
+    </h1>
+  </h1>
 
-  <ion-item no-padding color="white" style="text-align: left; height: 10px" >
+  <div>
+    <b>Instruçoes</b> no sistema web, digite o codigo exibido acima para adicionar as considerações finais da avaliação e posteriormente finalizar a mesma.
+  </div>
+  <!-- <ion-item no-padding color="white" style="text-align: left; height: 10px" >
     Requisitos fora das especificações
     <ion-icon item-end>5</ion-icon>
   </ion-item>
@@ -40,5 +45,5 @@
     <button ion-button color="white" block style="border: 2px solid; " type="submit" >
       <ion-icon name="md-checkmark-circle">  Finalizar Avaliação </ion-icon>    
     </button> 
-  </div>
+  </div> -->
 </ion-content>

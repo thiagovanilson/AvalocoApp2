@@ -1,3 +1,5 @@
+import { UserDTO } from "./user.dto";
+
 export interface AvaliacaoChecklistDTO{
    codigo    : number;
    atendido  : boolean;
@@ -25,5 +27,7 @@ export interface AvaliacaoChecklistDTO{
 
    },itemCheck:{
       codigo : number
-   }
+   },
+   usuario: UserDTO;
+   avaliador: UserDTO;
 }
