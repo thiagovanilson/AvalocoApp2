@@ -15,15 +15,4 @@ export class UserDTO{
     ie:{
         codigo:number
     }
-    // {
-    //     "cpf"  : "099.933.994-00",
-    //     "nome" : "Vanilson",
-    //     "tipo" : "AVALIADOR",
-    //     "email":"vanilson@email.com",
-    //     "login": "vanilson",
-    //     "senha": "123",
-    //     "ie":{
-    //             "codigo": 1
-    //     }
-    // }
 }

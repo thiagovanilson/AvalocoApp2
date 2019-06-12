@@ -1,3 +1,4 @@
+import { UserService } from './../../domain/user.service';
 import { EvaluationPage } from './../evaluation/evaluation';
 import { NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
@@ -45,7 +46,8 @@ export class TabsPage {
   constructor(     
     public avaliacaoService: AvalicaoService,
     public navCtrl: NavController, 
-    public params: NavParams) {
+    public params: NavParams,
+    public uService: UserService) {
 
   }
 
@@ -65,7 +67,8 @@ export class TabsPage {
   }
   private updateData(){
      
-      this.avaliacaoService.findscheduled().subscribe(
+    if(this.uService.getUserLogged() != null){
+      this.avaliacaoService.findscheduled(this.uService.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAgendadas = response;
 
@@ -75,7 +78,7 @@ export class TabsPage {
             this.qtdScreduled = "";
         }
       );
-      this.avaliacaoService.findOpened().subscribe(
+      this.avaliacaoService.findOpened(this.uService.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAbertas = response;
 
@@ -85,6 +88,7 @@ export class TabsPage {
             this.qtdOpned = "";
         }
       );
+    }
   }
   
   isLogged(){

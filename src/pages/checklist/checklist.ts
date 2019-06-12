@@ -90,8 +90,7 @@ export class ChecklistPage {
        
           this.avService.getItemCheckList(this.itens[cont].codigo,this.evaluation.codigo).subscribe(
             response => {
-              
-              if(response != null /*&& this.itens[cont].codigo == response.itemCheck.codigo*/){
+              if(response != null ){
                 this.itens[cont].atendido = -1;
                 
                 if(response.atendido == true){

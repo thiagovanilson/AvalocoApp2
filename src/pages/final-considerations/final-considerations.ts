@@ -23,17 +23,23 @@ export class FinalConsiderationsPage {
   ionViewDidLoad() {
     if(this.evaluation == null){
       this.goback();
+    }else{
+      this.title = this.gservice.nameAndDateToTitle(this.evaluation);
     }
-    this.title = this.gservice.nameAndDateToTitle(this.evaluation);
 
+  }
+  getCod(){
+    if(this.evaluation != null)
+      return this.evaluation.codigo;
+    return "";
   }
   goback(){
     if(this.navCtrl.length() > 1){
       //Previus page
-      this.navCtrl.popTo(TabsPage);
+      this.navCtrl.pop();
     }else{
-      //Home page
-      this.navCtrl.push(TabsPage);
+      //Login page
+      this.navCtrl.setRoot('LoginPage');
     }
   }
 }

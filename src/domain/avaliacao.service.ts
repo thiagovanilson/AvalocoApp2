@@ -11,6 +11,7 @@ import { API_CONFIG      } from '../config/api.config';
 import { IndicatorDTO    } from '../model/indicator.dto';
 import { ItemCategoryDTO } from '../model/itemCategory.dto';
 import { GlossaryItemDTO } from '../model/glossaryItem';
+import { ConceptDTO } from '../model/concept.dto';
 
 @Injectable()
 export class AvalicaoService {
@@ -21,14 +22,14 @@ export class AvalicaoService {
         public uService : UserService) {
     }
 
-    findOpened(): Observable<AvaliacaoDTO[]> {
-        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/emandamento/${this.uService.getUserLogged().codigo}`);
+    findOpened(codUser: number): Observable<AvaliacaoDTO[]> {
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/emandamento/${codUser}`);
     }
-    findscheduled(): Observable<AvaliacaoDTO[]> {
-        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/agendadas/${this.uService.getUserLogged().codigo}`);
+    findscheduled(codUser: number): Observable<AvaliacaoDTO[]> {
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/agendadas/${codUser}`);
     }
-    findAll(): Observable<AvaliacaoDTO[]> {
-        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/ie/${this.uService.getUserLogged().codigo}`);
+    findAll(codUser: number): Observable<AvaliacaoDTO[]> {
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/ie/${codUser}`);
     }
 
     //Get checklist categories
@@ -49,15 +50,14 @@ export class AvalicaoService {
         return this.http.get<GlossaryItemDTO[]>(`${API_CONFIG.baseUrl}/glossario/avaliacao/${cod}`);
     }
 
-    //Get indicators values by element
-    //getIndicatorosBy
-    getIndicatorsOptions(cod: number): Observable<GlossaryItemDTO[]>{
-        return this.http.get<GlossaryItemDTO[]>(`${API_CONFIG.baseUrl}/conceito/indicador/${cod}`);
+    //On development
+    getConceptsByIndicator(cod: number): Observable<ConceptDTO[]>{
+        return this.http.get<ConceptDTO[]>(`${API_CONFIG.baseUrl}/conceito/indicador/${cod}`);
     }
     //conceito/indicador/CODINDICADOR
-    getConceitosByIndicatorCod(cod: number): Observable<IndicatorDTO[]>{
-        return this.http.get<IndicatorDTO[]>(`${API_CONFIG.baseUrl}/indicador/avaliacao/${cod}`);
-    } 
+    // getConceitosByIndicatorCod(cod: number): Observable<ConceptDTO[]>{
+    //     return this.http.get<ConceptDTO[]>(`${API_CONFIG.baseUrl}/indicador/avaliacao/${cod}`);
+    // } 
     //Used to save the value and observation
     saveItemCheckList(data : AvaliacaoChecklistDTO): Observable<AvaliacaoChecklistDTO[]>{
       
@@ -80,26 +80,16 @@ export class AvalicaoService {
         //If does exist on database he create. Else he edit.
         return  this.http.post <AvaliacaoChecklistDTO[]>(`${API_CONFIG.baseUrl}/avachecklist`, data, httpOptions);        
     }
-    //BUILDING
+    //Save observations and cocepts
     saveItemIndicator(data : AvaliacaoIndicatorDTO){
       
-        //this.gservice.showMessage(data.user.nome);
         const httpOptions = {
             headers: new HttpHeaders({
                 'contentType': 'application/json',
                 'dataType'   : 'json',
                 'crossDomain': 'true',
             })
-        };
-        // this.getAvaIndicator(data.indicador.codigo, data.avaliacao.codigo).subscribe(
-        //     response => {
-        //         if(response != null ){              
-        //             this.gservice.showMessage(response.indicador.codigo);
-        //             return  this.http.put <AvaliacaoIndicatorDTO>(`${API_CONFIG.baseUrl}/avaindicador/${response.codigo}`, data, httpOptions);
-        //         }
-        //     }
-        // );
-        //If does exist on database he create. Else he edit.
+        };       
         return  this.http.post (`${API_CONFIG.baseUrl}/avaindicador`, data, httpOptions);
         
     }

@@ -1,3 +1,4 @@
+import { ConceptDTO } from './../../model/concept.dto';
 import { AvaliacaoIndicatorDTO } from './../../model/avaliacaoIndicator.dto';
 import { UserService     } from './../../domain/user.service';
 import { GeneralService  } from './../../domain/general.service';
@@ -29,8 +30,9 @@ export class IndicatorPage {
 
   public btSelected       : number = 1; 
   public selectedIdicator : number = 1;
+  public conceptValue     : number = 1;
   public selectedItem     : IndicatorDTO;
-
+  public concepts         : ConceptDTO[];
   public showObs : boolean = false;
 
   constructor(
@@ -74,7 +76,7 @@ export class IndicatorPage {
     if(this.navCtrl.length() > 1){
       this.navCtrl.popTo(TabsPage);
     }else{
-      this.navCtrl.push(TabsPage);
+      this.navCtrl.setRoot('LoginPage');
     }
   }
   //Get of the evaluation
@@ -102,18 +104,44 @@ export class IndicatorPage {
     }else{
       var data = <AvaliacaoIndicatorDTO> 
         {
-        conceito: 1,
-        parecer: this.observations,
+        conceito : 1,
+        parecer  : this.observations,
         indicador: this.selectedItem,
         avaliacao: this.evaluation,
-        usuario: this.uService.getUserLogged()
+        usuario  : this.uService.getUserLogged()
       };
       this.avService.saveItemIndicator(data).subscribe(
         response => { 
           console.log(response) 
         },
         (error) => {
-          this.genService.showMessage('Erro ao salvar ' + error[0]);
+          this.genService.showMessage('Erro ao salvar ' + error);
+          console.log(error); 
+
+        } 
+      ); 
+    }
+    this.hideObservation();
+  }
+  saveConcept(concept : number){
+    if(this.avaIndicator != null){
+      this.avaIndicator.conceito = concept;
+      this.avService.updateObservationsIndicator(this.avaIndicator);
+    }else{
+      var data = <AvaliacaoIndicatorDTO> 
+        {
+        conceito : concept,
+        parecer  : "",
+        indicador: this.selectedItem,
+        avaliacao: this.evaluation,
+        usuario  : this.uService.getUserLogged()
+      };
+      this.avService.saveItemIndicator(data).subscribe(
+        response => { 
+          console.log(response) 
+        },
+        (error) => {
+          this.genService.showMessage('Erro ao salvar ' + error);
           console.log(error); 
 
         } 
@@ -124,36 +152,54 @@ export class IndicatorPage {
   showRadio(i : IndicatorDTO) {
     let alert = this.alertCtrl.create();
     alert.setTitle('Selecione');
-
-    // for(i.){
-    //   alert.addInput({
-    //     type: 'radio',
-    //     label: 'Blue',
-    //     value: 'blue'
-    //   });
-
-    // }
-    alert.addInput({
-      type: 'radio',
-      label: 'Black',
-      value: 'black'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Blue',
-      value: 'black'
-    });
+    
+    this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
+      response => { 
+        if(response != null){
+          //this.conceptValue = response[0].conceito;
+          this.avaIndicator = response;
+        }
+        this.avService.getConceptsByIndicator(i.codigo).subscribe(
+          response => { 
+            this.concepts = response;
+            
+            //Needs stay here.
+            if(this.concepts != null){
+              for( let cont = 0; cont < this.concepts.length; cont++ ){
+        
+                alert.addInput({
+                  label :this.concepts[cont].descricao,
+                  type: 'radio',
+                  value: this.concepts[cont].conceito +"",
+                  checked: (this.avaIndicator != null && this.avaIndicator.conceito == this.concepts[cont].conceito)
+                });
+              }
+            }
+            alert.present();
+    
+          },
+          (error) => {
+            this.genService.showMessage('Erro de leitura');
+            console.log(error); 
+    
+          } 
+        ); 
+      } 
+    ); 
+    
+    
    
     alert.addButton('Voltar');
 
     alert.addButton({
       text: 'Salvar',
       handler: data => {
-       this.genService.showMessage(data);
+       //this.genService.showMessage(data);
+      //  this.conceptValue = data;
+
+       this.saveConcept(Number.parseInt(data));
       }
     });
-    alert.present();
   }
 
   public avaIndicator : AvaliacaoIndicatorDTO;

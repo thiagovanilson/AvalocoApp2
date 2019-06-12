@@ -1,10 +1,10 @@
+import { UserService     } from './../../domain/user.service';
 import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
 import { AvalicaoService } from './../../domain/avaliacao.service';
 import { API_CONFIG      } from './../../config/api.config';
 import { Component       } from '@angular/core';
 import { GeneralService  } from '../../domain/general.service';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { IndicatorDTO } from '../../model/indicator.dto';
 
 /**
  * Generated class for the SchedulePage page.
@@ -27,7 +27,8 @@ export class EvaluationPage {
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public avService: AvalicaoService,
-    public gservice : GeneralService
+    public gservice : GeneralService,
+    public uService : UserService
     
   ) {
     this.title = this.navParams.data;
@@ -68,15 +69,20 @@ export class EvaluationPage {
     return API_CONFIG.buttonColor;
   }
   ionViewDidLoad() {
-    this.avService.findscheduled().subscribe(
-      response => { 
-        this._avaliacoesAgendadas = response;
-      }
-    );
-    this.avService.findOpened().subscribe(
-      response => { 
-        this._avaliacoesAbertas = response;
-      }
-    );
+   
+
+    if(this.uService.getUserLogged() != null){      
+    
+      this.avService.findOpened(this.uService.getUserLogged().codigo).subscribe(
+        response => { 
+          this._avaliacoesAbertas = response;
+        }
+      );
+      this.avService.findscheduled(this.uService.getUserLogged().codigo).subscribe(
+        response => { 
+          this._avaliacoesAgendadas = response;
+        }
+      );
+    }
   }
 }

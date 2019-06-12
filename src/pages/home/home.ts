@@ -35,7 +35,6 @@ export class HomePage {
     
   public _avaliacoesAbertas  : AvaliacaoDTO[];
   public _avaliacoesAgendadas: AvaliacaoDTO[];
- // private _TodasAsAvaliacoes : AvaliacaoDTO[]; 
   protected hasConnection    : boolean;
 
   public get avaliacoesAbertas(): AvaliacaoDTO[] {
@@ -63,32 +62,36 @@ export class HomePage {
   ionViewDidLoad() {
    
     if(this.uservice.getUserLogged() == null){     
-      this.navCtrl.push('LoginPage');
-      return;
-    }
-    //For load on the startup the screen. First time only.
-    this.updateData(); 
-    this.avaliacaoService.findAll().subscribe(
-      response => { 
-        this.hasConnection = (response != null);
-      }
-    );//*/     
+      this.navCtrl.setRoot('LoginPage');     
+    }else{
+      //For load on the startup the screen. First time only.
+      this.updateData(); 
+      this.avaliacaoService.findAll(this.uservice.getUserLogged().codigo).subscribe(
+        response => { 
+          this.hasConnection = (response != null);
+        }
+      );//*/    
+    } 
   }
   public updateData(){
 
     //To refresh data.    
     this.hasConnection = (this._avaliacoesAbertas != null || this._avaliacoesAgendadas != null);
    
-    this.avaliacaoService.findOpened().subscribe(
-      response => { 
-        this._avaliacoesAbertas = response;
-      }
-    );
-    this.avaliacaoService.findscheduled().subscribe(
-      response => { 
-        this._avaliacoesAgendadas = response;
-      }
-    );
+    if(this.uservice.getUserLogged() != null){
+      
+    
+      this.avaliacaoService.findOpened(this.uservice.getUserLogged().codigo).subscribe(
+        response => { 
+          this._avaliacoesAbertas = response;
+        }
+      );
+      this.avaliacaoService.findscheduled(this.uservice.getUserLogged().codigo).subscribe(
+        response => { 
+          this._avaliacoesAgendadas = response;
+        }
+      );
+    }
     // if(this._TodasAsAvaliacoes != null){
      
     //   var avAbertas  =  new Array();
@@ -136,9 +139,9 @@ export class HomePage {
     this.avaliacaoService.findOpened().subscribe(
       response => { this._avaliacoesAbertas = response }
     );//*/
-    this.avaliacaoService.findscheduled().subscribe(
-      response => { this._avaliacoesAgendadas = response }
-    );
+    // this.avaliacaoService.findscheduled().subscribe(
+    //   response => { this._avaliacoesAgendadas = response }
+    // );
     const alert = this.alertCtrl.create({
       title: 'Titulo',
       subTitle: params,
