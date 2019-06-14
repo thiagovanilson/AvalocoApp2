@@ -31,7 +31,28 @@
         
       <ion-list id="listOpned"  [hidden]="btSelected != 1">
         <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
-          <div >
+          
+          <div [hidden]="item.done">
+            <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
+            <div [hidden]="item.codigo != selectedIdicator" >
+              <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
+              <ion-icon style="padding-left: 16px" name="list"   (click)="showObservation(item)">              &nbsp;Parecer</ion-icon><br />
+              <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
+            </div>
+          </div>
+
+        </ion-item>
+      </ion-list>
+        
+       
+        
+       
+      
+    </ion-grid>
+    <ion-grid no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
+      <ion-list id="listOpned"  [hidden]="btSelected != 2">
+        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
+          <div [hidden]="!item.done">
             <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
             <div [hidden]="item.codigo != selectedIdicator" >
               <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
@@ -40,34 +61,8 @@
             </div>
           </div>
         </ion-item>
-        
-        <!-- <ion-item text-wrap color="none" id="home-list-item9"  >
-          <div (click)="openTopic(1)" ><h2>1.2 salas de aula</h2></div>
-          <div [hidden]="topicVisible[1]" >
-            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
-          </div>
-        </ion-item>
-        <ion-item text-wrap color="none" id="home-list-item9"  >
-          <div (click)="openTopic(2)">1.3 salas dos profesores</div>
-          <div [hidden]="topicVisible[2]" >
-            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
-          </div>
-        </ion-item>
-        <ion-item text-wrap color="none" id="home-list-item9"  >
-          <div (click)="openTopic(3)">1.4 espaço para atendimento aos doscentes</div>
-          <div [hidden]="topicVisible[3]" >
-            <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.pop()">&nbsp;Foto    </ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="list"   (click)="navCtrl.pop()">&nbsp;Conceito</ion-icon><br />
-            <ion-icon style="padding-left: 16px" name="hammer" (click)="navCtrl.pop()">&nbsp;Parecer </ion-icon>
-          </div>
-        </ion-item>  -->
       </ion-list>
-    </ion-grid>
-     
+     </ion-grid>
   </ion-grid>
   <div  [hidden]="!showObs">
       <br />

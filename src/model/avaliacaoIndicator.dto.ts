@@ -12,8 +12,8 @@ export interface AvaliacaoIndicatorDTO{
     indicador : IndicatorDTO;
     avaliacao : AvaliacaoDTO;
     avaliador : UserDTO;
-    usuario : UserDTO;
-
+    usuario   : UserDTO;
+    
     
     ie        : {
         codigo : number;

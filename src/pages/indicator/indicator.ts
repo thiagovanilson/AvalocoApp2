@@ -103,8 +103,8 @@ export class IndicatorPage {
       this.avService.updateObservationsIndicator(this.avaIndicator);
     }else{
       var data = <AvaliacaoIndicatorDTO> 
-        {
-        conceito : 1,
+      {
+        conceito : null,
         parecer  : this.observations,
         indicador: this.selectedItem,
         avaliacao: this.evaluation,
@@ -127,21 +127,33 @@ export class IndicatorPage {
     if(this.avaIndicator != null){
       this.avaIndicator.conceito = concept;
       this.avService.updateObservationsIndicator(this.avaIndicator);
+      //this.genService.showMessage('Tetando atualizar');
+
     }else{
+      //this.genService.showMessage('Tetando salvar');
+
       var data = <AvaliacaoIndicatorDTO> 
-        {
+      {
         conceito : concept,
-        parecer  : "",
+        parecer  : null,
         indicador: this.selectedItem,
         avaliacao: this.evaluation,
         usuario  : this.uService.getUserLogged()
       };
+
+      console.log('conceito : ' + concept);
+      console.log('parecer  : ' + null);
+      console.log('indicador: ' + this.selectedItem.codigo);
+      console.log('avaliacao: ' + this.evaluation.codigo);
+      console.log('usuario  : ' + this.uService.getUserLogged().codigo);
+
       this.avService.saveItemIndicator(data).subscribe(
         response => { 
-          console.log(response) 
+          console.log(response);
+ 
         },
         (error) => {
-          this.genService.showMessage('Erro ao salvar ' + error);
+          this.genService.showMessage('Erro ao salvar ' + error[0]);
           console.log(error); 
 
         } 
@@ -155,10 +167,12 @@ export class IndicatorPage {
     
     this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
       response => { 
+        this.selectedItem = i;
+
         if(response != null){
           //this.conceptValue = response[0].conceito;
-          this.avaIndicator = response;
         }
+        this.avaIndicator = response;
         this.avService.getConceptsByIndicator(i.codigo).subscribe(
           response => { 
             this.concepts = response;
@@ -175,6 +189,9 @@ export class IndicatorPage {
                 });
               }
             }
+            alert.addButton('Voltar');
+    
+        
             alert.present();
     
           },
@@ -188,9 +205,6 @@ export class IndicatorPage {
     ); 
     
     
-   
-    alert.addButton('Voltar');
-
     alert.addButton({
       text: 'Salvar',
       handler: data => {
@@ -200,8 +214,13 @@ export class IndicatorPage {
        this.saveConcept(Number.parseInt(data));
       }
     });
+    
   }
 
+  //TODO get all evaluations and add the atribute DONE to him.
+  public groupItens(){
+
+  }
   public avaIndicator : AvaliacaoIndicatorDTO;
 
   showObservation(i : IndicatorDTO){   
@@ -212,6 +231,7 @@ export class IndicatorPage {
         if(response != null){
           this.observations = response.parecer;
           this.avaIndicator = response;
+          i.done = (response.conceito != null && response.parecer != null)
         }
         //this.genService.showMessage(response.parecer);
       } 
@@ -222,6 +242,9 @@ export class IndicatorPage {
   }
   hideObservation(){
     this.showObs = false;
+  }
+  itemIsEvaluated(i : IndicatorDTO){
+    return false;
   }
   ionViewDidLoad() {
     
