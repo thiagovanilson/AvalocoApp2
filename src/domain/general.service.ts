@@ -33,17 +33,20 @@ export class GeneralService{
     let title = "Curso não atribuido - ";
 
     if(evaluation.curso != null){
-      title = evaluation.curso.nome + "\n";
+      title =  evaluation.modelo.nome + " - ";
     }
     title += this.formatDate( evaluation.dataInicio) ;
     
-    return (title.charAt(0).toUpperCase()) + title.toLowerCase().substr(1);
+    return (title.charAt(0).toUpperCase()) + title.toLowerCase().substr(1) ;
   }
   //
   couseName(evaluation: AvaliacaoDTO): string{
     return (evaluation.curso == null) ? "Nao atribuido." : evaluation.curso.nome;
   }
 
+  evaluationName(evaluation: AvaliacaoDTO): string{
+    return (evaluation.modelo.nome == null) ? "Nao atribuido." : evaluation.modelo.nome;
+  }
   pause(time : number){
 
     this.platform.ready().then(() => {      

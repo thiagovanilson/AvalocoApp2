@@ -8,7 +8,7 @@ import { Component       } from '@angular/core';
 import { TabsPage        } from '../tabs/tabs';
 import { IndicatorDTO    } from '../../model/indicator.dto';
 import { AvaliacaoDTO    } from '../../model/avaliacao.dto';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, Platform } from 'ionic-angular';
 
 
 @IonicPage()
@@ -40,9 +40,18 @@ export class IndicatorPage {
     public navParams : NavParams,
     public modalCtrl : ModalController,
     public avService : AvalicaoService,
+    public platform  : Platform ,
     public alertCtrl : AlertController,
     public genService: GeneralService,
     public uService  : UserService) {
+
+      platform.ready().then(() => {      
+
+        setInterval(() => {
+        
+          this.groupItens();
+        },1000);  
+      })
   }
 
   public showIndicator: boolean = false;
@@ -87,6 +96,7 @@ export class IndicatorPage {
     this.avService.getIndicatorByEvaluation(this.evaluation.codigo).subscribe(
       response => { 
         this.itens = response;
+        
       } 
     ); 
   }
@@ -141,11 +151,11 @@ export class IndicatorPage {
         usuario  : this.uService.getUserLogged()
       };
 
-      console.log('conceito : ' + concept);
-      console.log('parecer  : ' + null);
-      console.log('indicador: ' + this.selectedItem.codigo);
-      console.log('avaliacao: ' + this.evaluation.codigo);
-      console.log('usuario  : ' + this.uService.getUserLogged().codigo);
+      // console.log('conceito : ' + concept);
+      // console.log('parecer  : ' + null);
+      // console.log('indicador: ' + this.selectedItem.codigo);
+      // console.log('avaliacao: ' + this.evaluation.codigo);
+      // console.log('usuario  : ' + this.uService.getUserLogged().codigo);
 
       this.avService.saveItemIndicator(data).subscribe(
         response => { 
@@ -153,7 +163,7 @@ export class IndicatorPage {
  
         },
         (error) => {
-          this.genService.showMessage('Erro ao salvar ' + error[0]);
+          this.genService.showMessage('Erro ao salvar :\'(');
           console.log(error); 
 
         } 
@@ -197,8 +207,7 @@ export class IndicatorPage {
           },
           (error) => {
             this.genService.showMessage('Erro de leitura');
-            console.log(error); 
-    
+            console.log(error);     
           } 
         ); 
       } 
@@ -217,8 +226,18 @@ export class IndicatorPage {
     
   }
 
-  //TODO get all evaluations and add the atribute DONE to him.
+  //Get all evaluations and add the atribute.
   public groupItens(){
+    if(this.itens != null)
+      this.itens.forEach(i => {
+        this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
+          response => { 
+            if(response != null){              
+              i.done = (response.conceito != null && response.parecer != null)
+            }
+          } 
+        );
+      });
 
   }
   public avaIndicator : AvaliacaoIndicatorDTO;

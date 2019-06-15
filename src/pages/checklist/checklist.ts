@@ -75,19 +75,17 @@ export class ChecklistPage {
     this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
       response => {
         this.itens = response; 
+        this.updateItensValues();
       } 
     );
 
-    this.updateItensValues();
   }
   
-  updateItensValues(){
-   
-    if(this.itens != null){
+  updateItensValues(){   
       
-      try{
-        for(let cont = 0; cont < this.itens.length; cont++){
-       
+    try{
+      for(let cont = 0; cont < this.itens.length; cont++){
+        if(this.itens[cont] != null){
           this.avService.getItemCheckList(this.itens[cont].codigo,this.evaluation.codigo).subscribe(
             response => {
               if(response != null ){
@@ -101,11 +99,11 @@ export class ChecklistPage {
               }              
             }
           );
-        }//End for.
-      }catch(ErrorHandler){
-        
-      }//End Try.      
-    }//End IF.
+        }
+      }//End for.
+    }catch(ErrorHandler){
+      
+    }//End Try.      
   }//End function. 
 
   validadeItem(item: ChecklistItemDTO, wanted: boolean): boolean{
@@ -209,7 +207,7 @@ export class ChecklistPage {
   }
  
   goToHome(){
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
   public  actionSheet : ActionSheet;  
   

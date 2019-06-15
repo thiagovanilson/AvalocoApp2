@@ -10,8 +10,8 @@
 
     <ion-list id="OpnedList">      
       <ion-item  *ngFor="let item of _avaliacoesAbertas" style="font-size: 12px" id="home-list-item9" (click)="goToEvaluation(item)"   >
-        <div><b>Curso: </b>{{genService.couseName(item)}}</div>
-        <div><b>Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}  (<b>Id: </b>{{item.codigo}})</div>
+        <div><b>Curso: </b>{{genService.couseName(item)}} <b>Nome: </b>{{genService.evaluationName(item)}}</div>
+        <div><b>Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}  </div>
         <div></div>
       </ion-item>      
     </ion-list>
@@ -29,8 +29,8 @@
 
     <ion-list id="home-list7" >
       <ion-item style="font-size: 12px"  id="home-list-item10" *ngFor="let item of _avaliacoesAgendadas" >
-        <div><b>Curso: </b>{{genService.couseName(item)}}</div>
-        <div><b> Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}} (<b>Id: </b>{{item.codigo}})</div>
+        <div><b>Curso: </b>{{genService.couseName(item)}} <b>Nome: </b>{{genService.evaluationName(item)}}</div>
+        <div><b> Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}} </div>
         <div></div>
       </ion-item>
     </ion-list>

@@ -12,7 +12,7 @@ import { API_CONFIG      } from '../../config/api.config';
 })
 
 export class HomePage {
-  private cont :number = 1;
+  //private cont :number = 1;
 
   constructor(
     public avaliacaoService: AvalicaoService,
@@ -26,7 +26,7 @@ export class HomePage {
       platform.ready().then(() => {      
 
         setInterval(() => {
-        console.log("Espera " + this.cont++ )
+        //console.log("Espera " + this.cont++ )
           this.updateData();
           
         },50000);  //minutes to update data
@@ -61,7 +61,7 @@ export class HomePage {
 
   ionViewDidLoad() {
    
-    if(this.uservice.getUserLogged() == null){     
+    if(this.uservice.getUserLogged() == null){    
       this.navCtrl.setRoot('LoginPage');     
     }else{
       //For load on the startup the screen. First time only.
@@ -92,27 +92,6 @@ export class HomePage {
         }
       );
     }
-    // if(this._TodasAsAvaliacoes != null){
-     
-    //   var avAbertas  =  new Array();
-    //   var avAgendadas=  new Array();
-
-    //   for (  var i=0; i < this._TodasAsAvaliacoes.length; i++) // for acts like a foreach  
-    //   {  
-    //     if(this._TodasAsAvaliacoes[i].aberta){
-    //       avAbertas.push(this._TodasAsAvaliacoes[i]);
-    //     }else{
-    //       avAgendadas.push(this._TodasAsAvaliacoes[i]);
-    //     }
-    //   } 
-    //   //To make visible in all code
-    //   // this.avaliacaoService.opned    = avAbertas;
-    //   // this.avaliacaoService.schudule = avAgendadas;
-
-    //   this._avaliacoesAbertas  = avAbertas;
-    //   this._avaliacoesAgendadas= avAgendadas;
-    // }
-    
   }
   
   public goTo(addres) {
