@@ -1,8 +1,8 @@
 import { Injectable   } from "@angular/core";
 import { UserDTO      } from "../model/user.dto";
 import { API_CONFIG   } from "../config/api.config";
-import { Observable } from "rxjs/Observable";
-import { HttpClient, HttpHeaders} from "@angular/common/http";
+import { Observable   } from "rxjs/Observable";
+import { HttpClient   } from "@angular/common/http";
 
 @Injectable()
 export class UserService{
@@ -17,6 +17,9 @@ export class UserService{
         return this.http.get<UserDTO>(`${API_CONFIG.baseUrl}/usuario/login/${login} `);
         //return this.http.get<UserDTO>(`${API_CONFIG.baseUrl}/usuario/1 `);
     }  
+    alterUser(user : UserDTO){
+        return  this.http.put <UserDTO>(`${API_CONFIG.baseUrl}/usuario/${user.codigo}`, user);
+    }
     static setUserName( name : string){
         this.userName = name;
     }

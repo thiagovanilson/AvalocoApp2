@@ -1,17 +1,14 @@
-import { AvalicaoService } from './../../domain/avaliacao.service';
-import { GeneralService } from './../../domain/general.service';
-
 import { NavController, IonicPage } from 'ionic-angular';
-import { Component} from '@angular/core';
-import { UserDTO  } from '../../model/user.dto';
-import { TabsPage } from '../tabs/tabs';
-import { UserService } from '../../domain/user.service';
+import { GeneralService } from './../../domain/general.service';
+import { Component      } from '@angular/core';
+import { UserDTO        } from '../../model/user.dto';
+import { TabsPage       } from '../tabs/tabs';
+import { UserService    } from '../../domain/user.service';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
-  
+  templateUrl: 'login.html'  
 })
 export class LoginPage {
 
@@ -26,18 +23,16 @@ export class LoginPage {
   userName: string = "";
   
 
-  goToHome(params){
+  goToHome(){
     
     if(this.userName == ""){
-      alert("Login é obrigatorio");
+      this.genService.showMessage("Login é obrigatorio");
       return;
     }
     if(this.pass == ""){
-      alert("Senha é obrigatoria");
+      this.genService.showMessage("Senha é obrigatoria");
       return;
-    }
-    //UserName ignored just for test page user.
-    
+    }    
     
     this.uService.getUserByLogin(this.userName).subscribe(
       response => { 
@@ -56,7 +51,10 @@ export class LoginPage {
         }else{
           this.genService.showMessage("Usuario ou senha incorretos!");      
         }    
-      } 
+      },
+      (error) => {
+        this.genService.showMessage("Erro na rede!<br />Verifique sua conexão com a internet.");
+      }  
     );       
   }
   ionViewDidLoad(){  

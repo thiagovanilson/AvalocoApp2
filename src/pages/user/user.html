@@ -29,15 +29,15 @@
     <hr style="border-width: 2px;">    
     
     <div style="padding-left: 15%; padding-right: 15%; ">
-      <h3 text-center>Alterar senha</h3>
+      <h3 text-center>Alterar dados de login</h3>
       <br />
 
       <ion-item >
-        <ion-label floating >Senha atual</ion-label>
-        <ion-input type="password" required=true></ion-input>
+        <ion-label floating >Login</ion-label>
+        <ion-input required=true [(ngModel)]="login"></ion-input>
       </ion-item>   
       <ion-item >
-        <ion-label floating >Senha</ion-label>
+        <ion-label floating >Nova senha</ion-label>
         <ion-input type="password"></ion-input>
       </ion-item>
       <ion-item>
@@ -51,7 +51,7 @@
 
       <ion-item >
         <ion-label floating >E-mail</ion-label>
-        <ion-input type="email" value="{{getEmail()}}" ></ion-input>
+        <ion-input type="email" [(ngModel)]="email" ></ion-input>
       </ion-item>
       
       <br />
@@ -59,7 +59,7 @@
         <ion-row >
           <ion-col ></ion-col>
           <ion-col >
-            <button  ion-button color="{{getColor()}}" (click)="goToHome()" >Salvar</button>              
+            <button  ion-button color="{{getColor()}}" (click)="save()" >Salvar</button>              
           </ion-col>
           <ion-col ></ion-col>
 

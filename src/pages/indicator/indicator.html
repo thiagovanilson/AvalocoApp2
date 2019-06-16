@@ -26,13 +26,12 @@
   </ion-list>
 
   <ion-grid [hidden]="showObs" [style.backgroundColor]="gridColor" style="min-height: 80%; border:2px solid; padding-bottom: 0px; background-color: [gridColor]">
-    
     <ion-grid no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
         
       <ion-list id="listOpned"  [hidden]="btSelected != 1">
-        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
+        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" [hidden]="item.done">
           
-          <div [hidden]="item.done">
+          <div >
             <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
             <div [hidden]="item.codigo != selectedIdicator" >
               <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
@@ -43,16 +42,12 @@
 
         </ion-item>
       </ion-list>
-        
+    </ion-grid>       
        
-        
-       
-      
-    </ion-grid>
     <ion-grid no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
-      <ion-list id="listOpned"  [hidden]="btSelected != 2">
-        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" >
-          <div [hidden]="!item.done">
+      <ion-list id="listOpned"  [hidden]="btSelected != 2">      
+        <ion-item *ngFor="let item of itens" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)"  [hidden]="!item.done" >
+          <div>
             <div><h2 >{{item.codigo}} - {{item.nome}}</h2></div>
             <div [hidden]="item.codigo != selectedIdicator" >
               <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
@@ -64,6 +59,7 @@
       </ion-list>
      </ion-grid>
   </ion-grid>
+  
   <div  [hidden]="!showObs">
       <br />
       <h2>{{label}} - Observações</h2>

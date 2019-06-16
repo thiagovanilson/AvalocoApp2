@@ -1,10 +1,10 @@
-import { TabsPage } from './../tabs/tabs';
 import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
 import { Component   } from '@angular/core';
 import { LoginPage   } from '../login/login';
 import { API_CONFIG  } from '../../config/api.config';
 import { UserService } from '../../domain/user.service';
 import { AboutPage   } from '../about/about';
+import { GeneralService } from '../../domain/general.service';
 
 /**
  * Generated class for the UserPage page.
@@ -20,13 +20,17 @@ import { AboutPage   } from '../about/about';
 })
 export class UserPage {
   about : any;
+  email : string; 
+  public login : string;
+  public pass: string = "";
 
   constructor(
     public alertCtrl: AlertController, 
     public navCtrl  : NavController, 
     public navParams: NavParams,
-    public uService : UserService
-    ) {
+    public uService : UserService,
+    public gService : GeneralService) {
+
       this.about = AboutPage;
   }
   getUserName(){
@@ -50,15 +54,29 @@ export class UserPage {
     this.navCtrl.push(LoginPage);
   }
   public goToHome (){
-    const alert = this.alertCtrl.create({
-      title: 'Salvo com sucesso!',
-      subTitle: 'Todas as alterações foram salvas',
-      buttons: ['Ok']
-    });
-    alert.present();
-    this.navCtrl.push(TabsPage);
+    this.navCtrl.pop();
+
+    
   }
+  save(){
+
+    this.uService.getUserLogged().email = this.email;
+    this.uService.getUserLogged().login = this.login;
+
+    this.uService.alterUser(this.uService.getUserLogged()).subscribe(
+      response => { 
+        this.gService.showMessage("Dados salvos com sucesso! :D");
+        this.goToHome();
+      },
+      (error) => {
+        this.gService.showMessage("Erro ao alterar os dados!<br />Verifique sua conexão com a internet.");
+      }  
+    );  
+  }
+  
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad UserPage');
+    //It's possible user to be null?
+    this.email = this.getEmail();
+    this.login = this.uService.getUserLogged().login;
   }
 }
