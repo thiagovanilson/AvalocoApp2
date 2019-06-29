@@ -33,8 +33,10 @@ export class HomePage {
       }) //*/
   }
     
-  public _avaliacoesAbertas  : AvaliacaoDTO[];
-  public _avaliacoesAgendadas: AvaliacaoDTO[];
+  public _avaliacoesAbertas   : AvaliacaoDTO[];
+  public _avaliacoesAgendadas : AvaliacaoDTO[];
+  public _avaliacoesEncerradas: AvaliacaoDTO[];
+
   protected hasConnection    : boolean;
 
   public get avaliacoesAbertas(): AvaliacaoDTO[] {
@@ -84,11 +86,35 @@ export class HomePage {
       this.avaliacaoService.findOpened(this.uservice.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAbertas = response;
+
+          if(response == null){
+            this.avaliacaoService.qtdOpned = 0;
+          }else{
+            this.avaliacaoService.qtdOpned = response.length;
+          }
         }
       );
       this.avaliacaoService.findscheduled(this.uservice.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAgendadas = response;
+
+          if(response == null){
+            this.avaliacaoService.qtdScheduled = 0;
+          }else{
+            this.avaliacaoService.qtdScheduled = response.length;
+
+          }
+        }
+      );
+      this.avaliacaoService.findsDone(this.uservice.getUserLogged().codigo).subscribe(
+        response => { 
+          this._avaliacoesEncerradas = response;
+
+          if(response == null){
+            this.avaliacaoService.qtdDone = 0;
+          }else{
+            this.avaliacaoService.qtdDone = response.length;
+          }
         }
       );
     }

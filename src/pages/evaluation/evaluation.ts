@@ -4,7 +4,7 @@ import { AvalicaoService } from './../../domain/avaliacao.service';
 import { API_CONFIG      } from './../../config/api.config';
 import { Component       } from '@angular/core';
 import { GeneralService  } from '../../domain/general.service';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 
 /**
  * Generated class for the SchedulePage page.
@@ -21,26 +21,31 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class EvaluationPage {
   title: ""
-  
-  constructor( 
-    public navCtrl  : NavController, 
-    public navParams: NavParams,
-    public alertCtrl: AlertController,
-    public avService: AvalicaoService,
-    public gservice : GeneralService,
-    public uService : UserService
-    
-  ) {
-    this.title = this.navParams.data;
+   
+    constructor( 
+      public navCtrl  : NavController, 
+      public navParams: NavParams,
+      public alertCtrl: AlertController,
+      public avService: AvalicaoService,
+      public gservice : GeneralService,
+      public uService : UserService,
+      private platform: Platform
+    ) {
+      this.platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      });
+      this.title = this.navParams.data;
   }
 
-  public _avaliacoesAbertas;
-  public _avaliacoesAgendadas;
+  public _avaliacoesAbertas  : AvaliacaoDTO[];
+  public _avaliacoesAgendadas: AvaliacaoDTO[];
+  public _avaliacoesEncerradas: AvaliacaoDTO[];
 
   public goToEvaluation(item : AvaliacaoDTO){
-    if(this.title.startsWith('Avaliações Agendadas')){
+    if( this.title.startsWith('Avaliações Agendadas')){
       this.ShowText("Avaliaçoes agendadas não podem ser abertas.");
-    }else{
+    }
+    else{
       this.navCtrl.push('EvaluationMenuPage',{avaliacao : item});      
     }
   }
@@ -48,6 +53,14 @@ export class EvaluationPage {
 
     try {      
       return this.title.startsWith('Avaliações Abertas');
+    } catch (error) {
+      
+    }
+  }
+  public isDone() :boolean{
+
+    try {      
+      return this.title.startsWith('Avaliações Finalizadas');
     } catch (error) {
       
     }
@@ -69,15 +82,26 @@ export class EvaluationPage {
     return API_CONFIG.buttonColor;
   }
   ionViewDidLoad() {
-   
+    if(this.uService.getUserLogged == null){      
+      this.navCtrl.push("LoginPage");      
+    }
 
     if(this.uService.getUserLogged() != null){      
     
-      this.avService.findOpened(this.uService.getUserLogged().codigo).subscribe(
-        response => { 
-          this._avaliacoesAbertas = response;
-        }
-      );
+      if(this.title.startsWith('Avaliações Abertas')){
+        this.avService.findOpened(this.uService.getUserLogged().codigo).subscribe(
+          response => { 
+            this._avaliacoesAbertas = response;
+          }
+        );
+      }
+      if(this.title.startsWith('Avaliações Finalizadas')){
+        this.avService.findsDone(this.uService.getUserLogged().codigo).subscribe(
+          response => { 
+            this._avaliacoesEncerradas = response;
+          }
+        );
+      }
       this.avService.findscheduled(this.uService.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAgendadas = response;

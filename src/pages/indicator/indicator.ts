@@ -78,7 +78,7 @@ export class IndicatorPage {
     if(param == this.btCheck){
       this.gridColor = "#cececf";
     }else if(param == this.btChecked){
-      this.gridColor = "#90ff91";
+      this.gridColor = "#cbffc5";
     }
   }
   goback(){
@@ -108,6 +108,14 @@ export class IndicatorPage {
   }
 
   saveObservations(){
+    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
+      this.genService.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
+      return;
+    }
+    if(this.evaluation.dataEntrega != null){
+      this.genService.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
+      return;
+    }
     if(this.avaIndicator != null){
       this.avaIndicator.parecer = this.observations;
       this.avService.updateObservationsIndicator(this.avaIndicator);
@@ -134,6 +142,14 @@ export class IndicatorPage {
     this.hideObservation();
   }
   saveConcept(concept : number){
+    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
+      this.genService.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
+      return;
+    }
+    if(this.evaluation.dataEntrega != null){
+      this.genService.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
+      return;
+    }
     if(this.avaIndicator != null){
       this.avaIndicator.conceito = concept;
       this.avService.updateObservationsIndicator(this.avaIndicator);
@@ -243,6 +259,7 @@ export class IndicatorPage {
   public avaIndicator : AvaliacaoIndicatorDTO;
 
   showObservation(i : IndicatorDTO){   
+   
     this.observations = "";
 
     this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
@@ -271,6 +288,8 @@ export class IndicatorPage {
     
     if(this.evaluation != null){
       this.title = this.genService.nameAndDateToTitle(this.evaluation);
+    }else{
+      this.navCtrl.setRoot("LoginPage");     
     }      
   }
 }

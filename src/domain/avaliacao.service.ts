@@ -21,12 +21,19 @@ export class AvalicaoService {
         public gservice : GeneralService,
         public uService : UserService) {
     }
+    
+    qtdOpned     : number = 0;
+    qtdScheduled : number = 0;
+    qtdDone      : number = 0;
 
     findOpened(codUser: number): Observable<AvaliacaoDTO[]> {
         return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/emandamento/${codUser}`);
     }
     findscheduled(codUser: number): Observable<AvaliacaoDTO[]> {
         return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/agendadas/${codUser}`);
+    }
+    findsDone(codUser: number): Observable<AvaliacaoDTO[]> {
+        return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/avaliador/concluidas/${codUser}`);
     }
     findAll(codUser: number): Observable<AvaliacaoDTO[]> {
         return this.http.get<AvaliacaoDTO[]>(`${API_CONFIG.baseUrl}/avaliacao/ie/${codUser}`);

@@ -1,3 +1,5 @@
+import { UserDTO } from './user.dto';
+
 export interface AvaliacaoDTO{
     codigo     : number,
     dataInicio : string, 
@@ -6,7 +8,9 @@ export interface AvaliacaoDTO{
     aberta     : boolean,
     conceito   : Int16Array,
     parecer    : string,
-
+    avaliadores: UserDTO[],
+    avaliadorModificador: UserDTO,
+    
     curso:{
         codigo: number,
         nome  : string
@@ -15,5 +19,10 @@ export interface AvaliacaoDTO{
         codigo   : number,
         nome     : string,
         descricao: string
+    },
+    campus : {
+        nome : string,
+        sigla: string
     }
+
 }

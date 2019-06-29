@@ -15,8 +15,8 @@ export class GeneralService{
 
   public showMessage(msg){  
     const alert = this.alertCtrl.create({
-      title: 'Aviso',
-      subTitle: msg,
+      title: '<div align="center">Aviso</div>',
+      subTitle: "<div align='center'><br />" + msg + "</div>",
       buttons: ['OK']
     });
     alert.present();

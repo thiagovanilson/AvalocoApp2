@@ -53,7 +53,7 @@ export class ChecklistPage {
 
     //Used to protect the system of values nullables.
     if(this.evaluation == null){
-      this.navCtrl.setRoot(TabsPage);      
+      this.navCtrl.setRoot("LoginPage");      
     }else{
       this.avService.getChecklistCategory(this.evaluation.codigo).subscribe(
         response => { 
@@ -63,8 +63,13 @@ export class ChecklistPage {
           }
         } 
       );  
-      this.title = this.gservice.nameAndDateToTitle(this.evaluation);
-      this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
+      
+      if(this.evaluation.dataEntrega != null){
+        this.title = this.gservice.nameAndDateToTitle(this.evaluation ) + " - Apenas visualização";
+      }else{
+        this.title = this.gservice.nameAndDateToTitle(this.evaluation) ;
+      }
+        this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
         response => { this.itens = response;  } 
       ); 
       this.loadItens();
@@ -144,15 +149,22 @@ export class ChecklistPage {
   }
   private saveObservation(){
     this.showIndicators = true;
-    // var atendido : Boolean = false;
 
+    if(this.evaluation.dataEntrega != null){
+      this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
+      return;
+    }
+    // var atendido : Boolean = false;
+    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
+      this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
+      return;
+    }
     if(this.itemEvaluated != null){
       this.itemEvaluated.observacao = this.observations;
       this.avService.updateObservations(this.itemEvaluated);
     }else{
       var data = <AvaliacaoChecklistDTO> 
       {
-        //atendido  : undefined,
         observacao: this.observations,
         avaliacao: {
           codigo: this.evaluation.codigo
@@ -160,21 +172,25 @@ export class ChecklistPage {
         itemCheck: {
           codigo: this.itemSelected.codigo
         },
-        avaliador: this.uService.getUserLogged()
+        usuario: this.uService.getUserLogged()
       };
       
-      //this.avService.saveObservatios(data);
       this.avService.saveItemCheckList(data).subscribe(
         response => { 
           console.log(response) 
         },
         (error) => {
-          this.gservice.showMessage('Erro ao salvar ' + error[0]);
+          this.gservice.showMessage('Erro ao salvar ');
         } 
       ); 
     }   
   }
   saveItemCheckllist(check : ChecklistItemDTO){
+    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
+      this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
+      return;
+    }
+    
     //First step just to converter the atribute and preparete the object to send.
     var atendido : Boolean = false;
 
@@ -186,14 +202,13 @@ export class ChecklistPage {
     var data = <AvaliacaoChecklistDTO> 
     {
       atendido: atendido,
-      observacao: '',
       avaliacao: {
         codigo: this.evaluation.codigo
       },
       itemCheck: {
         codigo: check.codigo
       },
-      avaliador: this.uService.getUserLogged()
+      usuario: this.uService.getUserLogged()
     };
       //this.gservice.showMessage(data.atendido);
     this.avService.saveItemCheckList(data).subscribe(
@@ -212,7 +227,14 @@ export class ChecklistPage {
   public  actionSheet : ActionSheet;  
   
   alterStatus(check : ChecklistItemDTO, status: boolean){
-
+    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
+      this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
+      return;
+    }
+    if(this.evaluation.dataEntrega != null){
+      this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
+      return;
+    }
     if(status == true){
       check.atendido = 1 ;
     }else{
@@ -223,7 +245,6 @@ export class ChecklistPage {
         if(response != null){
           response.atendido = status;
           this.avService.updateObservations(response);
-          // this.saveItemCheckllist(check)
 
         }else{
           this.saveItemCheckllist(check)
@@ -233,8 +254,6 @@ export class ChecklistPage {
         this.gservice.showMessage('Erro ao salvar');
       } 
     ); 
-    //this.updateItensValues();
-    //this.validadeItem(check, status);
   }
   showObservation(){
     this.showObs = true;

@@ -1,6 +1,6 @@
 import { UserService } from './../../domain/user.service';
 import { EvaluationPage } from './../evaluation/evaluation';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
 
 //import { AboutPage } from '../about/about';
@@ -23,7 +23,8 @@ export class TabsPage {
   tab1Root = HomePage;
   tab2Root = EvaluationPage;
   tab3Root = EvaluationPage;
-  tab4Root = ClosedEvaluationsPage;
+  tab4Root = EvaluationPage;
+  // tab4Root = ClosedEvaluationsPage;
   tab5Root = UserPage;
 
  
@@ -38,7 +39,8 @@ export class TabsPage {
   };
 
   qtdOpned      = "";
-  qtdScreduled  = "";
+  qtdScheduled  = "";
+  qtdDone       = "";
 
   public _avaliacoesAbertas  : AvaliacaoDTO[];
   public _avaliacoesAgendadas: AvaliacaoDTO[];
@@ -47,7 +49,17 @@ export class TabsPage {
     public avaliacaoService: AvalicaoService,
     public navCtrl: NavController, 
     public params: NavParams,
-    public uService: UserService) {
+    public uService: UserService,
+    public platform: Platform) {
+
+      platform.ready().then(() => {      
+
+        setInterval(() => {
+        //console.log("Espera " + this.cont++ )
+          this.updateData();
+          
+        },5000);  //minutes to update data
+      }) //*/
 
   }
 
@@ -66,28 +78,48 @@ export class TabsPage {
     return API_CONFIG.buttonColor;
   }
   private updateData(){
-     
+    
     if(this.uService.getUserLogged() != null){
-      this.avaliacaoService.findscheduled(this.uService.getUserLogged().codigo).subscribe(
-        response => { 
-          this._avaliacoesAgendadas = response;
+      
+      if(this.avaliacaoService.qtdScheduled > 0)
+        this.qtdScheduled = this.avaliacaoService.qtdScheduled + "";
+      else
+        this.qtdScheduled = "";
 
-          if(this._avaliacoesAgendadas.length > 0)
-            this.qtdScreduled =this._avaliacoesAgendadas.length + "";
-          else
-            this.qtdScreduled = "";
-        }
-      );
-      this.avaliacaoService.findOpened(this.uService.getUserLogged().codigo).subscribe(
-        response => { 
-          this._avaliacoesAbertas = response;
+      if(this.avaliacaoService.qtdOpned > 0)
+        this.qtdOpned =this.avaliacaoService.qtdOpned + "";
+      else
+        this.qtdOpned = "";
 
-          if(this._avaliacoesAbertas.length > 0)
-            this.qtdOpned = this._avaliacoesAbertas.length + "";
-          else
-            this.qtdOpned = "";
-        }
-      );
+      if(this.avaliacaoService.qtdDone > 0)
+        this.qtdDone =this.avaliacaoService.qtdDone + "";
+      else
+        this.qtdDone = "";
+      // this.avaliacaoService.findscheduled(this.uService.getUserLogged().codigo).subscribe(
+      //   response => { 
+      //     this._avaliacoesAgendadas = response;
+
+      //   }
+      // );
+      // this.avaliacaoService.findOpened(this.uService.getUserLogged().codigo).subscribe(
+      //   response => { 
+      //     this._avaliacoesAbertas = response;
+
+      //     if(this._avaliacoesAbertas.length > 0)
+      //       this.qtdOpned = this._avaliacoesAbertas.length + "";
+      //     else
+      //       this.qtdOpned = "";
+      //   }
+      // );
+      // this.avaliacaoService.findsDone(this.uService.getUserLogged().codigo).subscribe(
+      //   response => { 
+
+      //     if(response != null && response.length > 0)
+      //       this.qtdDone = response.length + "";
+      //     else
+      //       this.qtdDone = "";
+      //   }
+      // );
     }
   }
   
