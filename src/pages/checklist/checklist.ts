@@ -60,21 +60,17 @@ export class ChecklistPage {
           if(response != null){
             this.categories = response; 
             this.firstCategory = this.categories[0].nome; 
+            this.categorySelectedCod = response[0].codigo;
           }
         } 
       );  
       
-      if(this.evaluation.dataEntrega != null){
-        this.title = this.gservice.nameAndDateToTitle(this.evaluation ) + " - Apenas visualização";
-      }else{
-        this.title = this.gservice.nameAndDateToTitle(this.evaluation) ;
-      }
-        this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
-        response => { this.itens = response;  } 
-      ); 
+      this.title = this.gservice.nameAndDateToTitle(this.evaluation) ;
+      
       this.loadItens();
     }
   }
+
   loadItens(){
 
     this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
@@ -231,14 +227,16 @@ export class ChecklistPage {
       this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
       return;
     }
-    if(this.evaluation.dataEntrega != null){
-      this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
-      return;
-    }
+    
     if(status == true){
       check.atendido = 1 ;
     }else{
       check.atendido = 0;
+    }
+    
+    if(this.evaluation.dataEntrega != null){
+      this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
+      return;
     }
     this.avService.getItemCheckList(check.codigo, this.evaluation.codigo).subscribe(
       response => { 

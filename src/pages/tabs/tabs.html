@@ -1,12 +1,9 @@
-<ion-tabs  color={{getColor()}}  >
-<!-- <ion-tabs  color="pink" > -->
+<ion-tabs  color={{getColor()}} >
   
-  <ion-tab [root]="tab1Root" tabIcon="home" ></ion-tab>
-  <ion-tab [root]="tab2Root" tabIcon="time"    [rootParams]="paramsSchedule.title" tabBadge={{qtdScheduled}} tabBadgeStyle="danger"  ></ion-tab>
-  <ion-tab [root]="tab3Root" tabIcon="play"    [rootParams]="paramsOpned.title"    tabBadge={{qtdOpned}}     tabBadgeStyle="danger"  ></ion-tab>
-  <ion-tab [root]="tab4Root" tabIcon="calendar"[rootParams]="paramsDone.title"     tabBadge={{qtdDone}}      tabBadgeStyle="danger"></ion-tab>
+  <ion-tab [root]="tab1Root"        tabIcon="home" ></ion-tab>
+  <ion-tab [root]="tab2Root"        tabIcon="calendar" [rootParams]="paramsSchedule.title" tabBadge={{qtdScheduled}} tabBadgeStyle="white"  ></ion-tab>
+  <ion-tab [root]="tab3Root"        tabIcon="play"     [rootParams]="paramsOpned.title"    tabBadge={{qtdOpned}}     tabBadgeStyle="white"  ></ion-tab>
+  <ion-tab [root]="tab4Root"        tabIcon="time"     [rootParams]="paramsDone.title"     tabBadge={{qtdDone}}      tabBadgeStyle="white"  ></ion-tab>
   <ion-tab (ionSelect)="goToUser()" tabIcon="person"  ></ion-tab>  
-
-  <!-- <ion-tab [root]="tab1Root" tabIcon=""></ion-tab> -->
 
 </ion-tabs>

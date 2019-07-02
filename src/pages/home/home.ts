@@ -64,7 +64,8 @@ export class HomePage {
   ionViewDidLoad() {
    
     if(this.uservice.getUserLogged() == null){    
-      this.navCtrl.setRoot('LoginPage');     
+      this.navCtrl.setRoot('LoginPage');   
+      return;  
     }else{
       //For load on the startup the screen. First time only.
       this.updateData(); 

@@ -1,12 +1,3 @@
-<!--
-  Generated template for the UserPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
-  Informations used here https://ionicframework.com/docs/theming/css-utilities/
-  style="position: fixed; bottom: 0;   left:7px; width: 100% ; background-color: rgb(229, 235, 235)" 
--->
-
 
 <body>
   <ion-content padding>
@@ -57,10 +48,16 @@
       <br />
       <ion-grid >
         <ion-row >
+          
           <ion-col ></ion-col>
+
           <ion-col >
             <button  ion-button color="{{getColor()}}" (click)="save()" >Salvar</button>              
           </ion-col>
+          <ion-col>
+            <button  ion-button color="{{getColor()}}" (click)="goToHome()"  >Voltar</button>              
+          </ion-col>
+
           <ion-col ></ion-col>
 
         </ion-row>

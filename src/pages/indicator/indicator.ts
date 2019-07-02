@@ -287,7 +287,7 @@ export class IndicatorPage {
     this.updateIdicators();
     
     if(this.evaluation != null){
-      this.title = this.genService.nameAndDateToTitle(this.evaluation);
+      this.title = this.genService.nameAndDateToTitle(this.evaluation) ;
     }else{
       this.navCtrl.setRoot("LoginPage");     
     }      

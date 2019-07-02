@@ -43,117 +43,18 @@
             <ion-label>Não</ion-label>
             <ion-radio checked={{validadeItem(item,false)}}  (click)="alterStatus(item, false)"> </ion-radio>        
           </ion-item>
-          </ion-col>
-          <ion-col>
-              <ion-item style="background-color:  unset">                  
-              </ion-item>
-          </ion-col>  
-          <ion-col>
-            <ion-item style="background-color: unset" (click)="showTextfield(item)">
-              <ion-icon name="ios-create-outline" ></ion-icon>
-            </ion-item>
-          </ion-col>
-         
-        </ion-row>
-    <!--
-    <h5 padding-left text-wrap style="text-align: left; ">
-      1.2 Estatuto do IFPE.
-    </h5>
-    <ion-row radio-group style="width:100%; background-color:  rgb(0, 0, 0,0)"> 
-      <ion-col >
-        <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <ion-label>Sim</ion-label>
-          <ion-radio value="">
-          </ion-radio>      
-        </ion-item>
-      </ion-col>
-      <ion-col>
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-              <ion-radio  value="0"></ion-radio>        
-          <ion-label>Não</ion-label>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item style="width:25px; background-color:  rgb(0, 0, 0,0)">                  
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <ion-icon name="ios-create-outline" ></ion-icon>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item style="background-color:  rgb(0, 0, 0,0)">
-          <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>       
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <h5 padding-left text-wrap style="text-align: left; ">
-      1.3 Plano de desenvolvimento institucional PDI (copia).
-    </h5>
-      <ion-row radio-group style="width:100%;">                      
-        <ion-col >
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-            <ion-label>Sim</ion-label>
-            <ion-radio value="go">
-            </ion-radio>      
-          </ion-item>
         </ion-col>
         <ion-col>
-            <ion-item style="background-color:  rgb(0, 0, 0,0)">
-                <ion-radio  value=""></ion-radio>        
-            <ion-label>Não</ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-            <ion-item style="background-color:  rgb(0, 0, 0,0)">                  
+            <ion-item style="background-color:  unset">                  
             </ion-item>
-          </ion-col>
+        </ion-col>  
         <ion-col>
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
+          <ion-item style="background-color: unset" (click)="showTextfield(item)">
             <ion-icon name="ios-create-outline" ></ion-icon>
           </ion-item>
         </ion-col>
-        <ion-col>
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-            <ion-icon name="ios-chatbubbles-outline" ></ion-icon>
-          </ion-item>
-        </ion-col>
-      </ion-row> 
-      
-      <h5 padding-left text-wrap style="text-align: left; ">
-        1.4 Projeto politico pedagogico institucional PPI (copia).
-      </h5>
-      <ion-row radio-group style="width:100%;">        
-        <ion-col >
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-            <ion-label>Sim</ion-label>
-            <ion-radio value="go">
-            </ion-radio>      
-          </ion-item>
-        </ion-col>
-        <ion-col>
-            <ion-item style="background-color:  rgb(0, 0, 0,0)">
-                <ion-radio  value=""></ion-radio>        
-            <ion-label>Não</ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-            <ion-item style="background-color:  rgb(0, 0, 0,0)">                  
-            </ion-item>
-          </ion-col>
-        <ion-col>
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-            <ion-icon name="ios-create-outline" ></ion-icon>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item style="background-color:  rgb(0, 0, 0,0)">
-            <ion-icon name="ios-chatbubbles-outline" ></ion-icon>
-          </ion-item>
-        </ion-col>
-      </ion-row>  
-      --> 
+        
+      </ion-row>   
     </ion-grid>        
   </ion-list>  
   <div  [hidden]="showIndicators">
@@ -172,4 +73,10 @@
       Voltar
     </button>
   </div>
+
+  <ion-footer [hidden]="!((evaluation != null && evaluation.dataEntrega != null))">
+    <div color="danger" align="center">
+      Avaliação encerrada. <br />Os dados não podem ser alterados.
+    </div>
+  </ion-footer>
 </ion-content>

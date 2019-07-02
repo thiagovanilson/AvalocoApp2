@@ -1,5 +1,4 @@
 <ion-content  id="home"  style="background: rgb(229, 235, 235); background-image: url('assets/imgs/Conceito04.MarcaDagua.png'); background-size: 96px; overflow-y: hidden;">
-  <!-- <img  src="assets/imgs/39nUlEqUQiWFfHzasCpQ_Conceito04.png" style="background-image: assets/imgs/39nUlEqUQiWFfHzasCpQ_Conceito04.png" /> -->
 
   <ion-list id="home-list1" style="height: 45%;">
 
@@ -9,17 +8,18 @@
     </ion-item-divider>
 
     <ion-list id="OpnedList">      
-      <ion-item  *ngFor="let item of _avaliacoesAbertas" style="font-size: 12px" id="home-list-item9" (click)="goToEvaluation(item)"   >
+      
+      <ion-item  *ngFor="let item of _avaliacoesAbertas; index as i" style="font-size: 12px" id="home-list-item9" (click)="goToEvaluation(item)" [hidden]="i > 4"  >
         <div><b>Curso: </b>{{genService.couseName(item)}} <b>Nome: </b>{{genService.evaluationName(item)}}</div>
         <div><b>Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}  </div>
         <div></div>
-      </ion-item>      
+      </ion-item>  
+      
     </ion-list>
+    
 
   </ion-list>
  
-  <!-- <div class="spacer" style="height:70px;" id="home-spacer1"></div> -->
-
   <ion-list id="ScheduleList"  >
 
     <ion-item-divider  color="light" id="home-list-item-divider3" style="text-align: right">
@@ -28,11 +28,13 @@
     </ion-item-divider>
 
     <ion-list id="home-list7" >
-      <ion-item style="font-size: 12px"  id="home-list-item10" *ngFor="let item of _avaliacoesAgendadas" >
+      
+      <ion-item style="font-size: 12px"  id="home-list-item10" *ngFor="let item of _avaliacoesAgendadas; index as i" [hidden]="i > 4" >
         <div><b>Curso: </b>{{genService.couseName(item)}} <b>Nome: </b>{{genService.evaluationName(item)}}</div>
         <div><b> Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}} </div>
         <div></div>
       </ion-item>
+      
     </ion-list>
 
   </ion-list>
@@ -41,4 +43,5 @@
     <ion-icon name="warning"></ion-icon>
     <strong>Sem Conexão de Rede</strong>
   </ion-footer>
+
 </ion-content>

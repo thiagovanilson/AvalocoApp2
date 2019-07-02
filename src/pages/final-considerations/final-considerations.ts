@@ -1,8 +1,7 @@
-import { GeneralService } from './../../domain/general.service';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Component    } from '@angular/core';
-import { TabsPage     } from '../tabs/tabs';
-import { AvaliacaoDTO } from '../../model/avaliacao.dto';
+import { GeneralService } from './../../domain/general.service';
+import { Component      } from '@angular/core';
+import { AvaliacaoDTO   } from '../../model/avaliacao.dto';
 
 @IonicPage()
 @Component({
@@ -40,24 +39,24 @@ export class FinalConsiderationsPage {
     
     var output : string = "<br /><br />";
 
-    output += "<b>Curso: </b>"     + this.evaluation.curso.nome + ".<br />";
-    output += "<b>Nome: </b>"      + this.evaluation.modelo.nome  + ".<br />";
-    output += "<b>Periodo: </b>"   + this.gservice.formatDate(this.evaluation.dataInicio) +" a " + this.gservice.formatDate(this.evaluation.dataTermino) + ".<br />";
-    output += "<b>Descrição: </b>" + this.evaluation.modelo.descricao + ".<br />";
-    output += "<b>Avaliador modificador: </b>" + this.evaluation.avaliadores[0].nome + ".<br />";
-    output += "<b>Campus: </b>"    + this.evaluation.campus.nome  + ".<br />";
-    output += "<b>Sigla: </b>"     + this.evaluation.campus.sigla + ".<br />";
+    output += "<b>Avaliador modificador: </b>" + this.evaluation.avaliadores[0].nome + "<br />";
+    output += "<b>Curso: </b>"                 + this.evaluation.curso.nome   + "<br />";
+    output += "<b>Nome: </b>"                  + this.evaluation.modelo.nome  + "<br />";
+    output += "<b>Periodo: </b>"               + this.gservice.formatDate(this.evaluation.dataInicio) +" a " + this.gservice.formatDate(this.evaluation.dataTermino) + "<br />";
+    output += "<b>Descrição: </b>"             + this.evaluation.modelo.descricao + "<br />";
+    output += "<b>Campus: </b>"                + this.evaluation.campus.nome  + "<br />";
+    output += "<b>Sigla: </b>"                 + this.evaluation.campus.sigla + "<br />";
 
 
     if(this.evaluation.conceito == null){
       output += "<b>Conceito: </b> Ainda não definido.<br />";
     }else{
-      output += "<b>Conceito: </b>"  + this.evaluation.conceito + ".<br />";
+      output += "<b>Conceito: </b>"  + this.evaluation.conceito + "<br />";
     }
     if(this.evaluation.parecer == null){
       output += "<b>Pareccer: </b> Ainda não definido.<br />";
     }else{
-      output += "<b>Parecer: </b>"   + this.evaluation.parecer  + ".<br />";
+      output += "<b>Parecer: </b>"   + this.evaluation.parecer  + "<br />";
     }
     
     return output ;
