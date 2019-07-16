@@ -1,0 +1,70 @@
+
+<body>
+  <ion-content padding>
+    <ion-fab top right edge>
+        <button ion-button color="{{getColor()}}" (click)="logout()" style="top: 30px; right: 20px;">
+          <ion-icon name="exit"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-fab top right edge>
+      <button ion-button color="primary"  [navPush]="about" style="top: 80px; right: 20px;">
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+    </ion-fab>
+    
+    <img src="assets/imgs/persona.png" style="display:block;width:30%;margin-left:auto;margin-right:auto;">
+    <br />
+    <div text-center ><h2>{{getUserName()}}</h2></div>
+
+    <hr style="border-width: 2px;">    
+    
+    <div style="padding-left: 15%; padding-right: 15%; ">
+      <h3 text-center>Alterar dados de login</h3>
+      <br />
+
+      <ion-item >
+        <ion-label floating >Login</ion-label>
+        <ion-input required=true [(ngModel)]="login"></ion-input>
+      </ion-item>   
+      <ion-item >
+        <ion-label floating >Nova senha</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating >Confirmar a nova senha</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+      <br />
+      <h3 text-center>Alterar E-mail</h3>
+      <br />
+
+      <ion-item >
+        <ion-label floating >E-mail</ion-label>
+        <ion-input type="email" [(ngModel)]="email" ></ion-input>
+      </ion-item>
+      
+      <br />
+      <ion-grid >
+        <ion-row >
+          
+          <ion-col ></ion-col>
+
+          <ion-col >
+            <button  ion-button color="{{getColor()}}" (click)="save()" >Salvar</button>              
+          </ion-col>
+          <ion-col>
+            <button  ion-button color="{{getColor()}}" (click)="goToHome()"  >Voltar</button>              
+          </ion-col>
+
+          <ion-col ></ion-col>
+
+        </ion-row>
+      </ion-grid>
+        
+    </div>
+    <br />
+    <br />
+  </ion-content>
+</body>

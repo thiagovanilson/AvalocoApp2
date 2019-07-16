@@ -1,0 +1,36 @@
+<ion-content padding id="page1" style="background: rgb(185, 231, 231)">
+  <img src="assets/imgs/39nUlEqUQiWFfHzasCpQ_Conceito04.png" style="display:block;width:256px;margin-left:auto;margin-right:auto;" />
+  
+  <div style="padding: 10% 15%">
+    
+    <form id="login-form2">
+      <h3 id="login-heading1" style="color:#000000;text-align:center;">
+        Login
+      </h3>
+      <ion-item id="login-input1">
+        <ion-label floating></ion-label>
+        <ion-input [(ngModel)]="userName" name='Name' type="text" required></ion-input>
+      </ion-item>
+      <h3 id="login-heading2" style="color:#000000;text-align:center;">
+        Senha
+      </h3>
+      <ion-item id="login-input2" style="text-align: right">
+        <ion-label floating></ion-label>
+        <ion-input [(ngModel)]="pass" name='Pass' type="password" required></ion-input>
+      </ion-item>
+
+      <div class="spacer" style="height:70px;" id="home-spacer1"></div>
+
+      <button id="login-button1" ion-button color="positive" block style="font-size:-1px;" type="submit" on-click="goToHome()">
+        Entrar
+      </button> 
+
+      <br />
+      <!-- TODO adicionar a funcionalidade de esqueci a senha -->
+      <!-- <div align="center" (click)="recorveryPass()">
+        Esqueci a senha
+      </div>  -->
+    </form>
+  </div>
+  
+</ion-content>

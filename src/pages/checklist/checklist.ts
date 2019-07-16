@@ -1,6 +1,6 @@
 import { UserService } from './../../domain/user.service';
-import { Component, ErrorHandler } from '@angular/core';
 import { AvaliacaoChecklistDTO } from './../../model/avaliacaoChecklist.dto';
+import { Component       } from '@angular/core';
 import { ItemCategoryDTO } from './../../model/itemCategory.dto';
 import { GeneralService  } from './../../domain/general.service';
 import { AvaliacaoDTO    } from './../../model/avaliacao.dto';
@@ -60,21 +60,17 @@ export class ChecklistPage {
           if(response != null){
             this.categories = response; 
             this.firstCategory = this.categories[0].nome; 
+            this.categorySelectedCod = response[0].codigo;
           }
         } 
       );  
       
-      if(this.evaluation.dataEntrega != null){
-        this.title = this.gservice.nameAndDateToTitle(this.evaluation ) + " - Apenas visualização";
-      }else{
-        this.title = this.gservice.nameAndDateToTitle(this.evaluation) ;
-      }
-        this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
-        response => { this.itens = response;  } 
-      ); 
+      this.title = this.gservice.nameAndDateToTitle(this.evaluation) ;
+      
       this.loadItens();
     }
   }
+
   loadItens(){
 
     this.avService.getItensByCategory(this.categorySelectedCod).subscribe(
@@ -89,13 +85,17 @@ export class ChecklistPage {
   updateItensValues(){   
       
     try{
+      if(this.itens == null )
+        return;
+        
       for(let cont = 0; cont < this.itens.length; cont++){
         if(this.itens[cont] != null){
+          
           this.avService.getItemCheckList(this.itens[cont].codigo,this.evaluation.codigo).subscribe(
             response => {
+              this.itens[cont].atendido = -1;
+              
               if(response != null ){
-                this.itens[cont].atendido = -1;
-                
                 if(response.atendido == true){
                   this.itens[cont].atendido = 1;
                 }else if(response.atendido == false){
@@ -127,7 +127,7 @@ export class ChecklistPage {
   public  observations   : string = "";
   public itemEvaluated   : AvaliacaoChecklistDTO = null;
 
-  private showTextfield(item : ChecklistItemDTO){
+  public showTextfield(item : ChecklistItemDTO){
     this.itemSelected = item; 
     this.showIndicators = false;
 
@@ -147,8 +147,8 @@ export class ChecklistPage {
   public hideTextfield(){
     this.showIndicators = true;
   }
-  private saveObservation(){
-    this.showIndicators = true;
+  public saveObservation(){
+    this.hideTextfield();
 
     if(this.evaluation.dataEntrega != null){
       this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
@@ -231,14 +231,16 @@ export class ChecklistPage {
       this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
       return;
     }
-    if(this.evaluation.dataEntrega != null){
-      this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
-      return;
-    }
+    
     if(status == true){
       check.atendido = 1 ;
     }else{
       check.atendido = 0;
+    }
+    
+    if(this.evaluation.dataEntrega != null){
+      this.gservice.showMessage("Esta avaliação já esta encerrada.<br />Os dados não serão alterados. ");
+      return;
     }
     this.avService.getItemCheckList(check.codigo, this.evaluation.codigo).subscribe(
       response => { 
@@ -255,9 +257,9 @@ export class ChecklistPage {
       } 
     ); 
   }
-  showObservation(){
-    this.showObs = true;
-  }
+  // showObservation(){
+  //   this.showObs = true;
+  // }
   hideObservation(){
     this.showObs = false;
   }

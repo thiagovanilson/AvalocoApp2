@@ -1,0 +1,85 @@
+<ion-header  (click)="goback()" style="height: 45px; padding: 0px 0px; "  [hidden]="showObs">
+  <h5 style="margin-top: 0px">
+    &nbsp; {{title}}
+    <div style="font-size: 12pt">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+      Indicadores
+    </div>
+  </h5>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab top right edge>
+    <button ion-button color="white"   style="top: 40px; right: 20px;" (click)="navCtrl.push('GlossaryPage',{avaliacao : evaluation})">
+      <img src="/assets/icon/ic_spellcheck_black_24dp.png" width=18px>
+    </button>
+  </ion-fab> 
+  <br /> 
+
+  <ion-list [hidden]="showObs" radio-group style="height:22px;">   
+    <button (click)="changeButton(1)" [hidden]="((evaluation != null && evaluation.dataEntrega != null))" [style.backgroundColor]="btGetColor(1)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px">
+      <b>A verificar</b>
+    </button>
+    <button (click)="changeButton(2)" [style.backgroundColor]="btGetColor(2)" text-capitalize ion-button clear style="border: 1px solid #000; padding: 8px">
+      <b>Verificado</b>
+    </button>
+  </ion-list>
+
+  <ion-grid [hidden]="showObs" [style.backgroundColor]="gridColor" style="min-height: 80%; border:2px solid; padding-bottom: 0px; background-color: [gridColor]">
+    <ion-grid  [hidden]="btSelected != 1 || ((evaluation != null && evaluation.dataEntrega != null))" no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
+        
+      <ion-list id="listOpned" >
+        <ion-item *ngFor="let item of itens; index as i" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" [hidden]="item.done">
+          
+          <div >
+            <div><h2 >{{i + 1}} - {{item.nome}}</h2></div>
+            <div [hidden]="item.codigo != selectedIdicator" >
+              <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
+              <ion-icon style="padding-left: 16px" name="list"   (click)="showObservation(item)">              &nbsp;Parecer</ion-icon><br />
+              <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
+            </div>
+          </div>
+
+        </ion-item>
+      </ion-list>
+    </ion-grid>       
+       
+    <ion-grid [hidden]="btSelected != 2 && !((evaluation != null && evaluation.dataEntrega != null))" no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
+      <ion-list id="listOpned"  >      
+        <ion-item *ngFor="let item of itens; index as i" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)"  [hidden]="!item.done" >
+          <div>
+            <div><h2 >{{i + 1}} - {{item.nome}}</h2></div>
+            <div [hidden]="item.codigo != selectedIdicator" >
+              <ion-icon style="padding-left: 16px" name="hammer" (click)="showRadio(item)" >              &nbsp;Conceito </ion-icon>
+              <ion-icon style="padding-left: 16px" name="list"   (click)="showObservation(item)">         &nbsp;Parecer  </ion-icon><br />
+              <!-- <ion-icon style="padding-left: 16px" name="camera" (click)="navCtrl.push('PhotoPage')">      &nbsp;Foto    </ion-icon><br /> -->
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+     </ion-grid>
+  </ion-grid>
+  
+  <div  [hidden]="!showObs">
+    <br />
+    <h2>{{label}} - Observações</h2>
+    <ion-item>
+      <ion-textarea style="border: 2px solid;" rows="17"
+        
+        [(ngModel)]="observations">
+      </ion-textarea>
+    </ion-item>
+    <button ion-button (click)="saveObservations()" >
+      Salvar
+    </button>
+    <button ion-button (click)="hideObservation()">
+      Voltar
+    </button>
+  </div>
+
+  <ion-footer [hidden]="!((evaluation != null && evaluation.dataEntrega != null))">
+    <div color="danger" align="center">
+      Avaliação encerrada. <br />Os dados não podem ser alterados.
+    </div>
+  </ion-footer>
+</ion-content>

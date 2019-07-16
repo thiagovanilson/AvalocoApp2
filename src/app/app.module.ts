@@ -1,4 +1,4 @@
-import { ChecklistItemDTO } from '../model/checklistItem.dto';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { SeemPageModule           } from './../pages/seem/seem.module';
 import { EvaluationMenuPageModule } from './../pages/evaluation-menu/evaluation-menu.module';
@@ -82,6 +82,7 @@ import { NavigationsService          } from '../domain/navigations.service';
     UserDTO,
     HomePage,
     Camera,
+    EmailComposer,
   ]
 })
 export class AppModule {}

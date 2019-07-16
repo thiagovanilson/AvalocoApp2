@@ -38,13 +38,15 @@ export class LoginPage {
       response => { 
         if(response != null && this.pass == response.senha){
           
-          if(response.tipo != "AVALIADOR"){
-            this.genService.showMessage("Este usuario não tem permição de acesso!");      
+          // if(response.tipo != "AVALIADOR"){
+          //   this.genService.showMessage("Este usuario não tem permição de acesso!");      
 
-          }else{
+          // }else
+          {
 
             this.uService.setUserLogged(response);
             UserService.setUserName(response.nome);
+           
             this.navCtrl.setRoot(TabsPage);
           }
           
@@ -62,6 +64,10 @@ export class LoginPage {
       this.navCtrl.setRoot(HomePage);
     }//*/
   }
+  recorveryPass(){
+    this.genService.sendEmail("thiago112634@hotmail.com","123");
+  }
+
   //Temporary
   public isLogged (){
     return false;

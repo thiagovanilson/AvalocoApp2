@@ -3,15 +3,13 @@ import { EvaluationPage } from './../evaluation/evaluation';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
 
-//import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
+
 import { HomePage    } from '../home/home';
 import { UserPage    } from '../user/user';
 import { AvaliacaoDTO} from '../../model/avaliacao.dto';
 import { API_CONFIG  } from '../../config/api.config';
 import { LoginPage   } from '../login/login';
 import { AvalicaoService       } from '../../domain/avaliacao.service';
-import { ClosedEvaluationsPage } from '../closed-evaluations/closed-evaluations';
 
 //https://javiergarciaescobedo.es/ionic/479-navegacion-entre-paginas-en-ionic
 
@@ -24,9 +22,7 @@ export class TabsPage {
   tab2Root = EvaluationPage;
   tab3Root = EvaluationPage;
   tab4Root = EvaluationPage;
-  // tab4Root = ClosedEvaluationsPage;
   tab5Root = UserPage;
-
  
   paramsSchedule = {
     title: "Avaliações Agendadas"
@@ -58,7 +54,7 @@ export class TabsPage {
         //console.log("Espera " + this.cont++ )
           this.updateData();
           
-        },5000);  //minutes to update data
+        },1000); 
       }) //*/
 
   }

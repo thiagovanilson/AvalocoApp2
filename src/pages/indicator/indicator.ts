@@ -3,7 +3,6 @@ import { AvaliacaoIndicatorDTO } from './../../model/avaliacaoIndicator.dto';
 import { UserService     } from './../../domain/user.service';
 import { GeneralService  } from './../../domain/general.service';
 import { AvalicaoService } from './../../domain/avaliacao.service';
-import { SeemPage        } from './../seem/seem';
 import { Component       } from '@angular/core';
 import { TabsPage        } from '../tabs/tabs';
 import { IndicatorDTO    } from '../../model/indicator.dto';
@@ -50,21 +49,23 @@ export class IndicatorPage {
         setInterval(() => {
         
           this.groupItens();
+          //this.updateIdicators();
+          
         },1000);  
       })
   }
 
   public showIndicator: boolean = false;
 
-  presentProfileModal(args: string) {
-    if(args.startsWith('SeemPage')){
-      let profileModal = this.modalCtrl.create(SeemPage);
-    }else{
+  // presentProfileModal(args: string) {
+  //   if(args.startsWith('SeemPage')){
+  //     let profileModal = this.modalCtrl.create(SeemPage);
+  //   }else{
 
-    } 
-    let profileModal = this.modalCtrl.create(args);
-    profileModal.present();
-  }
+  //   } 
+  //   let profileModal = this.modalCtrl.create(args);
+  //   profileModal.present();
+  // }
   
   public btGetColor(param: number): string{
     if(param == this.btSelected){
@@ -95,8 +96,7 @@ export class IndicatorPage {
 
     this.avService.getIndicatorByEvaluation(this.evaluation.codigo).subscribe(
       response => { 
-        this.itens = response;
-        
+        this.itens = response;        
       } 
     ); 
   }
@@ -242,14 +242,18 @@ export class IndicatorPage {
     
   }
 
+  
   //Get all evaluations and add the atribute.
   public groupItens(){
+    
     if(this.itens != null)
+           
       this.itens.forEach(i => {
         this.avService.getAvaIndicator(i.codigo, this.evaluation.codigo).subscribe(
           response => { 
             if(response != null){              
               i.done = (response.conceito != null && response.parecer != null)
+
             }
           } 
         );
@@ -282,12 +286,19 @@ export class IndicatorPage {
   itemIsEvaluated(i : IndicatorDTO){
     return false;
   }
+
+  public isEmpty() :boolean{
+    return (this.itens == null || this.itens[0] == null);
+  }
   ionViewDidLoad() {
+    if(this.evaluation != null && this.evaluation.dataEntrega != null){
+      this.changeButton(2);
+    }
     
     this.updateIdicators();
     
     if(this.evaluation != null){
-      this.title = this.genService.nameAndDateToTitle(this.evaluation);
+      this.title = this.genService.nameAndDateToTitle(this.evaluation) ;
     }else{
       this.navCtrl.setRoot("LoginPage");     
     }      

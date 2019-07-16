@@ -1,14 +1,5 @@
-<!--
-  Generated template for the UserPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
-  Informations used here https://ionicframework.com/docs/theming/css-utilities/
-  style="position: fixed; bottom: 0;   left:7px; width: 100% ; background-color: rgb(229, 235, 235)" 
--->
-
-
-<body>
+<body [hidden]="showConfirmSave">
   <ion-content padding>
     <ion-fab top right edge>
         <button ion-button color="{{getColor()}}" (click)="logout()" style="top: 30px; right: 20px;">
@@ -31,43 +22,85 @@
     <div style="padding-left: 15%; padding-right: 15%; ">
       <h3 text-center>Alterar dados de login</h3>
       <br />
-
       <ion-item >
         <ion-label floating >Login</ion-label>
         <ion-input required=true [(ngModel)]="login"></ion-input>
       </ion-item>   
       <ion-item >
-        <ion-label floating >Nova senha</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-label floating  >Nova senha</ion-label>
+        <ion-input  autocomplete="off"  type="password" [(ngModel)]="newPass"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating >Confirmar a nova senha</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="confirmPass"></ion-input>
       </ion-item>
 
       <br />
-      <h3 text-center>Alterar E-mail</h3>
+      <h3 text-center>Alterar dados do contato</h3>
       <br />
 
       <ion-item >
         <ion-label floating >E-mail</ion-label>
         <ion-input type="email" [(ngModel)]="email" ></ion-input>
       </ion-item>
+      <br />
+
+      <ion-item >
+        <ion-label floating >Telefone</ion-label>
+        <ion-input  type="tel" [(ngModel)]="tel" ></ion-input>
+      </ion-item>
       
       <br />
       <ion-grid >
         <ion-row >
+          
           <ion-col ></ion-col>
+
           <ion-col >
-            <button  ion-button color="{{getColor()}}" (click)="save()" >Salvar</button>              
+            <button  ion-button color="{{getColor()}}" (click)="showConfirm()" >Salvar</button>              
           </ion-col>
+          <ion-col>
+            <button  ion-button color="{{getColor()}}" (click)="goToHome()"  >Voltar</button>              
+          </ion-col>
+
           <ion-col ></ion-col>
 
         </ion-row>
       </ion-grid>
-        
     </div>
     <br />
     <br />
   </ion-content>
+</body>
+ 
+<body [hidden]="!showConfirmSave" style="padding: 50% 20%; text-align: center" >
+     
+  <h2 >
+    Digite sua senha para confirmar as alterações.
+  </h2>
+
+  <ion-item id="login-input2" style="text-align: left">
+    <ion-label floating>Senha</ion-label>
+    <ion-input  name='Pass' type="password" [(ngModel)]="pass" required></ion-input>
+  </ion-item>
+
+  <br />
+
+  <ion-grid >
+    <ion-row >
+      
+      <ion-col ></ion-col>
+
+      <ion-col >
+        <button  ion-button color="{{getColor()}}" (click)="save()" >Salvar</button>              
+      </ion-col>
+      <ion-col>
+        <button  ion-button color="{{getColor()}}" (click)="hideConfirm()" >Voltar</button>              
+      </ion-col>
+
+      <ion-col ></ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 </body>

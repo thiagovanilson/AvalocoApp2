@@ -21,9 +21,14 @@ import { GeneralService } from '../../domain/general.service';
 export class UserPage {
   about : any;
   email : string; 
-  public login : string;
-  public pass: string = "";
 
+  public login      : string;
+  public pass       : string = "";
+  public newPass    : string = "";
+  public confirmPass: string = "";
+  public tel        : string = "";
+  public showConfirmSave = false;
+  
   constructor(
     public alertCtrl: AlertController, 
     public navCtrl  : NavController, 
@@ -58,22 +63,47 @@ export class UserPage {
 
     
   }
+  showConfirm(){
+    this.showConfirmSave = true;
+  }
+  hideConfirm(){
+    this.showConfirmSave = false;
+  }
+  
   save(){
 
+    if(this.pass != this.uService.getUserLogged().senha){
+      this.gService.showMessage("Senha incoreta!");
+      return;
+    } 
+    
     this.uService.getUserLogged().email = this.email;
     this.uService.getUserLogged().login = this.login;
+
+    if(this.newPass != "")
+      if(this.newPass == this.confirmPass){
+        this.uService.getUserLogged().senha = this.newPass;
+      }else{
+        this.gService.showMessage("As senhas não conferem!");
+        return;
+      }
 
     this.uService.alterUser(this.uService.getUserLogged()).subscribe(
       response => { 
         this.gService.showMessage("Dados salvos com sucesso! :D");
-        this.goToHome();
+        this.cleanPassFilds();
+        this.hideConfirm();
       },
       (error) => {
         this.gService.showMessage("Erro ao alterar os dados!<br />Verifique sua conexão com a internet.");
       }  
     );  
   }
-  
+  cleanPassFilds(){
+    this.pass        = "";
+    this.newPass     = "";
+    this.confirmPass = "";
+  }
   ionViewDidLoad() {
     //It's possible user to be null?
     this.email = this.getEmail();
