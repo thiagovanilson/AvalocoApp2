@@ -21,8 +21,9 @@ export class GeneralService{
     const alert = this.alertCtrl.create({
       title: '<div align="center">Aviso</div>',
       subTitle: "<div align='center'><br />" + msg + "</div>",
-      buttons: ['OK']
+      buttons: ['OK'], 
     });
+    
     alert.present();
   }   
   

@@ -77,9 +77,9 @@ export class UserPage {
       return;
     } 
     
-    this.uService.getUserLogged().email = this.email;
-    this.uService.getUserLogged().login = this.login;
-
+    this.uService.getUserLogged().email    = this.email;
+    this.uService.getUserLogged().login    = this.login;
+    this.uService.getUserLogged().telefone = this.tel;
     if(this.newPass != "")
       if(this.newPass == this.confirmPass){
         this.uService.getUserLogged().senha = this.newPass;
@@ -108,5 +108,6 @@ export class UserPage {
     //It's possible user to be null?
     this.email = this.getEmail();
     this.login = this.uService.getUserLogged().login;
+    this.tel   = this.uService.getUserLogged().telefone;
   }
 }

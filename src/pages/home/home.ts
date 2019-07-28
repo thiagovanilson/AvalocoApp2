@@ -30,9 +30,11 @@ export class HomePage {
           this.updateData();
           
         },5000);  //minutes to update data
-      }) //*/
+      }) //*/      
   }
-    
+  // ionViewCanLeave() {
+  //   return false;
+  // }  
   public _avaliacoesAbertas   : AvaliacaoDTO[];
   public _avaliacoesAgendadas : AvaliacaoDTO[];
   public _avaliacoesEncerradas: AvaliacaoDTO[];
@@ -73,7 +75,8 @@ export class HomePage {
         response => { 
           this.hasConnection = (response != null);
         }
-      );//*/    
+      );//*/   
+       
     } 
   }
   public updateData(){
@@ -126,7 +129,7 @@ export class HomePage {
   }//*/
   public goToEvaluation(item: AvaliacaoDTO){
     
-    this.navCtrl.push('EvaluationMenuPage',{avaliacao : item});       
+    this.navCtrl.push('EvaluationMenuPage',{avaliacao : item});   
   }
   newDate: string[];
 
@@ -154,6 +157,6 @@ export class HomePage {
       buttons: ['OK']
     });
     alert.present();
-
   }
+  
 }

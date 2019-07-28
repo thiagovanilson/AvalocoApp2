@@ -9,7 +9,7 @@
 
     <ion-list id="OpnedList">      
       
-      <ion-item  *ngFor="let item of _avaliacoesAbertas; index as i" style="font-size: 12px" id="home-list-item9" (click)="goToEvaluation(item)" [hidden]="i > 4"  >
+      <ion-item  *ngFor="let item of _avaliacoesAbertas; index as i" style="font-size: 12px"  (click)="goToEvaluation(item)" [hidden]="i > 4"  >
         <div><b>Curso: </b>{{genService.couseName(item)}} <b>Nome: </b>{{genService.evaluationName(item)}}</div>
         <div><b>Periodo:</b> {{formatDate(item.dataInicio)}} a {{formatDate(item.dataTermino)}}  </div>
         <div></div>
