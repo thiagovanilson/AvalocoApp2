@@ -1,6 +1,6 @@
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { AlertController, Platform } from 'ionic-angular';
-import { API_CONFIG     } from './../config/api.config';
+import { EmailComposer  } from '@ionic-native/email-composer/ngx';
+import { UserService    } from './../../src/domain/user.service';
 import { AvaliacaoDTO   } from './../model/avaliacao.dto';
 import { Injectable     } from "@angular/core";
 
@@ -12,9 +12,9 @@ export class GeneralService{
   constructor(
     public alertCtrl     : AlertController,
     public platform      : Platform,
-    private emailComposer: EmailComposer
+    private emailComposer: EmailComposer,
+    private uService     : UserService
     ){
-
   }
 
   public showMessage(msg){  
@@ -52,6 +52,7 @@ export class GeneralService{
   evaluationName(evaluation: AvaliacaoDTO): string{
     return (evaluation.modelo.nome == null) ? "Nao atribuido." : evaluation.modelo.nome;
   }
+
   pause(time : number){
 
     this.platform.ready().then(() => {      
@@ -61,32 +62,46 @@ export class GeneralService{
       },time); 
     })
   }
-  public sendEmail(address: string, pass:string){
-   
 
-
-   
+  //TODO
+  public sendEmail(address: string, pass:string){  
      
-     var email = {
-       to: 'thiago112634@hotmail.com',
-       cc: 'thiago112634@gmail.com',
-      //bcc: ['john@doe.com', 'jane@doe.com'],
-      //  attachments: [
-      //    'file://img/logo.png',
-      //    'res://icon.png',
-      //    'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
-      //    'file://README.pdf'
-      //  ],
-       subject: 'Cordova Icons',
-       body: 'How are you? Nice greetings from Leipzig',
-       isHtml: true
-     }
-     this.emailComposer.open(email);
+    var email = {
+      to: 'thiago112634@hotmail.com',
+      cc: 'thiago112634@gmail.com',
+    //bcc: ['john@doe.com', 'jane@doe.com'],
+    //  attachments: [
+    //    'file://img/logo.png',
+    //    'res://icon.png',
+    //    'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
+    //    'file://README.pdf'
+    //  ],
+      subject: 'Cordova Icons',
+      body: 'How are you? Nice greetings from Leipzig',
+      isHtml: true
+    }
+    this.emailComposer.open(email);
     this.emailComposer.isAvailable().then((available: boolean) =>{
       if(available) {
         //Now we know we can send
         // Send a text message using default options
       }
     });
+  }
+ 
+  public getColorAlert(dateToCompare: string ): string{
+
+    var date = new Date(dateToCompare);
+    var now  = new Date();
+
+    var day = 1000*60*60*24; //mills * seconds * minutes * hours
+
+    if(now.getTime() - date.getTime() > day * 2 ){
+      return "yellow";
     }
+    if(now.getTime() - date.getTime() > day  ){
+      return "red";
+    }
+    return "green";
+  }  
 }

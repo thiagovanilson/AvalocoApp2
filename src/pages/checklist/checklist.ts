@@ -128,8 +128,12 @@ export class ChecklistPage {
   public itemEvaluated   : AvaliacaoChecklistDTO = null;
 
   public showTextfield(item : ChecklistItemDTO){
+
+
     this.itemSelected = item; 
     this.showIndicators = false;
+    this.label = "Aguarde...";
+    this.observations   = "";
 
     this.avService.getItemCheckList(this.itemSelected.codigo, this.evaluation.codigo).subscribe(
       response => { 
@@ -227,15 +231,16 @@ export class ChecklistPage {
   public  actionSheet : ActionSheet;  
   
   alterStatus(check : ChecklistItemDTO, status: boolean){
-    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
-      this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
-      return;
-    }
     
     if(status == true){
       check.atendido = 1 ;
     }else{
-      check.atendido = 0;
+      check.atendido = 0; 
+    }
+    
+    if(this.uService.getUserLogged().codigo != this.evaluation.avaliadorModificador.codigo){
+      this.gservice.showMessage('Esse avaliador não tem permissão para alterar!<br/>As altrações não serão salvas.');
+      return;
     }
     
     if(this.evaluation.dataEntrega != null){

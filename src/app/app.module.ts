@@ -35,7 +35,7 @@ import { NavigationsService          } from '../domain/navigations.service';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    //AboutPage,
     ContactPage,
     HomePage,
     TabsPage
@@ -58,7 +58,7 @@ import { NavigationsService          } from '../domain/navigations.service';
   //All pages needs stay here.
   entryComponents: [
     MyApp,
-    AboutPage,
+    //AboutPage,
     ContactPage,
     HomePage,
     TabsPage,

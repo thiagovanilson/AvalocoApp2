@@ -1,10 +1,10 @@
 import { IonicPage, NavParams, AlertController, NavController } from 'ionic-angular';
-import { Component   } from '@angular/core';
-import { LoginPage   } from '../login/login';
-import { API_CONFIG  } from '../../config/api.config';
-import { UserService } from '../../domain/user.service';
-import { AboutPage   } from '../about/about';
-import { GeneralService } from '../../domain/general.service';
+import { Component     } from '@angular/core';
+import { LoginPage     } from '../login/login';
+import { API_CONFIG    } from '../../config/api.config';
+import { UserService   } from '../../domain/user.service';
+import { AboutPage     } from '../about/about';
+import { GeneralService} from '../../domain/general.service';
 
 /**
  * Generated class for the UserPage page.
@@ -80,14 +80,18 @@ export class UserPage {
     this.uService.getUserLogged().email    = this.email;
     this.uService.getUserLogged().login    = this.login;
     this.uService.getUserLogged().telefone = this.tel;
-    if(this.newPass != "")
+
+    //Verify if the user is trying to alter the password
+    if(this.newPass != ""){
       if(this.newPass == this.confirmPass){
         this.uService.getUserLogged().senha = this.newPass;
       }else{
         this.gService.showMessage("As senhas não conferem!");
         return;
       }
+    }
 
+    //To save things like cellphone and email.
     this.uService.alterUser(this.uService.getUserLogged()).subscribe(
       response => { 
         this.gService.showMessage("Dados salvos com sucesso! :D");

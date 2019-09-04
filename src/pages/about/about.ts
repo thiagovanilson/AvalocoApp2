@@ -1,3 +1,4 @@
+import { API_CONFIG    } from './../../config/api.config';
 import { Component     } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage      } from '../tabs/tabs';
@@ -20,4 +21,5 @@ export class AboutPage {
       this.navCtrl.push(TabsPage);
     }
   }
+  public version = API_CONFIG.version;
 }

@@ -28,7 +28,7 @@ export class HomePage {
         setInterval(() => {
         //console.log("Espera " + this.cont++ )
           this.updateData();
-          
+
         },5000);  //minutes to update data
       }) //*/      
   }
@@ -82,20 +82,25 @@ export class HomePage {
   public updateData(){
 
     //To refresh data.    
-    this.hasConnection = (this._avaliacoesAbertas != null || this._avaliacoesAgendadas != null);
-   
+    //this.hasConnection = (this._avaliacoesAbertas != null || this._avaliacoesAgendadas != null);
+
     if(this.uservice.getUserLogged() != null){
       
-    
       this.avaliacaoService.findOpened(this.uservice.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAbertas = response;
+          this.hasConnection = (response != null);
 
           if(response == null){
             this.avaliacaoService.qtdOpned = 0;
           }else{
             this.avaliacaoService.qtdOpned = response.length;
           }
+        },
+        (error) => {
+          this.hasConnection = false;
+          this._avaliacoesAbertas = null;
+          this.avaliacaoService.qtdOpned = 0;
         }
       );
       this.avaliacaoService.findscheduled(this.uservice.getUserLogged().codigo).subscribe(
@@ -108,6 +113,12 @@ export class HomePage {
             this.avaliacaoService.qtdScheduled = response.length;
 
           }
+        },
+        (error) => {
+          this.hasConnection = false;
+          this._avaliacoesAgendadas = null;
+          this.avaliacaoService.qtdScheduled = 0;
+
         }
       );
       this.avaliacaoService.findsDone(this.uservice.getUserLogged().codigo).subscribe(
@@ -119,8 +130,15 @@ export class HomePage {
           }else{
             this.avaliacaoService.qtdDone = response.length;
           }
+        },
+        (error) => {
+          this.hasConnection = false;
+          this._avaliacoesEncerradas = null;
+          this.avaliacaoService.qtdDone = 0;
+
         }
       );
+
     }
   }
   
@@ -158,5 +176,8 @@ export class HomePage {
     });
     alert.present();
   }
-  
+  public trocarCor(){
+    this.genService.showMessage("aa");
+    //document.getElementById(id).style.backgroundColor = "red";
+  }
 }

@@ -22,24 +22,36 @@ import { IonicPage, NavController, NavParams, AlertController, Platform } from '
 export class EvaluationPage {
   title: ""
    
-    constructor( 
-      public navCtrl  : NavController, 
-      public navParams: NavParams,
-      public alertCtrl: AlertController,
-      public avService: AvalicaoService,
-      public gservice : GeneralService,
-      public uService : UserService,
-      private platform: Platform
-    ) {
-      this.platform.registerBackButtonAction(() => {
-      this.navCtrl.pop();
-      });
-      this.title = this.navParams.data;
+  constructor( 
+    public navCtrl  : NavController, 
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public avService: AvalicaoService,
+    public gservice : GeneralService,
+    public uService : UserService,
+    private platform: Platform
+  ) {
+    this.platform.registerBackButtonAction(() => {
+    this.navCtrl.pop();
+    });
+    this.title = this.navParams.data;
+
+    platform.ready().then(() => {      
+
+      setInterval(() => {
+      //console.log("Espera " + this.cont++ )
+        this.loadItens();
+
+      },5000);  //minutes to update data
+    }
+    ) 
   }
 
-  public _avaliacoesAbertas  : AvaliacaoDTO[];
-  public _avaliacoesAgendadas: AvaliacaoDTO[];
+  public _avaliacoesAbertas   : AvaliacaoDTO[];
+  public _avaliacoesAgendadas : AvaliacaoDTO[];
   public _avaliacoesEncerradas: AvaliacaoDTO[];
+
+  public hasConection = false;
 
   public goToEvaluation(item : AvaliacaoDTO){
     if( this.title.startsWith('Avaliações Agendadas')){
@@ -85,13 +97,22 @@ export class EvaluationPage {
     if(this.uService.getUserLogged == null){      
       this.navCtrl.push("LoginPage");      
     }
+    this.loadItens();
+    
+  }
 
+  public loadItens(){
     if(this.uService.getUserLogged() != null){      
     
+      this.hasConection = true;
+
       if(this.title.startsWith('Avaliações Abertas')){
         this.avService.findOpened(this.uService.getUserLogged().codigo).subscribe(
           response => { 
             this._avaliacoesAbertas = response;
+          },
+          (error) => {
+            this.hasConection = false;
           }
         );
       }
@@ -99,12 +120,18 @@ export class EvaluationPage {
         this.avService.findsDone(this.uService.getUserLogged().codigo).subscribe(
           response => { 
             this._avaliacoesEncerradas = response;
+          },
+          (error) => {
+            this.hasConection = false;
           }
         );
       }
       this.avService.findscheduled(this.uService.getUserLogged().codigo).subscribe(
         response => { 
           this._avaliacoesAgendadas = response;
+        },
+        (error) => {
+          this.hasConection = false;
         }
       );
     }

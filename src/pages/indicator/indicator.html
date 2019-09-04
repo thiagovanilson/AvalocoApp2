@@ -26,9 +26,9 @@
   </ion-list>
 
   <ion-grid [hidden]="showObs" [style.backgroundColor]="gridColor" style="min-height: 80%; border:2px solid; padding-bottom: 0px; background-color: [gridColor]">
-    
-    <ion-grid  [hidden]="btSelected != 1 || ((evaluation != null && evaluation.dataEntrega != null)) " no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
-      <!-- <ion-list id="listOpned" [hidden]="btSelected != 1 || ((evaluation != null && evaluation.dataEntrega != null))"> -->
+    <ion-list id="listOpned" [hidden]="btSelected != 1 || ((evaluation != null && evaluation.dataEntrega != null))">
+      <ion-grid  [hidden]="btSelected != 1 || ((evaluation != null && evaluation.dataEntrega != null))" no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
+        
         <ion-item *ngFor="let item of itens; index as i" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)" [hidden]="item.done">
           
           <div >
@@ -41,13 +41,13 @@
           </div>
 
         </ion-item>
-      <!-- </ion-list> -->
-    </ion-grid>       
-        
-    <ion-grid [hidden]="(btSelected != 2 ) " no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
-      
-      <!-- <ion-list id="listOpned"   >      -->
-        <ion-item  *ngFor="let item of itens; index as i" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)"  [hidden]="!item.done"  >
+      </ion-grid>       
+    </ion-list>
+
+       
+    <ion-grid [hidden]="btSelected != 2 && !((evaluation != null && evaluation.dataEntrega != null))" no-padding style="border:2px solid; padding-top:1px; background-color: white;  " >
+      <ion-list id="listOpned"  >      
+        <ion-item *ngFor="let item of itens; index as i" text-wrap color="none" id="home-list-item9" (click)="changeSelection(item.codigo)"  [hidden]="!item.done" >
           <div>
             <div><h2 >{{i + 1}} - {{item.nome}}</h2></div>
             <div [hidden]="item.codigo != selectedIdicator" >
@@ -56,10 +56,11 @@
             </div>
           </div>
         </ion-item>
-      <!-- </ion-list> -->
-     </ion-grid>
+      </ion-list>
+    </ion-grid>
+
   </ion-grid>
-  
+
   <div  [hidden]="!showObs">
     <br />
     <h2>{{label}} - Observações</h2>

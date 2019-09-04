@@ -39,7 +39,7 @@ export class FinalConsiderationsPage {
     
     var output : string = "<br /><br />";
 
-    output += "<b>Avaliador modificador: </b>" + this.evaluation.avaliadores[0].nome + "<br />";
+    output += "<b>Avaliador modificador: </b>" + this.evaluation.avaliadorModificador.nome + "<br />";
     output += "<b>Curso: </b>"                 + this.evaluation.curso.nome   + "<br />";
     output += "<b>Nome da avaliação: </b>"                  + this.evaluation.modelo.nome  + "<br />";
     output += "<b>Periodo: </b>"               + this.gservice.formatDate(this.evaluation.dataInicio) +" a " + this.gservice.formatDate(this.evaluation.dataTermino) + "<br />";
@@ -56,19 +56,16 @@ export class FinalConsiderationsPage {
     if(this.evaluation.conceito == null){
       output += "<b>Conceito final: </b> Ainda não definido.<br />";
     }else{
-      output += "<b>Conceito final: </b>"  + this.evaluation.conceito + "<br />";
+    output += "<b>Conceito final: </b>"  + this.evaluation.conceito + "<br />";
+
     }
     if(this.evaluation.parecer == null){
       output += "<b>Pareccer final: </b> Ainda não definido.<br />";
     }else{
       output += "<b>Parecer final: </b>"   + this.evaluation.parecer  + "<br />";
     }
-
-
-    
     return output ;
   }
-
 
   goback(){
     if(this.navCtrl.length() > 1){
